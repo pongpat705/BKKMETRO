@@ -3,12 +3,12 @@ package com.example.maoz.hellowworld;
 /**
  * Created by ZEPTIMUS on 11/24/2014.
  */
-public class stations{
+public class Station_objects {
     private String stations;
     private Double lat;
     private Double lng;
 
-    public stations(String stations, Double lat, Double lng){
+    public Station_objects(String stations, Double lat, Double lng){
         this.stations = stations;
         this.lat = lat;
         this.lng = lng;

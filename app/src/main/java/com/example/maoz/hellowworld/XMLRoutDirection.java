@@ -23,7 +23,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 /**
  * Created by MAOZ on 9/30/2014.
  */
-public class GMapV2GetRouteDirection {
+public class XMLRoutDirection {
     /*public final static String MODE_DRIVING = "driving";
     public final static String MODE_WALKING = "walking";
     */

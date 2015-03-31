@@ -27,7 +27,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +43,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
     Double curLat = 0.0, curLng =0.0; //เซทดีฟ้อล ไว้
     Marker Pin;
     Polyline polyline;
-    GMapV2GetRouteDirection v2GetRouteDirection;
+    XMLRoutDirection v2GetRouteDirection;
 
 
     @Override
@@ -168,7 +167,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
          mMap.getUiSettings().setCompassEnabled(false);
          mMap.getUiSettings().setRotateGesturesEnabled(false);
 
-         String url="http://192.168.43.144:80/android_connect/phpConnect1.php";
+         String url="http://gameparty.zapto.org:8989//android_connect/phpConnect1.php";
          JSONArray contacts;
          StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
          StrictMode.setThreadPolicy(policy);
@@ -211,7 +210,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
 
     private void setting(){
         ////test route
-        v2GetRouteDirection = new GMapV2GetRouteDirection();
+        v2GetRouteDirection = new XMLRoutDirection();
         /*SupportMapFragment supportMapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
         mMap = supportMapFragment.getMap();*/
         ////
@@ -251,7 +250,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
 
     private void exeProcess(double desLat,double desLng){ //วาดเส้นทางจากจุด A ไปจุด B
         String d;
-        getPathWalk j = new getPathWalk();
+        JSONRoutDirection j = new JSONRoutDirection();
         d = j.getPath(new LatLng(appLocationManager.getLatitude(), appLocationManager.getLongitude()), new LatLng(desLat, desLng));
         List<List<HashMap<String, String>>> line = j.GetLine(d);
         if (polyline == null){

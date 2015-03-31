@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by ZEPTIMUS on 11/18/2014.
  */
-public class getPathWalk {
+public class JSONRoutDirection {
     public String getPath(LatLng start, LatLng end) {
         String url = "http://maps.googleapis.com/maps/api/directions/json?"
                 + "origin=" + start.latitude + "," + start.longitude
@@ -159,7 +159,7 @@ public class getPathWalk {
         List<List<HashMap<String, String>>> routes = null;
         try{
             jObject = new JSONObject(jsondata[0]);
-            getPathWalk parser = new getPathWalk();
+            JSONRoutDirection parser = new JSONRoutDirection();
             // Starts parsing data
             routes = parser.parse(jObject);
         }catch(Exception e){

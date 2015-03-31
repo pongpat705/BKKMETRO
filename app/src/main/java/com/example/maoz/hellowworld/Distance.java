@@ -39,7 +39,7 @@ public class Distance extends navigation_drawer {
     NumberFormat df2 = new DecimalFormat("###.#");
     JSONArray contacts = null;
     ArrayList<HashMap<String,String>> contactList;
-    private static String url="http://192.168.43.144:80/android_connect/phpConnect1.php";
+    private static String url="http://gameparty.zapto.org:8989/android_connect/phpConnect1.php";
 
 
     @Override
