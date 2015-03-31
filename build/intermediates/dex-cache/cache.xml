@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\20.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef">
+        <dex dex="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\classes-47baaae4d30330dca7fb8be06ed434de17eb2217.jar" />
+    </item>
+    <item
+        jar="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\5.0.89\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="d71573c9c5ea98a8db47ad6ff993a63d492b3bfa">
+        <dex dex="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\classes-b7d42ff594d6daafc3c812f627873c59bd5b0567.jar" />
+    </item>
+    <item
+        jar="C:\Users\pongpat705\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-ba4b9bb002a80512702e1fc78fc2c2e4069d89eb.jar" />
+    </item>
+    <item
+        jar="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
+        <dex dex="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-adc3f4c343045a8b1bd791e3cefedc99ca1b2689.jar" />
+    </item>
+    <item
+        jar="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\exploded-aar\com.google.maps.android\android-maps-utils\0.3.4\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="cf251baf39f5c5138224b67b4106eb6331abbd13">
+        <dex dex="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\classes-a80fe3ec5a479ef293f0ece887a045d84296d617.jar" />
+    </item>
+    <item
+        jar="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
+        <dex dex="C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\classes-336db3dfb619030f083198c7bc686a7bf617d84a.jar" />
+    </item>
+
+</items>

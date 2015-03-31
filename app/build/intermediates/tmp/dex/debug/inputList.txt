@@ -1,0 +1,7 @@
+C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\classes\debug
+C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-ba4b9bb002a80512702e1fc78fc2c2e4069d89eb.jar
+C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\classes-a80fe3ec5a479ef293f0ece887a045d84296d617.jar
+C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-adc3f4c343045a8b1bd791e3cefedc99ca1b2689.jar
+C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\classes-47baaae4d30330dca7fb8be06ed434de17eb2217.jar
+C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\classes-336db3dfb619030f083198c7bc686a7bf617d84a.jar
+C:\Users\pongpat705\Android studioProjects\HellowWorld\app\build\intermediates\pre-dexed\debug\classes-b7d42ff594d6daafc3c812f627873c59bd5b0567.jar
