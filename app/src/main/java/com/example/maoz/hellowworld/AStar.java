@@ -1,6 +1,4 @@
 package com.example.maoz.hellowworld;
-
-import java.sql.*;
 import java.util.*;
 
 
@@ -148,7 +146,7 @@ final class GraphAStar<T> implements Iterable<T> {
 }
 
 public class AStar<T> extends navigation_drawer {
-    private double distance;
+    public double distance;
     private final GraphAStar<T> graph;
 
 
@@ -235,127 +233,5 @@ public class AStar<T> extends navigation_drawer {
         return pathList;
     }
 
-
-    public void main(String[] args) throws SQLException {
-        Map<String, Map<String, Double>> hueristic = new HashMap<String, Map<String, Double>>();
-
-        List<Map<String, Double>> list = new ArrayList<Map<String, Double>>();// ลิสของ map
-        for (int i = 0; i<stationList.size();i++){
-            //System.out.println(stationList.get(i).getStations() + "-" + stationList.get(i).getLat() + "-" + stationList.get(i).getLng());
-            Map<String, Double> map = new HashMap<String, Double>(); //map ของข้อมูล คุ่อันดับ สถานีและระยะขจัด
-            for (int j = 0; j<stationList.size();j++){
-                double sLat,sLng,dLat,dLng,ans;
-                sLat = stationList.get(i).getLat();
-                sLng = stationList.get(i).getLat();
-                dLat = stationList.get(j).getLat();
-                dLng = stationList.get(j).getLat();
-                ans = calculateDistance(sLat, sLng, dLat, dLng);//ส่งไปคำนวณหาระยะทาง
-                map.put(stationList.get(j).getStations(), ans);//กำหนด Heuristic ให้กับสถานี
-                //System.out.println(" "+i+" "+j);
-            }
-            list.add(map);
-        }
-        //System.out.println(list); เช็คว่ามีอะไรอยู่ในลิส
-
-        Map[] maps = list.toArray(new HashMap[list.size()]);//ทดลองเรื่อง heuristic
-        //System.out.print(maps[0].entrySet()); //ทดสอบว่า index 0 มีอะไรบ้าง
-        for (int i = 0; i<list.size();i++){
-            //System.out.println(maps[0]);
-            hueristic.put(String.valueOf(stationList.get(i).getStations()),maps[i]);//ถูกแล้ว hueristic.put("A", mapA);
-        }
-        //System.out.println(hueristic);//ดูว่าอะไรอยู่ใน ฮิวริสติกบ้าง
-        GraphAStar<String> graph = new GraphAStar<String>(hueristic);
-        for (int i = 0; i < stationList.size();i++){
-            graph.addNode(String.valueOf(stationList.get(i).getStations()));//เอาชื่อสถานีไปเป็น node
-        }
-
-        Statement path_statement = connection.createStatement() ;
-        ResultSet paths = path_statement.executeQuery(pathQuery);
-        int path_station_A = paths.findColumn("station_a");
-        int path_station_B = paths.findColumn("station_b");
-        int path_station_distance = paths.findColumn("distance");
-        while (paths.next()){
-            //add edge here
-            graph.addEdge(paths.getString(path_station_A),paths.getString(path_station_B),paths.getDouble(path_station_distance));//เพิ่มเส้นเชื่อมระหว่างสถานี
-        }
-        connection.close();
-
-
-//        // map for A
-//        Map<String, Double> mapA = new HashMap<String, Double>();
-//        mapA.put("A",  0.0);
-//        mapA.put("B", 10.0);
-//        mapA.put("C", 20.0);
-//        mapA.put("E", 100.0);
-//        mapA.put("F", 110.0);
-//
-//
-//        // map for B
-//        Map<String, Double> mapB = new HashMap<String, Double>();
-//        mapB.put("A", 10.0);
-//        mapB.put("B",  0.0);
-//        mapB.put("C", 10.0);
-//        mapB.put("E", 25.0);
-//        mapB.put("F", 40.0);
-//
-//
-//        // map for C
-//        Map<String, Double> mapC = new HashMap<String, Double>();
-//        mapC.put("A", 20.0);
-//        mapC.put("B", 10.0);
-//        mapC.put("C",  0.0);
-//        mapC.put("E", 10.0);
-//        mapC.put("F", 30.0);
-//
-//
-//        // map for X
-//        Map<String, Double> mapX = new HashMap<String, Double>();
-//        mapX.put("A", 100.0);
-//        mapX.put("B", 25.0);
-//        mapX.put("C", 10.0);
-//        mapX.put("E",  0.0);
-//        mapX.put("F", 10.0);
-//
-//        // map for X
-//        Map<String, Double> mapZ = new HashMap<String, Double>();
-//        mapZ.put("A", 110.0);
-//        mapZ.put("B",  40.0);
-//        mapZ.put("C",  30.0);
-//        mapZ.put("E", 10.0);
-//        mapZ.put("F",  0.0);
-//
-//        hueristic.put("A", mapA);
-//        hueristic.put("B", mapB);
-//        hueristic.put("C", mapC);
-//        hueristic.put("E", mapX);
-//        hueristic.put("F", mapZ);
-//
-//        System.out.println(hueristic);
-//
-//        GraphAStar<String> graph = new GraphAStar<String>(hueristic);
-//        graph.addNode("A");
-//        graph.addNode("B");
-//        graph.addNode("C");
-//        graph.addNode("E");
-//        graph.addNode("F");
-//
-//        graph.addEdge("A", "B", 10);
-//        graph.addEdge("A", "E", 100);
-//        graph.addEdge("B", "C", 10);
-//        graph.addEdge("C", "E", 10);
-//        graph.addEdge("C", "F", 30);
-//        graph.addEdge("E", "F", 10);
-//
-//
-//
-        String a = "ARL สุวรรณภูมิ";
-        String b = "BRT วัดดอกไม้";
-        AStar<String> aStar = new AStar<String>(graph);
-
-        for (String path : aStar.astar(a, b)) {
-            System.out.println(path);
-        }
-        System.out.println("\n Distance "+a+" to "+b+"  = "+Math.round(aStar.distance));
-    }
 
 }

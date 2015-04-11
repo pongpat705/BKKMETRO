@@ -16,9 +16,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -30,7 +33,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class navigation_drawer extends FragmentActivity {
@@ -44,6 +49,7 @@ public class navigation_drawer extends FragmentActivity {
 
     public List<Station_objects> stationList = new ArrayList<>();
     public List<Path_objects> pathList = new ArrayList<>();
+    public String path ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +134,7 @@ public class navigation_drawer extends FragmentActivity {
                     startActivity(map); // call new Activity
                     break;
 
+
             }
             drawerLayout.closeDrawer(drawerListView);
 
@@ -189,7 +196,14 @@ public class navigation_drawer extends FragmentActivity {
                     String st_a = c.getString("station_a");
                     String st_b = c.getString("station_b");
                     double distance = Double.valueOf(c.getString("distance"));
-                    double price = Double.valueOf(c.getString("price"));
+                    String getPrice = c.getString("price");
+                    double price;
+                    if ( getPrice == null || getPrice.length()==0){
+                        price = 0;
+                    }else{
+                        price = Double.valueOf(getPrice);
+                    }
+
                     String type = c.getString("path_type");
                     String detail = c.getString("path_detail");
                     Path_objects path_objects = new Path_objects(st_a,st_b,distance,price,type,detail);
@@ -227,7 +241,6 @@ public class navigation_drawer extends FragmentActivity {
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
-
     public  Double calculateDistance(double sLat, double sLng, double dLat, double dLng){
         double AVG_R_EARTH = 6371;
 
@@ -237,6 +250,67 @@ public class navigation_drawer extends FragmentActivity {
         double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 
         return (double)Math.round(AVG_R_EARTH * c);
+    }
+    public void setMyToast(String string) {
+        LayoutInflater inflater = getLayoutInflater();
+        View Layout = inflater.inflate(R.layout.custom_toast,(ViewGroup) findViewById(R.id.toast_layout_root));
+        TextView textView = (TextView) Layout.findViewById(R.id.text);
+        textView.setText(string);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(Layout);
+        toast.show();
+    }
+
+    public void CalculateShortestPath(){
+        Map<String, Map<String, Double>> hueristic = new HashMap<String, Map<String, Double>>();
+
+        List<Map<String, Double>> list = new ArrayList<Map<String, Double>>();// ลิสของ map
+        for (int i = 0; i<stationList.size();i++){
+            //System.out.println(stationList.get(i).getStations() + "-" + stationList.get(i).getLat() + "-" + stationList.get(i).getLng());
+            Map<String, Double> map = new HashMap<String, Double>(); //map ของข้อมูล คุ่อันดับ สถานีและระยะขจัด
+            for (int j = 0; j<stationList.size();j++){
+                double sLat,sLng,dLat,dLng,ans;
+                sLat = stationList.get(i).getLat();
+                sLng = stationList.get(i).getLat();
+                dLat = stationList.get(j).getLat();
+                dLng = stationList.get(j).getLat();
+                ans = calculateDistance(sLat, sLng, dLat, dLng);//ส่งไปคำนวณหาระยะทาง
+                map.put(stationList.get(j).getStations(), ans);//กำหนด Heuristic ให้กับสถานี
+                //System.out.println(" "+i+" "+j);
+            }
+            list.add(map);
+        }
+        //System.out.println(list); เช็คว่ามีอะไรอยู่ในลิส
+
+        Map[] maps = list.toArray(new HashMap[list.size()]);//ทดลองเรื่อง heuristic
+        //System.out.print(maps[0].entrySet()); //ทดสอบว่า index 0 มีอะไรบ้าง
+        for (int i = 0; i<list.size();i++){
+            //System.out.println(maps[0]);
+            hueristic.put(String.valueOf(stationList.get(i).getStations()),maps[i]);//ถูกแล้ว hueristic.put("A", mapA);
+        }
+        //System.out.println(hueristic);//ดูว่าอะไรอยู่ใน ฮิวริสติกบ้าง
+        GraphAStar<String> graph = new GraphAStar<String>(hueristic);
+        for (int i = 0; i < stationList.size();i++){
+            graph.addNode(String.valueOf(stationList.get(i).getStations()));//เอาชื่อสถานีไปเป็น node
+        }
+
+        for (int i = 0; i < pathList.size();i++){
+            //add edge here
+            graph.addEdge(pathList.get(i).getStation_a(),pathList.get(i).getStation_b(),pathList.get(i).getDistance());//เพิ่มเส้นเชื่อมระหว่างสถานี
+        }
+
+        String source = "ARL สุวรรณภูมิ";
+        String destination = "BRT วัดดอกไม้";
+        AStar<String> aStar = new AStar<String>(graph);
+
+        for (String path : aStar.astar(source, destination)) {
+            this.path += path+"\n";
+        }
+        System.out.print(path);
+        setMyToast("Distance "+source+" to "+destination+"  = "+Math.round(aStar.distance));
     }
 
 

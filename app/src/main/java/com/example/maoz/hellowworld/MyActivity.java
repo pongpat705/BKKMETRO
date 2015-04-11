@@ -33,12 +33,14 @@ public class MyActivity extends navigation_drawer{
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_my, null, false);
         drawerLayout.addView(contentView, 0);
+
+        CalculateShortestPath();
         //
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         searchButton = (Button)findViewById(R.id.button);
 
-        for(int i=0;i<=10;i++) {//insert data from database to list here
-            Stations.add("Station" + i);
+        for(int i=0;i<stationList.size();i++) {//insert data from database to list here
+            Stations.add(stationList.get(i).getStations());
         }
 
         Spinner stationtop = (Spinner)findViewById(R.id.spinner);
@@ -60,30 +62,8 @@ public class MyActivity extends navigation_drawer{
         });
 
 
-        linked();
-
-    }
-    public void linked(){
-        LinkedList list = new LinkedList();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-        list.add("5");
-
-        Log.d("println","lList - print linkedlist: " + list);
-        Log.d("println","lList.size() - print linkedlist size: " + list.size());
-        Log.d("println","lList.get(3) - get 3rd element: " + list.getAt(3));
-        Log.d("println","lList.remove(2) - remove 2nd element: " + list.removeAt(2));
-        Log.d("println","lList.get(3) - get 3rd element: " + list.getAt(3));
-        Log.d("println","lList.size() - print linkedlist size: " + list.size());
-        Log.d("println","lList - print linkedlist: " + list);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
     @Override
     protected void onPause() {

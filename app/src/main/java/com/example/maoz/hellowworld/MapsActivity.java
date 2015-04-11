@@ -7,12 +7,8 @@ import android.graphics.Color;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -185,19 +181,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
         Pin.setSnippet("Lat:"+ lat +"Long:"+ lng+" zoom level"+zoom);
         Pin.showInfoWindow();
     }
-    private void setMyToast(String string) {
-        LayoutInflater inflater = getLayoutInflater();
-        View Layout = inflater.inflate(R.layout.custom_toast,(ViewGroup) findViewById(R.id.toast_layout_root));
-        TextView textView = (TextView) Layout.findViewById(R.id.text);
-        textView.setText(string);
 
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(Layout);
-        toast.show();
-
-    }
 
     /*
     *
