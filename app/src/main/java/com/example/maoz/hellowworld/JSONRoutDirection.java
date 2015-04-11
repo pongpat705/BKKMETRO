@@ -87,7 +87,7 @@ public class JSONRoutDirection {
         }
         return poly;
     }
-    public List<List<HashMap<String, String>>> parse(JSONObject jObject) {
+    public List<List<HashMap<String, String>>> convert(JSONObject jObject) {
 
         List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String, String>>>();
         JSONArray jRoutes = null;
@@ -161,7 +161,7 @@ public class JSONRoutDirection {
             jObject = new JSONObject(jsondata[0]);
             JSONRoutDirection parser = new JSONRoutDirection();
             // Starts parsing data
-            routes = parser.parse(jObject);
+            routes = parser.convert(jObject);
         }catch(Exception e){
             e.printStackTrace();
         }

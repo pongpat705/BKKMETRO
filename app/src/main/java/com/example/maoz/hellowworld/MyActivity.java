@@ -1,25 +1,29 @@
 package com.example.maoz.hellowworld;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MyActivity extends navigation_drawer{
 
-    Button show_msg,show_map;
-    EditText get_text;//Declare
-    TextView text_view,tv;
-
-
+    static ArrayList<String> Stations = new ArrayList<String>();
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+    private Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,20 +34,32 @@ public class MyActivity extends navigation_drawer{
         View contentView = inflater.inflate(R.layout.activity_my, null, false);
         drawerLayout.addView(contentView, 0);
         //
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        searchButton = (Button)findViewById(R.id.button);
 
-        get_text = (EditText) findViewById(R.id.edit_Text); //set xml to Declare
-        show_msg = (Button) findViewById(R.id.btn_msg);
-        show_map = (Button) findViewById(R.id.btn_map);
-        text_view = (TextView) findViewById(R.id.text_View);
-        tv = (TextView) findViewById(R.id.showLocation);
-        show_msg.setOnClickListener(new View.OnClickListener() {
+        for(int i=0;i<=10;i++) {//insert data from database to list here
+            Stations.add("Station" + i);
+        }
+
+        Spinner stationtop = (Spinner)findViewById(R.id.spinner);
+        Spinner stationdown = (Spinner)findViewById(R.id.spinner2);
+        ArrayAdapter<String> topadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Stations);
+        ArrayAdapter<String> downadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Stations);
+        stationtop.setAdapter(topadapter);
+        stationdown.setAdapter(downadapter);
+
+
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), get_text.getText(), Toast.LENGTH_SHORT).show();
-                text_view.setText(get_text.getText()); //textview to textfield
-
+            public void onClick(View v) {
+                int selectedRadio = radioGroup.getCheckedRadioButtonId();
+                radioButton = (RadioButton) findViewById(selectedRadio);
+                Toast.makeText(getApplicationContext(),radioButton.getText(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
         linked();
 
     }

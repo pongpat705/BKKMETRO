@@ -4,47 +4,72 @@
     android:layout_height="match_parent"
     tools:context=".MyActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show"
-        android:id="@+id/btn_msg"
-        android:layout_below="@+id/edit_Text"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/btn_map"/>
-
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_Text"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/text_View"
-        android:layout_below="@+id/showLocation"
-        android:layout_alignEnd="@+id/showLocation"
-        android:layout_alignStart="@+id/showLocation"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/showLocation"
-        android:layout_below="@+id/btn_msg"
-        android:layout_alignStart="@+id/btn_msg"
-        android:layout_alignEnd="@+id/btn_map"/>
+        android:text="Souce"
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:layout_marginTop="50dp" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_below="@id/textView"
+        android:gravity="center"
+        android:layout_marginTop="10dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Destination"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/spinner"
+        android:gravity="center"
+        android:layout_marginTop="45dp" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner2"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/textView2"
+        android:gravity="center"/>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:layout_below="@+id/spinner2"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Price" />
+        <RadioButton
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:text="Distance" />
+        </RadioGroup>
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ShowMap"
-        android:id="@+id/btn_map"
-        android:layout_below="@+id/edit_Text"
-        android:layout_alignParentRight="true"/>
+        android:layout_marginTop="30dp"
+        android:text="Search"
+        android:id="@+id/button"
+        android:layout_below="@+id/radioGroup"
+        android:layout_centerHorizontal="true"/>
+
+
+
+
+
+
 
 </RelativeLayout>

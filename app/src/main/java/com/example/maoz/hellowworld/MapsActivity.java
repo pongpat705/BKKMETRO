@@ -40,7 +40,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
 
     GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
-    Double curLat = 0.0, curLng =0.0; //เซทดีฟ้อล ไว้
+    Double curLat = 0.0, curLng =0.0; //set default
     Marker Pin;
     Polyline polyline;
     XMLRoutDirection v2GetRouteDirection;
@@ -68,14 +68,11 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
         });
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public boolean onMarkerClick(Marker marker) {///ถ้าคลิกแล้วตำแหน่งเท่ากับ ม หัวเฉียว ให้ทำอะไร
+            public boolean onMarkerClick(Marker marker) {//
 
                 double lat = marker.getPosition().latitude;
                 double lng = marker.getPosition().longitude;
-                double desLat = lat;
-                double desLng = lng;
-                //drawLine(lat,lng); //เรียกวาดเส้น จากตำแหน่งปัจจุบันไปยังตำแหน่งที่คลิก
-                exeProcess(desLat,desLng);
+                exeProcess(lat, lng);
 
                 return false;
             }
@@ -86,17 +83,13 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
             @Override
             public boolean onMyLocationButtonClick() {
                 if (appLocationManager.location()==null) {
-                    //mMap.getMyLocation().getLatitude(); //เอาค่าจากปุ่ม MyLocation ไปใส่ใน Location ต้องรีเซตก่อนแทนค่า
                     if (mMap.getMyLocation() != null){
                         Log.d("----MyLoButton----", "take from mMap" + mMap.getMyLocation().getLatitude() + "," + mMap.getMyLocation().getLongitude() + "");
                         setMyMarker(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude(),mMap.getCameraPosition().zoom);
-                        //ล้างค่า เพื่อทดสอบการเอาค่ามาจากปุ่ม MyLocation
                         if(mMap.getCameraPosition().zoom !=15){
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()), 15));
                         }
                     }else setMyToast("Waiting Location");
-
-
                 } else{
                     setMyMarker(appLocationManager.getLatitude(),appLocationManager.getLongitude(),mMap.getCameraPosition().zoom);
                     if(mMap.getCameraPosition().zoom !=15){
@@ -163,7 +156,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
      */
      private void setUpMap() {
 
-         mMap.setMyLocationEnabled(true);//สร้างปุ่ม
+         mMap.setMyLocationEnabled(true);//enable Location button
          mMap.getUiSettings().setCompassEnabled(false);
          mMap.getUiSettings().setRotateGesturesEnabled(false);
 
@@ -189,8 +182,8 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
                      String lng = c.getString("station_lng");
                      mMap.addMarker(new MarkerOptions()
                              .position(new LatLng(Double.valueOf(lat),Double.valueOf(lng)))
-                             .title(name)//ไตเติ้ลหมุด
-                             .snippet("Lat"+lat+"Lng"+lng));
+                             .title(name)//make pin
+                             .snippet("Lat" + lat + "Lng" + lng));
 
                  }
              } catch (JSONException e) {
@@ -218,7 +211,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
         Pin = mMap.addMarker(new MarkerOptions().position(appLocationManager.getLatLng()));
 
     }
-    private void setMyMarker(double lat,double lng,double zoom) {//เปลี่ยนตำแหน่ง Marker
+    private void setMyMarker(double lat,double lng,double zoom) {//change lat,lng Marker
         Pin.setPosition(new LatLng(lat,lng));
         Pin.setTitle("ตำแหน่งของฉัน");
         Pin.setSnippet("Lat:"+ lat +"Long:"+ lng+" zoom level"+zoom);
@@ -242,13 +235,13 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
     *
     * Calculate Function*/
 
-    private void drawLine(Double e1,Double e2){
+    private void drawLine(Double e1,Double e2){ //Draw Line on map
         PolylineOptions line = new PolylineOptions();
         line.add(new LatLng(curLat, curLng)).add(new LatLng(e1,e2)).color(Color.RED).describeContents();//วาดเส้น
-        mMap.addPolyline(line);//เอาเส้นที่วาดไปลงในแผนที่
+        mMap.addPolyline(line);
     }
 
-    private void exeProcess(double desLat,double desLng){ //วาดเส้นทางจากจุด A ไปจุด B
+    private void exeProcess(double desLat,double desLng){ //draw line a to b
         String d;
         JSONRoutDirection j = new JSONRoutDirection();
         d = j.getPath(new LatLng(appLocationManager.getLatitude(), appLocationManager.getLongitude()), new LatLng(desLat, desLng));
@@ -289,7 +282,6 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
                 double lat = Double.parseDouble(point.get("lat"));
                 double lng = Double.parseDouble(point.get("lng"));
                 LatLng position = new LatLng(lat, lng);
-
                 points.add(position);
             }
 
