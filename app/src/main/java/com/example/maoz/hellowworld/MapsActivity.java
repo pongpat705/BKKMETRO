@@ -78,7 +78,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
                         if(mMap.getCameraPosition().zoom !=15){
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()), 15));
                         }
-                    }else setMyToast("Waiting Location");
+                    }else MyToast("Waiting Location");
                 } else{
                     setMyMarker(appLocationManager.getLatitude(),appLocationManager.getLongitude(),mMap.getCameraPosition().zoom);
                     if(mMap.getCameraPosition().zoom !=15){
@@ -240,7 +240,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
             // Adding all the points in the route to LineOptions
             lineOptions.addAll(points);
         }
-        setMyToast("Distance:" + distance + ", Duration:" + duration);
+        MyToast("Distance:" + distance + ", Duration:" + duration);
 
         // Drawing polyline in the Google Map for the i-th route
         return lineOptions;

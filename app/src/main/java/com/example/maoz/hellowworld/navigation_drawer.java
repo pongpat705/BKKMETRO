@@ -16,7 +16,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -117,7 +116,7 @@ public class navigation_drawer extends FragmentActivity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener, com.example.maoz.hellowworld.DrawerItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            Toast.makeText(navigation_drawer.this, ((TextView) view).getText(), Toast.LENGTH_LONG).show();
+            MyToast((String) ((TextView) view).getText());
             Fragment f;
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             switch (position){
@@ -251,14 +250,12 @@ public class navigation_drawer extends FragmentActivity {
 
         return (double)Math.round(AVG_R_EARTH * c);
     }
-    public void setMyToast(String string) {
+    public void MyToast(String string) {
         LayoutInflater inflater = getLayoutInflater();
         View Layout = inflater.inflate(R.layout.custom_toast,(ViewGroup) findViewById(R.id.toast_layout_root));
         TextView textView = (TextView) Layout.findViewById(R.id.text);
         textView.setText(string);
-
         Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(Layout);
         toast.show();
@@ -310,7 +307,7 @@ public class navigation_drawer extends FragmentActivity {
             this.path += path+"\n";
         }
         System.out.print(path);
-        setMyToast("Distance "+source+" to "+destination+"  = "+Math.round(aStar.distance));
+        MyToast("Distance " + source + " to " + destination + "  = " + Math.round(aStar.distance));
     }
 
 
