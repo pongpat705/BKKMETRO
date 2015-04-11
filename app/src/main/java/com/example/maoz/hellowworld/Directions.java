@@ -30,7 +30,6 @@ public class Directions extends navigation_drawer {
 
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.direction_list);
-        setContentView(R.layout.activity_directions);
         preparingList(arrayPath);
     }
 
