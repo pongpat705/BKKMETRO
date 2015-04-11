@@ -34,7 +34,7 @@ public class Distance extends navigation_drawer {
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_distance, null, false);
         drawerLayout.addView(contentView, 0);
-        listView = (ListView)findViewById(R.id.list);
+        listView = (ListView)findViewById(R.id.distance_list);
         preparingList();
 
     }
@@ -65,8 +65,8 @@ public class Distance extends navigation_drawer {
 
     private void preparingList(){
         // looping through All Contacts
-        ArrayList<HashMap<String,String>> contactList;
-        contactList = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String,String>> station_collection;
+        station_collection = new ArrayList<HashMap<String, String>>();
 
         for (int i = 0; i < stationList.size(); i++) {
 
@@ -77,17 +77,17 @@ public class Distance extends navigation_drawer {
             String distance = String.valueOf(df2.format(calculateDistance(appLocationManager.getLatitude(), appLocationManager.getLongitude(), lat, lng)));
 
             // tmp hashmap for single contact
-            HashMap<String, String> contact = new HashMap<String, String>();
+            HashMap<String, String> station = new HashMap<String, String>();
 
             // adding each child node to HashMap key => value
-            contact.put("station_name", "สถานี "+name);
-            contact.put("distance","ห่างจากคุณ "+distance+" กิโลเมตร");
+            station.put("station_name", "สถานี " + name);
+            station.put("distance", "ห่างจากคุณ " + distance + " กิโลเมตร");
 
             // adding contact to contact list
-            contactList.add(contact);
+            station_collection.add(station);
             // setupList
-            ListAdapter adapter = new SimpleAdapter(Distance.this, contactList,
-                    R.layout.row, new String[] { "station_name","distance"}, new int[] { R.id.stations,R.id.distance});
+            ListAdapter adapter = new SimpleAdapter(Distance.this, station_collection,
+                    R.layout.distance_row, new String[] { "station_name","distance"}, new int[] { R.id.stations,R.id.distance});
             // setList follow prepare
             listView.setAdapter(adapter);
         }

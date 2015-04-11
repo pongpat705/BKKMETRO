@@ -16,5 +16,6 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_navigation_drawer">Directions</string>
     <string name="title_activity_distance">Nearby Stations</string>
+    <string name="title_activity_directions">Directions</string>
 
 </resources>

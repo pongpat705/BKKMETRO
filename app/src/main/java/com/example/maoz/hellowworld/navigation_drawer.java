@@ -48,7 +48,6 @@ public class navigation_drawer extends FragmentActivity {
 
     public List<Station_objects> stationList = new ArrayList<>();
     public List<Path_objects> pathList = new ArrayList<>();
-    public String path ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,12 +132,10 @@ public class navigation_drawer extends FragmentActivity {
                     startActivity(map); // call new Activity
                     break;
 
-
             }
             drawerLayout.closeDrawer(drawerListView);
 
         }
-
 
         @Override
         public void setTitle(CharSequence title) {
@@ -261,9 +258,9 @@ public class navigation_drawer extends FragmentActivity {
         toast.show();
     }
 
-    public void CalculateShortestPath(String source, String destination){
+    public ArrayList CalculateShortestPath(String source, String destination){
         Map<String, Map<String, Double>> hueristic = new HashMap<String, Map<String, Double>>();
-
+        ArrayList<String> arrayPath = new ArrayList<>();
         List<Map<String, Double>> list = new ArrayList<Map<String, Double>>();// ลิสของ map
         for (int i = 0; i<stationList.size();i++){
             //System.out.println(stationList.get(i).getStations() + "-" + stationList.get(i).getLat() + "-" + stationList.get(i).getLng());
@@ -302,10 +299,11 @@ public class navigation_drawer extends FragmentActivity {
 
         AStar<String> aStar = new AStar<String>(graph);
         for (String path : aStar.astar(source, destination)) {
-            this.path += path+"\n";
+            arrayPath.add(path);
         }
-        System.out.print(path);
-        MyToast("Distance " + source + " to " + destination + "  = " + Math.round(aStar.distance)+" กิโลเมตร");
+        arrayPath.add("Distance " + source + " to " + destination + "  = " + Math.round(aStar.distance)+" กิโลเมตร");
+
+        return arrayPath;
     }
 
 

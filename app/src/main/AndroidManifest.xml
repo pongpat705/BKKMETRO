@@ -29,9 +29,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.maoz.hellowworld.MapsActivity"
+            android:name=".MapsActivity"
             android:label="@string/title_activity_maps" >
         </activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -40,12 +41,16 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.example.maoz.hellowworld.MyActivity"
+            android:name=".MyActivity"
             android:label="@string/title_activity_navigation_drawer" >
         </activity>
         <activity
-            android:name="com.example.maoz.hellowworld.Distance"
+            android:name=".Distance"
             android:label="@string/title_activity_distance" >
+        </activity>
+        <activity
+            android:name=".Directions"
+            android:label="@string/title_activity_directions" >
         </activity>
     </application>
 

@@ -1,6 +1,7 @@
 package com.example.maoz.hellowworld;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +22,7 @@ public class MyActivity extends navigation_drawer{
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     private Button searchButton;
+    ArrayList<String> arrayPath = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,12 @@ public class MyActivity extends navigation_drawer{
                 MyToast((String) radioButton.getText());
                 String source = stationtop.getSelectedItem().toString();
                 String destination = stationdown.getSelectedItem().toString();
-                CalculateShortestPath(source,destination);
+                arrayPath = CalculateShortestPath(source,destination);
+
+                Intent direction = new Intent(MyActivity.this,Directions.class);
+                direction.putExtra("arrayPath",arrayPath);
+                startActivity(direction); // call new Activity
+
 
             }
         });

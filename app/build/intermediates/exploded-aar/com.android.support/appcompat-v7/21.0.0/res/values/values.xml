@@ -101,7 +101,7 @@
         <attr name="divider" format="reference" />
         <!-- Specifies a background drawable for the action bar. -->
         <attr name="background" format="reference" />
-        <!-- Specifies a background drawable for a second stacked row of the action bar. -->
+        <!-- Specifies a background drawable for a second stacked distance_row of the action bar. -->
         <attr name="backgroundStacked" format="reference|color" />
         <!-- Specifies a background drawable for the bottom component of a split action bar. -->
         <attr name="backgroundSplit" format="reference|color" />
@@ -218,8 +218,8 @@
     <declare-styleable name="LinearLayoutCompat">
 
         <!--
-             Should the layout be a column or a row?  Use "horizontal"
-             for a row, "vertical" for a column.  The default is
+             Should the layout be a column or a distance_row?  Use "horizontal"
+             for a distance_row, "vertical" for a column.  The default is
              horizontal.
         -->
         <attr name="android:orientation" />
@@ -477,7 +477,7 @@
         <attr name="searchIcon" format="reference" />
         <!-- Voice button icon -->
         <attr name="voiceIcon" format="reference" />
-        <!-- Commit icon shown in the query suggestion row -->
+        <!-- Commit icon shown in the query suggestion distance_row -->
         <attr name="commitIcon" format="reference" />
         <!-- Layout for query suggestion rows -->
         <attr name="suggestionRowLayout" format="reference" />

@@ -1304,7 +1304,7 @@ containing a value of this type.
         public static final int custom_toast=0x7f03001b;
         public static final int drawer_listview_item=0x7f03001c;
         public static final int navigation_drawer=0x7f03001d;
-        public static final int row=0x7f03001e;
+        public static final int distance_row =0x7f03001e;
         public static final int support_simple_spinner_dropdown_item=0x7f03001f;
         public static final int text_bubble=0x7f030020;
     }
