@@ -298,10 +298,10 @@ public class navigation_drawer extends FragmentActivity {
 
 
         AStar<String> aStar = new AStar<String>(graph);
-        arrayPath.add("Distance " + source + " to " + destination + "  = " + Math.round(aStar.distance)+" กิโลเมตร");
         for (String path : aStar.astar(source, destination)) {
             arrayPath.add(path);
         }
+        arrayPath.add("Distance " + source + " to " + destination + "  = " + Math.round(aStar.distance)+" กิโลเมตร");
 
         return arrayPath;
     }
