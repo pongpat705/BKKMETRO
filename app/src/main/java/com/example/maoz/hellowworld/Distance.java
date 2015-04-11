@@ -74,7 +74,7 @@ public class Distance extends navigation_drawer {
             double lat = stationList.get(i).getLat();
             double lng = stationList.get(i).getLng();
 
-            String distance = String.valueOf(df2.format(FindDistance.getDistance(appLocationManager.getLatitude(), appLocationManager.getLongitude(),lat, lng)));
+            String distance = String.valueOf(df2.format(calculateDistance(appLocationManager.getLatitude(), appLocationManager.getLongitude(), lat, lng)));
 
             // tmp hashmap for single contact
             HashMap<String, String> contact = new HashMap<String, String>();

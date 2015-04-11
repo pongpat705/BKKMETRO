@@ -43,6 +43,7 @@ public class navigation_drawer extends FragmentActivity {
     public AppLocationManager appLocationManager;
 
     public List<Station_objects> stationList = new ArrayList<>();
+    public List<Path_objects> pathList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,13 +142,14 @@ public class navigation_drawer extends FragmentActivity {
     }
 
     private void gettingData(){
-        String url="http://gameparty.zapto.org:8989//android_connect/phpConnect1.php";
+        String station_url="http://gameparty.zapto.org:8989//android_connect/phpConnect1.php";
+        String path_url="http://gameparty.zapto.org:8989//android_connect/phpConnect2.php";
         JSONArray contacts;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        String station_str =  JSONParsing.readJSONFeed(url);
-        Log.d("Respond-NavDrawer: ", "> " + station_str);
-
+        // get stations
+        String station_str =  JSONParsing.readJSONFeed(station_url);
+        Log.d("stations: ", "> " + station_str);
         if (station_str != null) {
             try {
                 JSONObject jsonObj = new JSONObject(station_str);
@@ -163,6 +165,35 @@ public class navigation_drawer extends FragmentActivity {
                     String type = c.getString("station_type");
                     Station_objects station_objects = new Station_objects(name,lat,lng,type);
                     stationList.add(station_objects);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.e("ServiceHandler", "Couldn't get any data from the url");
+        }
+
+        // get path
+        String path_str =  JSONParsing.readJSONFeed(path_url);
+        Log.d("path: ", "> " + path_str);
+        if (station_str != null) {
+            try {
+                JSONObject jsonObj = new JSONObject(path_str);
+                // Getting JSON Array node
+                contacts = jsonObj.getJSONArray("result");
+                // looping through All Contacts
+                for (int i = 0; i < contacts.length(); i++) {
+                    JSONObject c = contacts.getJSONObject(i);
+
+                    String st_a = c.getString("station_a");
+                    String st_b = c.getString("station_b");
+                    double distance = Double.valueOf(c.getString("distance"));
+                    double price = Double.valueOf(c.getString("price"));
+                    String type = c.getString("path_type");
+                    String detail = c.getString("path_detail");
+                    Path_objects path_objects = new Path_objects(st_a,st_b,distance,price,type,detail);
+                    pathList.add(path_objects);
 
                 }
             } catch (JSONException e) {
@@ -195,6 +226,17 @@ public class navigation_drawer extends FragmentActivity {
         Dialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
+    }
+
+    public  Double calculateDistance(double sLat, double sLng, double dLat, double dLng){
+        double AVG_R_EARTH = 6371;
+
+        double latDistance = Math.toRadians(sLat-dLat);
+        double lngDistance = Math.toRadians(sLng-dLng);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance /2) + Math.cos(Math.toRadians(sLat))*Math.cos(Math.toRadians(dLat))* Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+
+        return (double)Math.round(AVG_R_EARTH * c);
     }
 
 
