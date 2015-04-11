@@ -63,14 +63,14 @@ public class Directions extends navigation_drawer {
         for (int i = 0; i < arrayPath.size(); i++) {
 
 
-            // tmp hashmap for single contact
+            // tmp hashmap for single direction
             HashMap<String, String> direction = new HashMap<String, String>();
 
             // adding each child node to HashMap key => value
-            direction.put("station", arrayPath.get(i));
             direction.put("status","ss");
+            direction.put("station", arrayPath.get(i));
 
-            // adding contact to contact list
+            // adding contact to direction collection
             direction_collection.add(direction);
             // setupList
             ListAdapter adapter = new SimpleAdapter(Directions.this, direction_collection,
