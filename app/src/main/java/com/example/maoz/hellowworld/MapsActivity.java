@@ -5,9 +5,6 @@ import android.content.Context;
 
 import android.graphics.Color;
 
-
-import android.os.StrictMode;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,9 +27,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLongClickListener {
@@ -160,38 +153,13 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
          mMap.getUiSettings().setCompassEnabled(false);
          mMap.getUiSettings().setRotateGesturesEnabled(false);
 
-         String url="http://gameparty.zapto.org:8989//android_connect/phpConnect1.php";
-         JSONArray contacts;
-         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-         StrictMode.setThreadPolicy(policy);
-         String jsonStr =  JSONParsing.readJSONFeed(url);
-
-         Log.d("Responde: ", "> " + jsonStr);
-
-         if (jsonStr != null) {
-             try {
-                 JSONObject jsonObj = new JSONObject(jsonStr);
-                 // Getting JSON Array node
-                 contacts = jsonObj.getJSONArray("result");
-                 // looping through All Contacts
-                 for (int i = 0; i < contacts.length(); i++) {
-                     JSONObject c = contacts.getJSONObject(i);
-
-                     String name = c.getString("station_name");
-                     String lat = c.getString("station_lat");
-                     String lng = c.getString("station_lng");
-                     mMap.addMarker(new MarkerOptions()
-                             .position(new LatLng(Double.valueOf(lat),Double.valueOf(lng)))
-                             .title(name)//make pin
-                             .snippet("Lat" + lat + "Lng" + lng));
-
-                 }
-             } catch (JSONException e) {
-                 e.printStackTrace();
-             }
-         } else {
-             Log.e("ServiceHandler", "Couldn't get any data from the url");
+         for (int i = 0; i<stationList.size();i++){
+             mMap.addMarker(new MarkerOptions()
+             .position(new LatLng(stationList.get(i).getLat(),stationList.get(i).getLng()))
+             .title(stationList.get(i).getStations())
+             .snippet("Lat" + stationList.get(i).getLat() + "Lng" + stationList.get(i).getLng()));
          }
+
 
 
      }

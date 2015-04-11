@@ -7,24 +7,26 @@ public class Station_objects {
     private String stations;
     private Double lat;
     private Double lng;
+    private String type;
 
-    public Station_objects(String stations, Double lat, Double lng){
+    public Station_objects(String stations, Double lat, Double lng,String type){
         this.stations = stations;
         this.lat = lat;
         this.lng = lng;
+        this.type = type;
     }
-
 
     public String getStations(){
-        return this.stations;
+        return stations;
     }
-
     public Double getLat(){
-        return this.lat;
+        return lat;
     }
-
     public Double getLng(){
-        return this.lng;
+        return lng;
+    }
+    public String getType() {
+        return type;
     }
 
 }

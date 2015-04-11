@@ -9,11 +9,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class navigation_drawer extends FragmentActivity {
@@ -32,6 +41,8 @@ public class navigation_drawer extends FragmentActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     public AppLocationManager appLocationManager;
+
+    public List<Station_objects> stationList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +58,7 @@ public class navigation_drawer extends FragmentActivity {
         if (!appLocationManager.isEnabled()){
             turnONGPS(this);
         }
+        gettingData();
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.drawable.ic_drawer,R.string.drawer_open,R.string.drawer_close){
             public void onDrawerClosed(View view) {
@@ -126,7 +138,39 @@ public class navigation_drawer extends FragmentActivity {
             mTitle = title;
             getActionBar().setTitle(mTitle);
         }
+    }
 
+    private void gettingData(){
+        String url="http://gameparty.zapto.org:8989//android_connect/phpConnect1.php";
+        JSONArray contacts;
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String station_str =  JSONParsing.readJSONFeed(url);
+        Log.d("Respond-NavDrawer: ", "> " + station_str);
+
+        if (station_str != null) {
+            try {
+                JSONObject jsonObj = new JSONObject(station_str);
+                // Getting JSON Array node
+                contacts = jsonObj.getJSONArray("result");
+                // looping through All Contacts
+                for (int i = 0; i < contacts.length(); i++) {
+                    JSONObject c = contacts.getJSONObject(i);
+
+                    String name = c.getString("station_name");
+                    double lat = Double.valueOf(c.getString("station_lat"));
+                    double lng = Double.valueOf(c.getString("station_lng"));
+                    String type = c.getString("station_type");
+                    Station_objects station_objects = new Station_objects(name,lat,lng,type);
+                    stationList.add(station_objects);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.e("ServiceHandler", "Couldn't get any data from the url");
+        }
 
     }
     public void turnONGPS(Context context){
@@ -151,7 +195,6 @@ public class navigation_drawer extends FragmentActivity {
         Dialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
-
     }
 
 

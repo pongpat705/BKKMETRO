@@ -13,38 +13,12 @@
         android:layout_marginLeft="5dip"
         android:maxLines="1"
         android:text="stations"
-        android:textColor="@android:color/holo_red_light"
+        android:textColor="@android:color/white"
         android:textSize="14dp"
         android:textStyle="bold" >
     </TextView>
 
-    <TextView
-        android:id="@+id/lat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/stations"
-        android:layout_marginLeft="5dip"
-        android:layout_marginTop="3dip"
-        android:maxLines="1"
-        android:text="lat"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="14dp" >
-    </TextView>
 
-    <TextView
-        android:id="@+id/lng"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lat"
-        android:layout_marginLeft="5dip"
-        android:layout_marginTop="3dip"
-        android:maxLines="1"
-        android:text="lng"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="14dp" >
-    </TextView>
 
     <TextView
         android:id="@+id/distance"
@@ -56,7 +30,7 @@
         android:layout_marginTop="3dip"
         android:maxLines="1"
         android:text="distance"
-        android:textColor="@android:color/holo_red_light"
+        android:textColor="@android:color/white"
         android:textSize="14dp" >
     </TextView>
 
