@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -30,7 +31,7 @@ public class MyActivity extends navigation_drawer{
         View contentView = inflater.inflate(R.layout.activity_my, null, false);
         drawerLayout.addView(contentView, 0);
 
-        CalculateShortestPath();
+
         //
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         searchButton = (Button)findViewById(R.id.button);
@@ -39,14 +40,12 @@ public class MyActivity extends navigation_drawer{
             Stations.add(stationList.get(i).getStations());
         }
 
-        Spinner stationtop = (Spinner)findViewById(R.id.spinner);
-        Spinner stationdown = (Spinner)findViewById(R.id.spinner2);
-        ArrayAdapter<String> topadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Stations);
-        ArrayAdapter<String> downadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Stations);
-        stationtop.setAdapter(topadapter);
-        stationdown.setAdapter(downadapter);
-
-
+        final Spinner stationtop = (Spinner)findViewById(R.id.spinner);
+        final Spinner stationdown = (Spinner)findViewById(R.id.spinner2);
+        ArrayAdapter<String> spintop = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Stations);
+        ArrayAdapter<String> spindown = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Stations);
+        stationtop.setAdapter(spintop);
+        stationdown.setAdapter(spindown);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +53,10 @@ public class MyActivity extends navigation_drawer{
                 int selectedRadio = radioGroup.getCheckedRadioButtonId();
                 radioButton = (RadioButton) findViewById(selectedRadio);
                 MyToast((String) radioButton.getText());
+                String source = stationtop.getSelectedItem().toString();
+                String destination = stationdown.getSelectedItem().toString();
+                CalculateShortestPath(source,destination);
+
             }
         });
 

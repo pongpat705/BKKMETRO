@@ -261,7 +261,7 @@ public class navigation_drawer extends FragmentActivity {
         toast.show();
     }
 
-    public void CalculateShortestPath(){
+    public void CalculateShortestPath(String source, String destination){
         Map<String, Map<String, Double>> hueristic = new HashMap<String, Map<String, Double>>();
 
         List<Map<String, Double>> list = new ArrayList<Map<String, Double>>();// ลิสของ map
@@ -299,15 +299,13 @@ public class navigation_drawer extends FragmentActivity {
             graph.addEdge(pathList.get(i).getStation_a(),pathList.get(i).getStation_b(),pathList.get(i).getDistance());//เพิ่มเส้นเชื่อมระหว่างสถานี
         }
 
-        String source = "ARL สุวรรณภูมิ";
-        String destination = "BRT วัดดอกไม้";
-        AStar<String> aStar = new AStar<String>(graph);
 
+        AStar<String> aStar = new AStar<String>(graph);
         for (String path : aStar.astar(source, destination)) {
             this.path += path+"\n";
         }
         System.out.print(path);
-        MyToast("Distance " + source + " to " + destination + "  = " + Math.round(aStar.distance));
+        MyToast("Distance " + source + " to " + destination + "  = " + Math.round(aStar.distance)+" กิโลเมตร");
     }
 
 
