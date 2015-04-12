@@ -82,15 +82,15 @@ public class Distance extends navigation_drawer {
             // adding each child node to HashMap key => value
             station.put("station_name", "สถานี " + name);
             station.put("distance", "ห่างจากคุณ " + distance + " กิโลเมตร");
-
             // adding contact to contact list
             station_collection.add(station);
-            // setupList
-            ListAdapter adapter = new SimpleAdapter(Distance.this, station_collection,
-                    R.layout.distance_row, new String[] { "station_name","distance"}, new int[] { R.id.stations,R.id.distance});
-            // setList follow prepare
-            listView.setAdapter(adapter);
         }
+
+        // setupList
+        ListAdapter adapter = new SimpleAdapter(Distance.this, station_collection,
+                R.layout.distance_row, new String[] { "station_name","distance"}, new int[] { R.id.stations,R.id.distance});
+        // setList follow prepare
+        listView.setAdapter(adapter);
     }
 
 }

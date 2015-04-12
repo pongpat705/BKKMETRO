@@ -63,23 +63,24 @@ public class Directions extends navigation_drawer {
 
         for (int i = 0; i < arrayPath.size(); i++) {
 
-
             // tmp hashmap for single direction
             HashMap<String, String> direction = new HashMap<String, String>();
-            if (stationList.get(i).getStations().equals(arrayPath.get(i))){
-                direction.put("status", stationList.get(i).getType());
-                direction.put("station", stationList.get(i).getStations());
-            }
-            // adding each child node to HashMap key => value
 
+            // adding each child node to HashMap key => value
+            for (int j = 0; j<stationList.size();j++) {
+                if (stationList.get(j).getStations().equals(arrayPath.get(i))) {
+                    direction.put("status", stationList.get(j).getType());
+                    direction.put("station", stationList.get(j).getStations());
+                }
+            }
 
             // adding contact to direction collection
             direction_collection.add(direction);
-            // setupList
-            ListAdapter adapter = new SimpleAdapter(Directions.this, direction_collection,
-                    R.layout.direction_row, new String[] { "status","station"}, new int[] { R.id.status,R.id.stations});
-            // setList follow prepare
-            listView.setAdapter(adapter);
         }
+        // setupList
+        ListAdapter adapter = new SimpleAdapter(Directions.this, direction_collection,
+                R.layout.direction_row, new String[] { "status","station"}, new int[] { R.id.status,R.id.stations});
+        // setList follow prepare
+        listView.setAdapter(adapter);
     }
 }
