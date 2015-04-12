@@ -60,7 +60,6 @@ public class Directions extends navigation_drawer {
         // looping through All Contacts
         ArrayList<HashMap<String,String>> direction_collection;
         direction_collection = new ArrayList<HashMap<String, String>>();
-
         for (int i = 0; i < arrayPath.size(); i++) {
 
             // tmp hashmap for single direction
@@ -69,11 +68,14 @@ public class Directions extends navigation_drawer {
             // adding each child node to HashMap key => value
             for (int j = 0; j<stationList.size();j++) {
                 if (stationList.get(j).getStations().equals(arrayPath.get(i))) {
-                    direction.put("status", stationList.get(j).getType());
+                    direction.put("status", "Travel with "+stationList.get(j).getType());
                     direction.put("station", stationList.get(j).getStations());
                 }
             }
-
+            if (i == arrayPath.size()-1){
+                direction.put("status", "Summary");
+                direction.put("station", arrayPath.get(i));
+            }
             // adding contact to direction collection
             direction_collection.add(direction);
         }
