@@ -9,29 +9,40 @@
         android:id="@+id/stations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="5dip"
         android:maxLines="1"
         android:text="stations"
         android:textColor="@android:color/white"
-        android:textSize="14dp"
+        android:textSize="15sp"
         android:textStyle="bold" >
     </TextView>
-
-
-
     <TextView
         android:id="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lng"
         android:layout_marginLeft="5dip"
         android:layout_marginTop="3dip"
         android:maxLines="1"
         android:text="distance"
         android:textColor="@android:color/white"
-        android:textSize="14dp" >
+        android:textSize="14sp">
+
+    </TextView>
+    <TextView
+        android:id="@+id/lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:visibility="gone">
+    </TextView>
+    <TextView
+        android:id="@+id/lng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:visibility="gone">
     </TextView>
 
 

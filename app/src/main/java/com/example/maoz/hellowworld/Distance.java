@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -36,6 +37,15 @@ public class Distance extends navigation_drawer {
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.distance_list);
         preparingList();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
+                String ltln = item.get("lat")+","+item.get("lng");
+                MyToast(ltln);
+            }
+        });
 
     }
 
@@ -82,13 +92,15 @@ public class Distance extends navigation_drawer {
             // adding each child node to HashMap key => value
             station.put("station_name", "สถานี " + name);
             station.put("distance", "ห่างจากคุณ " + distance + " กิโลเมตร");
+            station.put("lat",String.valueOf(lat));
+            station.put("lng",String.valueOf(lng));
             // adding contact to contact list
             station_collection.add(station);
         }
 
         // setupList
         ListAdapter adapter = new SimpleAdapter(Distance.this, station_collection,
-                R.layout.distance_row, new String[] { "station_name","distance"}, new int[] { R.id.stations,R.id.distance});
+                R.layout.distance_row, new String[] { "station_name","distance","lat","lng"}, new int[] { R.id.stations,R.id.distance,R.id.lat,R.id.lng});
         // setList follow prepare
         listView.setAdapter(adapter);
     }
