@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -65,10 +66,12 @@ public class Directions extends navigation_drawer {
 
             // tmp hashmap for single direction
             HashMap<String, String> direction = new HashMap<String, String>();
-
+            if (stationList.get(i).getStations().equals(arrayPath.get(i))){
+                direction.put("status", stationList.get(i).getType());
+                direction.put("station", stationList.get(i).getStations());
+            }
             // adding each child node to HashMap key => value
-            direction.put("status","ss");
-            direction.put("station", arrayPath.get(i));
+
 
             // adding contact to direction collection
             direction_collection.add(direction);
