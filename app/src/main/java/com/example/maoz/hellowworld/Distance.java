@@ -40,7 +40,7 @@ public class Distance extends navigation_drawer {
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.distance_list);
         preparingList();
-
+//ss
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
