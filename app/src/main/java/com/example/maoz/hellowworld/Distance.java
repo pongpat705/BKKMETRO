@@ -66,6 +66,19 @@ public class Distance extends navigation_drawer {
         startActivity(map); // call new Activity
     }
 
+    public void waypointClick(View v){
+        RelativeLayout parentRow = (RelativeLayout)v.getParent();
+        TextView station = (TextView)parentRow.getChildAt(0);
+        TextView lat = (TextView)parentRow.getChildAt(2);
+        TextView lng = (TextView)parentRow.getChildAt(3);
+
+        Intent map = new Intent(Distance.this,MapsActivity.class);
+        map.putExtra("station",station.getText());
+        map.putExtra("lat",lat.getText());
+        map.putExtra("lng",lng.getText());
+        startActivity(map); // call new Activity
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

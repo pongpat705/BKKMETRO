@@ -126,14 +126,13 @@ public class MapsActivity extends navigation_drawer{
          mMap.setMyLocationEnabled(true);//enable Location button
          mMap.getUiSettings().setCompassEnabled(false);
          mMap.getUiSettings().setRotateGesturesEnabled(false);
-         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(appLocationManager.getLatitude(), appLocationManager.getLongitude()), 15));
          pinSource = mMap.addMarker(new MarkerOptions().position(appLocationManager.getLatLng()));
          pinDestination = mMap.addMarker(new MarkerOptions()
                  .position(new LatLng(latDes,lngDes))
                  .title(stationDes)
                  .snippet("Destination " +latDes+ "," +lngDes));
 
-         //preparing bounds marker
+         //preparing bounds marker ตีกรอบให้แสดงผลเส้นทางระหว่างจุดมาร์คสองจุด
          LatLngBounds.Builder b = new LatLngBounds.Builder();
          b.include(pinDestination.getPosition());
          b.include(pinSource.getPosition());
