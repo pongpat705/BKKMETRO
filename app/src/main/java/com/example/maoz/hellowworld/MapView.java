@@ -27,7 +27,7 @@ import java.util.List;
 
 
 
-public class MapsActivity extends navigation_drawer{
+public class MapView extends navigation_drawer{
 
     GoogleMap mMap; // Might be null if Google Play services APK is not available.
     Marker pinSource,pinDestination;
@@ -169,7 +169,7 @@ public class MapsActivity extends navigation_drawer{
 
     private void exeProcess(double desLat,double desLng){ //draw line a to b
         String d;
-        JSONRoutDirection j = new JSONRoutDirection();
+        JSONRouteMapView j = new JSONRouteMapView();
         d = j.getPath(new LatLng(appLocationManager.getLatitude(), appLocationManager.getLongitude()), new LatLng(desLat, desLng));
         List<List<HashMap<String, String>>> line = j.GetLine(d);
         if (polyline == null){
@@ -214,7 +214,7 @@ public class MapsActivity extends navigation_drawer{
             // Adding all the points in the route to LineOptions
             lineOptions.addAll(points);
         }
-        MyToast("Distance:" + distance + ", Duration:" + duration);
+        MyToast("DistanceActivity:" + distance + ", Duration:" + duration);
 
         // Drawing polyline in the Google Map for the i-th route
         return lineOptions;

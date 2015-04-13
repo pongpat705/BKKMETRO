@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MapsActivity"
+            android:name=".MapView"
             android:label="@string/title_activity_maps" >
         </activity>
 
@@ -41,16 +41,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MyActivity"
+            android:name=".SearchActivity"
             android:label="@string/title_activity_navigation_drawer" >
         </activity>
         <activity
-            android:name=".Distance"
+            android:name=".DistanceActivity"
             android:label="@string/title_activity_distance" >
         </activity>
         <activity
-            android:name=".Directions"
+            android:name=".DirectionsListview"
             android:label="@string/title_activity_directions" >
+        </activity>
+        <activity
+            android:name=".WaypointListview"
+            android:label="@string/title_activity_waypoint" >
         </activity>
     </application>
 

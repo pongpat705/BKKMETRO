@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ import java.util.HashMap;
 
 
 
-public class Distance extends navigation_drawer {
+public class DistanceActivity extends navigation_drawer {
     private ListView listView;
     NumberFormat df2 = new DecimalFormat("###.#");
 
@@ -40,7 +42,7 @@ public class Distance extends navigation_drawer {
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.distance_list);
         preparingList();
-//ss
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -59,7 +61,7 @@ public class Distance extends navigation_drawer {
         TextView lat = (TextView)parentRow.getChildAt(2);
         TextView lng = (TextView)parentRow.getChildAt(3);
 
-        Intent map = new Intent(Distance.this,MapsActivity.class);
+        Intent map = new Intent(DistanceActivity.this,MapView.class);
         map.putExtra("station",station.getText());
         map.putExtra("lat",lat.getText());
         map.putExtra("lng",lng.getText());
@@ -71,12 +73,10 @@ public class Distance extends navigation_drawer {
         TextView station = (TextView)parentRow.getChildAt(0);
         TextView lat = (TextView)parentRow.getChildAt(2);
         TextView lng = (TextView)parentRow.getChildAt(3);
-
-        Intent map = new Intent(Distance.this,MapsActivity.class);
-        map.putExtra("station",station.getText());
-        map.putExtra("lat",lat.getText());
-        map.putExtra("lng",lng.getText());
-        startActivity(map); // call new Activity
+        LatLng desLatLng = new LatLng(Double.valueOf((String) lat.getText()),Double.valueOf((String) lng.getText()));
+        Intent waypoint = new Intent(DistanceActivity.this,WaypointListview.class);
+        waypoint.putExtra("desLatLng", desLatLng);
+        startActivity(waypoint); // call new Activity
     }
 
 
@@ -128,7 +128,7 @@ public class Distance extends navigation_drawer {
         }
 
         // setupList
-        ListAdapter adapter = new SimpleAdapter(Distance.this, station_collection,
+        ListAdapter adapter = new SimpleAdapter(DistanceActivity.this, station_collection,
                 R.layout.distance_row, new String[] { "station_name","distance","lat","lng"}, new int[] { R.id.stations,R.id.distance,R.id.lat,R.id.lng});
         // setList follow prepare
         listView.setAdapter(adapter);

@@ -1177,7 +1177,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f090001;
         public static final int action_menu_presenter=0x7f090002;
         public static final int action_mode_close_button=0x7f090037;
-        public static final int action_settings=0x7f09006a;
+        public static final int action_settings=0x7f09006c;
         public static final int activity_chooser_view_content=0x7f090038;
         public static final int always=0x7f090017;
         public static final int beginning=0x7f090010;
@@ -1191,14 +1191,14 @@ containing a value of this type.
         public static final int checkbox=0x7f090040;
         public static final int classic=0x7f09002a;
         public static final int collapseActionView=0x7f090018;
-        public static final int content_frame=0x7f090068;
+        public static final int content_frame=0x7f090069;
         public static final int default_activity_button=0x7f09003b;
         public static final int dialog=0x7f09001c;
         public static final int direction_list=0x7f09004f;
         public static final int disableHome=0x7f09000a;
         public static final int distance=0x7f090058;
         public static final int distance_list=0x7f090050;
-        public static final int drawer_layout=0x7f090067;
+        public static final int drawer_layout=0x7f090068;
         public static final int dropdown=0x7f09001d;
         public static final int edit_Text=0x7f09005b;
         public static final int edit_query=0x7f090043;
@@ -1214,13 +1214,14 @@ containing a value of this type.
         public static final int icon=0x7f09003d;
         public static final int ifRoom=0x7f090019;
         public static final int image=0x7f09003a;
-        public static final int lat=0x7f090064;
-        public static final int left_drawer=0x7f090069;
+        public static final int instruction=0x7f09006b;
+        public static final int lat=0x7f090065;
+        public static final int left_drawer=0x7f09006a;
         public static final int listMode=0x7f090007;
         public static final int list_item=0x7f09003c;
-        public static final int lng=0x7f090063;
+        public static final int lng=0x7f090064;
         public static final int map=0x7f090051;
-        public static final int mapview=0x7f090066;
+        public static final int mapview=0x7f090067;
         public static final int match_parent=0x7f090025;
         public static final int middle=0x7f090012;
         public static final int monochrome=0x7f09002c;
@@ -1233,7 +1234,7 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f090005;
         public static final int radio=0x7f090042;
         public static final int radioGroup=0x7f090056;
-        public static final int relativelay=0x7f090060;
+        public static final int relativelay=0x7f090061;
         public static final int sandbox=0x7f090021;
         public static final int satellite=0x7f090015;
         public static final int search_badge=0x7f090045;
@@ -1255,8 +1256,8 @@ containing a value of this type.
         public static final int spinner=0x7f090053;
         public static final int spinner2=0x7f090055;
         public static final int split_action_bar=0x7f090031;
-        public static final int stations=0x7f090062;
-        public static final int status=0x7f090061;
+        public static final int stations=0x7f090063;
+        public static final int status=0x7f090062;
         public static final int strict_sandbox=0x7f090022;
         public static final int submit_area=0x7f09004c;
         public static final int tabMode=0x7f090009;
@@ -1266,11 +1267,12 @@ containing a value of this type.
         public static final int textView2=0x7f090054;
         public static final int text_View=0x7f09005d;
         public static final int title=0x7f09003e;
-        public static final int toast_layout_root=0x7f09005f;
+        public static final int toast_layout_root=0x7f090060;
         public static final int top_action_bar=0x7f090033;
         public static final int up=0x7f090034;
         public static final int useLogo=0x7f09000f;
-        public static final int waypoint=0x7f090065;
+        public static final int waypoint=0x7f090066;
+        public static final int waypoint_list=0x7f09005f;
         public static final int withText=0x7f09001b;
         public static final int wrap_content=0x7f090026;
     }
@@ -1307,19 +1309,22 @@ containing a value of this type.
         public static final int activity_distance=0x7f030019;
         public static final int activity_maps=0x7f03001a;
         public static final int activity_my=0x7f03001b;
-        public static final int custom_toast=0x7f03001c;
-        public static final int direction_row=0x7f03001d;
-        public static final int distance_row=0x7f03001e;
-        public static final int drawer_listview_item=0x7f03001f;
-        public static final int navigation_drawer=0x7f030020;
-        public static final int support_simple_spinner_dropdown_item=0x7f030021;
-        public static final int text_bubble=0x7f030022;
+        public static final int activity_waypoint=0x7f03001c;
+        public static final int custom_toast=0x7f03001d;
+        public static final int direction_row=0x7f03001e;
+        public static final int distance_row=0x7f03001f;
+        public static final int drawer_listview_item=0x7f030020;
+        public static final int navigation_drawer=0x7f030021;
+        public static final int support_simple_spinner_dropdown_item=0x7f030022;
+        public static final int text_bubble=0x7f030023;
+        public static final int waypoint_row=0x7f030024;
     }
     public static final class menu {
         public static final int menu_directions=0x7f0d0000;
         public static final int menu_distance=0x7f0d0001;
-        public static final int my=0x7f0d0002;
-        public static final int navigation_drawer=0x7f0d0003;
+        public static final int menu_waypoint=0x7f0d0002;
+        public static final int my=0x7f0d0003;
+        public static final int navigation_drawer=0x7f0d0004;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f0b0000;
@@ -1386,7 +1391,8 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         public static final int title_activity_distance=0x7f0b002e;
         public static final int title_activity_maps=0x7f0b002f;
         public static final int title_activity_navigation_drawer=0x7f0b0030;
-        public static final int wallet_buy_button_place_holder=0x7f0b0031;
+        public static final int title_activity_waypoint=0x7f0b0031;
+        public static final int wallet_buy_button_place_holder=0x7f0b0032;
     }
     public static final class style {
         /**  Customize your theme here. 

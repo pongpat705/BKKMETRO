@@ -120,15 +120,15 @@ public class navigation_drawer extends FragmentActivity {
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             switch (position){
                 case 0:
-                    Intent main = new Intent(navigation_drawer.this,MyActivity.class);
+                    Intent main = new Intent(navigation_drawer.this,SearchActivity.class);
                     startActivity(main); // call new Activity
                     break;
                 case 1:
-                    Intent distance = new Intent(navigation_drawer.this,Distance.class);
+                    Intent distance = new Intent(navigation_drawer.this,DistanceActivity.class);
                     startActivity(distance); // call new Activity
                     break;
                 case 2:
-                    Intent map = new Intent(navigation_drawer.this,MapsActivity.class);
+                    Intent map = new Intent(navigation_drawer.this,MapView.class);
                     startActivity(map); // call new Activity
                     break;
 

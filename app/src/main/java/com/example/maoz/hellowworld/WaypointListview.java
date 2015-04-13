@@ -1,6 +1,5 @@
 package com.example.maoz.hellowworld;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,33 +10,32 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Directions extends navigation_drawer {
+public class WaypointListview extends navigation_drawer {
     private ListView listView;
-
+    LatLng desLatLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_directions, null, false);
-//get value from passing with Extra
-        ArrayList<String> arrayPath;
-        arrayPath = (ArrayList<String>) getIntent().getExtras().get("arrayPath");
-
+        View contentView = inflater.inflate(R.layout.activity_waypoint, null, false);
         drawerLayout.addView(contentView, 0);
-        listView = (ListView)findViewById(R.id.direction_list);
-        preparingList(arrayPath);
+        listView = (ListView)findViewById(R.id.waypoint_list);
+        desLatLng = (LatLng) getIntent().getExtras().get("desLatLng");
+        getWaypoint();
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_directions, menu);
+        getMenuInflater().inflate(R.menu.menu_waypoint, menu);
         return true;
     }
 
@@ -55,32 +53,29 @@ public class Directions extends navigation_drawer {
 
         return super.onOptionsItemSelected(item);
     }
+    private void getWaypoint(){
+        String d;
+        JSONRouteWaypoint j = new JSONRouteWaypoint();
+        d = j.getPath(new LatLng(appLocationManager.getLatitude(), appLocationManager.getLongitude()), desLatLng);
+        ArrayList<String> waypoint = j.getWaypoint(d);
+
+        preparingList(waypoint);
+
+    }
     private void preparingList(ArrayList<String> arrayPath){
         // looping through All Contacts
-        ArrayList<HashMap<String,String>> direction_collection;
-        direction_collection = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String,String>> waypointCollection;
+        waypointCollection = new ArrayList<>();
         for (int i = 0; i < arrayPath.size(); i++) {
+            String direction = arrayPath.get(i);
 
-            // tmp hashmap for single direction
-            HashMap<String, String> direction = new HashMap<String, String>();
-
-            // adding each child node to HashMap key => value
-            for (int j = 0; j<stationList.size();j++) {
-                if (stationList.get(j).getStations().equals(arrayPath.get(i))) {
-                    direction.put("status", "Travel with "+stationList.get(j).getType());
-                    direction.put("station", stationList.get(j).getStations());
-                }
-            }
-            if (i == arrayPath.size()-1){
-                direction.put("status", "Summary");
-                direction.put("station", arrayPath.get(i));
-            }
-            // adding contact to direction collection
-            direction_collection.add(direction);
+            HashMap<String, String> waypoint = new HashMap<String, String>();
+            waypoint.put("instruction",direction);
+            waypointCollection.add(waypoint);
         }
         // setupList
-        ListAdapter adapter = new SimpleAdapter(Directions.this, direction_collection,
-                R.layout.direction_row, new String[] { "status","station"}, new int[] { R.id.status,R.id.stations});
+        ListAdapter adapter = new SimpleAdapter(WaypointListview.this, waypointCollection,
+                R.layout.waypoint_row, new String[] {"instruction"}, new int[] { R.id.instruction});
         // setList follow prepare
         listView.setAdapter(adapter);
     }

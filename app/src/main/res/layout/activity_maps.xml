@@ -3,6 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/map"
-    tools:context="com.example.maoz.hellowworld.MapsActivity"
+    tools:context="com.example.maoz.hellowworld.MapView"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     tools:layout="@layout/activity_maps" />

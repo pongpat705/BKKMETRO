@@ -62,7 +62,7 @@ public class AppLocationManager implements LocationListener {
                               Log.d("----Network null----", ":null");
                           }else{
                               setMostRecentLocation(location); //ปรับปรุงค่า Lat Long
-                              Log.d("----Location not null----", "Network" + getLatitude() + "," + getLongitude() + "");
+                              Log.d("----not null----", "Network" + getLatitude() + "," + getLongitude() + "");
                           }
 
                       }
@@ -103,7 +103,7 @@ public class AppLocationManager implements LocationListener {
     public void onLocationChanged(Location location) {
         this.location = location;
         setMostRecentLocation(location);
-        Log.d("----ApplocationManager----","UPDATED");
+        Log.d("----Apploca----","UPDATED");
 
     }
 

@@ -15,7 +15,7 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-public class MyActivity extends navigation_drawer{
+public class SearchActivity extends navigation_drawer{
 
     static ArrayList<String> Stations = new ArrayList<String>();
     private RadioGroup radioGroup;
@@ -58,7 +58,7 @@ public class MyActivity extends navigation_drawer{
                 String destination = stationdown.getSelectedItem().toString();
                 arrayPath = CalculateShortestPath(source,destination);
 
-                Intent direction = new Intent(MyActivity.this,Directions.class);
+                Intent direction = new Intent(SearchActivity.this,DirectionsListview.class);
                 direction.putExtra("arrayPath",arrayPath);
                 startActivity(direction); // call new Activity
 

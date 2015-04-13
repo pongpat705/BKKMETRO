@@ -17,5 +17,6 @@
     <string name="title_activity_navigation_drawer">Directions</string>
     <string name="title_activity_distance">Nearby Stations</string>
     <string name="title_activity_directions">Directions</string>
+    <string name="title_activity_waypoint">WaypointActivity</string>
 
 </resources>
