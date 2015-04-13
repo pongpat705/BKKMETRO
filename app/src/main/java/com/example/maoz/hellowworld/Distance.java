@@ -1,6 +1,7 @@
 package com.example.maoz.hellowworld;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -11,7 +12,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -44,11 +47,24 @@ public class Distance extends navigation_drawer {
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
                 String ltln = item.get("lat")+","+item.get("lng");
                 MyToast(ltln);
+
             }
         });
 
     }
 
+    public void mapviewClick(View v){
+        RelativeLayout parentRow = (RelativeLayout)v.getParent();
+        TextView station = (TextView)parentRow.getChildAt(0);
+        TextView lat = (TextView)parentRow.getChildAt(2);
+        TextView lng = (TextView)parentRow.getChildAt(3);
+
+        Intent map = new Intent(Distance.this,MapsActivity.class);
+        map.putExtra("station",station.getText());
+        map.putExtra("lat",lat.getText());
+        map.putExtra("lng",lng.getText());
+        startActivity(map); // call new Activity
+    }
 
 
     @Override

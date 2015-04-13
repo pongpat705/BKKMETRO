@@ -1177,7 +1177,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f090001;
         public static final int action_menu_presenter=0x7f090002;
         public static final int action_mode_close_button=0x7f090037;
-        public static final int action_settings=0x7f090068;
+        public static final int action_settings=0x7f09006a;
         public static final int activity_chooser_view_content=0x7f090038;
         public static final int always=0x7f090017;
         public static final int beginning=0x7f090010;
@@ -1191,14 +1191,14 @@ containing a value of this type.
         public static final int checkbox=0x7f090040;
         public static final int classic=0x7f09002a;
         public static final int collapseActionView=0x7f090018;
-        public static final int content_frame=0x7f090066;
+        public static final int content_frame=0x7f090068;
         public static final int default_activity_button=0x7f09003b;
         public static final int dialog=0x7f09001c;
         public static final int direction_list=0x7f09004f;
         public static final int disableHome=0x7f09000a;
         public static final int distance=0x7f090058;
         public static final int distance_list=0x7f090050;
-        public static final int drawer_layout=0x7f090065;
+        public static final int drawer_layout=0x7f090067;
         public static final int dropdown=0x7f09001d;
         public static final int edit_Text=0x7f09005b;
         public static final int edit_query=0x7f090043;
@@ -1215,11 +1215,12 @@ containing a value of this type.
         public static final int ifRoom=0x7f090019;
         public static final int image=0x7f09003a;
         public static final int lat=0x7f090064;
-        public static final int left_drawer=0x7f090067;
+        public static final int left_drawer=0x7f090069;
         public static final int listMode=0x7f090007;
         public static final int list_item=0x7f09003c;
         public static final int lng=0x7f090063;
         public static final int map=0x7f090051;
+        public static final int mapview=0x7f090066;
         public static final int match_parent=0x7f090025;
         public static final int middle=0x7f090012;
         public static final int monochrome=0x7f09002c;
@@ -1269,6 +1270,7 @@ containing a value of this type.
         public static final int top_action_bar=0x7f090033;
         public static final int up=0x7f090034;
         public static final int useLogo=0x7f09000f;
+        public static final int waypoint=0x7f090065;
         public static final int withText=0x7f09001b;
         public static final int wrap_content=0x7f090026;
     }

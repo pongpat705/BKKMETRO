@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -25,14 +27,13 @@ import java.util.List;
 
 
 
-public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLongClickListener {
+public class MapsActivity extends navigation_drawer{
 
     GoogleMap mMap; // Might be null if Google Play services APK is not available.
-
-    Double curLat = 0.0, curLng =0.0; //set default
-    Marker Pin;
+    Marker pinSource,pinDestination;
     Polyline polyline;
-    XMLRoutDirection v2GetRouteDirection;
+    Double latDes,lngDes;
+    String stationDes;
 
 
     @Override
@@ -43,30 +44,13 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_maps, null, false);
         drawerLayout.addView(contentView, 0);
+        latDes = Double.valueOf((String) getIntent().getExtras().get("lat"));
+        lngDes = Double.valueOf((String) getIntent().getExtras().get("lng"));
+        stationDes = (String) getIntent().getExtras().get("station");
         setUpMapIfNeeded();
-        setting();
+        exeProcess(latDes,lngDes);
 
         //Listener
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                if (marker.getTitle().equals("ตำแหน่งของฉัน"))
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(),10));//ซุมแม่ง
-                return false;
-            }
-        });
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {//
-
-                double lat = marker.getPosition().latitude;
-                double lng = marker.getPosition().longitude;
-                exeProcess(lat, lng);
-
-                return false;
-            }
-
-        });
 
         mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
@@ -101,13 +85,7 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
     protected void onPause() {
         super.onPause();
     }
-    @Override
-    public void onMapLongClick(LatLng latLng) {
-        mMap.addMarker(new MarkerOptions()
-                .position(latLng)
-                .title("You Click here")
-                .snippet("lat "+latLng.latitude+" long "+latLng.longitude));
-    }
+
 
 
     /**
@@ -148,15 +126,28 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
          mMap.setMyLocationEnabled(true);//enable Location button
          mMap.getUiSettings().setCompassEnabled(false);
          mMap.getUiSettings().setRotateGesturesEnabled(false);
+         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(appLocationManager.getLatitude(), appLocationManager.getLongitude()), 15));
+         pinSource = mMap.addMarker(new MarkerOptions().position(appLocationManager.getLatLng()));
+         pinDestination = mMap.addMarker(new MarkerOptions()
+                 .position(new LatLng(latDes,lngDes))
+                 .title(stationDes)
+                 .snippet("Destination " +latDes+ "," +lngDes));
 
-         for (int i = 0; i<stationList.size();i++){
+         //preparing bounds marker
+         LatLngBounds.Builder b = new LatLngBounds.Builder();
+         b.include(pinDestination.getPosition());
+         b.include(pinSource.getPosition());
+         LatLngBounds bounds = b.build();
+         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,700,700,20);
+         mMap.moveCamera(cu);
+         /**
+          * this is for loading data stationlist from database*/
+         /*for (int i = 0; i<stationList.size();i++){
              mMap.addMarker(new MarkerOptions()
              .position(new LatLng(stationList.get(i).getLat(),stationList.get(i).getLng()))
              .title(stationList.get(i).getStations())
              .snippet("Lat" + stationList.get(i).getLat() + "Lng" + stationList.get(i).getLng()));
-         }
-
-
+         }*/
 
      }
      /*
@@ -165,33 +156,17 @@ public class MapsActivity extends navigation_drawer implements GoogleMap.OnMapLo
     *
     * */
 
-    private void setting(){
-        ////test route
-        v2GetRouteDirection = new XMLRoutDirection();
-        /*SupportMapFragment supportMapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
-        mMap = supportMapFragment.getMap();*/
-        ////
-        mMap.setOnMapLongClickListener(this);
-        Pin = mMap.addMarker(new MarkerOptions().position(appLocationManager.getLatLng()));
-
-    }
     private void setMyMarker(double lat,double lng,double zoom) {//change lat,lng Marker
-        Pin.setPosition(new LatLng(lat,lng));
-        Pin.setTitle("ตำแหน่งของฉัน");
-        Pin.setSnippet("Lat:"+ lat +"Long:"+ lng+" zoom level"+zoom);
-        Pin.showInfoWindow();
+        pinSource.setPosition(new LatLng(lat, lng));
+        pinSource.setTitle("ตำแหน่งของฉัน");
+        pinSource.setSnippet("Lat:" + lat + "Long:" + lng + " zoom level" + zoom);
+        pinSource.showInfoWindow();
     }
 
 
     /*
     *
     * Calculate Function*/
-
-    private void drawLine(Double e1,Double e2){ //Draw Line on map
-        PolylineOptions line = new PolylineOptions();
-        line.add(new LatLng(curLat, curLng)).add(new LatLng(e1,e2)).color(Color.RED).describeContents();//วาดเส้น
-        mMap.addPolyline(line);
-    }
 
     private void exeProcess(double desLat,double desLng){ //draw line a to b
         String d;

@@ -237,7 +237,7 @@ public class navigation_drawer extends FragmentActivity {
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
-    public  Double calculateDistance(double sLat, double sLng, double dLat, double dLng){
+    public Double calculateDistance(double sLat, double sLng, double dLat, double dLng){
         double AVG_R_EARTH = 6371;
 
         double latDistance = Math.toRadians(sLat-dLat);
@@ -257,7 +257,6 @@ public class navigation_drawer extends FragmentActivity {
         toast.setView(Layout);
         toast.show();
     }
-
     public ArrayList CalculateShortestPath(String source, String destination){
         Map<String, Map<String, Double>> hueristic = new HashMap<String, Map<String, Double>>();
         ArrayList<String> arrayPath = new ArrayList<>();

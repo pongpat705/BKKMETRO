@@ -13,7 +13,7 @@
         android:maxLines="1"
         android:text="stations"
         android:textColor="@android:color/white"
-        android:textSize="15sp"
+        android:textSize="11sp"
         android:textStyle="bold"
         android:layout_marginTop="5sp">
     </TextView>
@@ -27,7 +27,7 @@
         android:maxLines="1"
         android:text="distance"
         android:textColor="@android:color/white"
-        android:textSize="14sp"
+        android:textSize="10sp"
         android:layout_marginBottom="5sp"
         android:layout_below="@+id/stations">
 
@@ -53,9 +53,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="35sp"
-        android:layout_toRightOf="@+id/stations"
-        android:layout_marginLeft="110sp"
-        android:layout_marginTop="5sp"
+        android:layout_marginLeft="150dip"
+        android:layout_marginTop="5dip"
         android:text="WayPoint"
         android:id="@+id/waypoint"
         />
@@ -63,12 +62,12 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="35sp"
-        android:layout_toRightOf="@+id/waypoint"
-        android:layout_marginLeft="30sp"
-        android:layout_marginTop="5sp"
+        android:layout_toEndOf="@+id/waypoint"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dip"
         android:text="MapView"
-        android:id="@+id/MapView"
-        />
+        android:id="@+id/mapview"
+        android:onClick="mapviewClick" />
 
 
 
