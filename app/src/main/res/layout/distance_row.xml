@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativelay"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -14,8 +14,10 @@
         android:text="stations"
         android:textColor="@android:color/white"
         android:textSize="15sp"
-        android:textStyle="bold" >
+        android:textStyle="bold"
+        android:layout_marginTop="5sp">
     </TextView>
+
     <TextView
         android:id="@+id/distance"
         android:layout_width="wrap_content"
@@ -25,7 +27,9 @@
         android:maxLines="1"
         android:text="distance"
         android:textColor="@android:color/white"
-        android:textSize="14sp">
+        android:textSize="14sp"
+        android:layout_marginBottom="5sp"
+        android:layout_below="@+id/stations">
 
     </TextView>
     <TextView
@@ -45,6 +49,27 @@
         android:visibility="gone">
     </TextView>
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="35sp"
+        android:layout_toRightOf="@+id/stations"
+        android:layout_marginLeft="110sp"
+        android:layout_marginTop="5sp"
+        android:text="WayPoint"
+        android:id="@+id/waypoint"
+        />
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="35sp"
+        android:layout_toRightOf="@+id/waypoint"
+        android:layout_marginLeft="30sp"
+        android:layout_marginTop="5sp"
+        android:text="MapView"
+        android:id="@+id/MapView"
+        />
 
 
-</LinearLayout>
+
+</RelativeLayout>
