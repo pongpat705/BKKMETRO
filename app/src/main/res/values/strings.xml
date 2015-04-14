@@ -2,9 +2,9 @@
 <resources>
     <string-array name="items">
         <item>Directions</item>
-        <item>Nearby Stations</item>
-        <item>Find Walking Path</item>
+        <item>Nearby and Walking Path</item>
         <item>View Time Table</item>
+        <item>Item 4</item>
         <item>Item 5</item>
         <item>Item 6</item>
     </string-array>

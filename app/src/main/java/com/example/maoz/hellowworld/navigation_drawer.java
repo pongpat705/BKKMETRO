@@ -131,7 +131,6 @@ public class navigation_drawer extends FragmentActivity {
                     Intent map = new Intent(navigation_drawer.this,MapView.class);
                     startActivity(map); // call new Activity
                     break;
-
             }
             drawerLayout.closeDrawer(drawerListView);
 
@@ -300,7 +299,7 @@ public class navigation_drawer extends FragmentActivity {
         for (String path : aStar.astar(source, destination)) {
            arrayPath.add(path);
         }
-        arrayPath.add("Distance " + source + " to " + destination + "  = " + Math.round(aStar.distance)+" Kilometer");
+        arrayPath.add(source + " to " + destination + " = " + Math.round(aStar.distance)+" kilometer");
 
         return arrayPath;
     }

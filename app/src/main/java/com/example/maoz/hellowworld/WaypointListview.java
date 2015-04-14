@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -18,7 +19,9 @@ import java.util.HashMap;
 
 public class WaypointListview extends navigation_drawer {
     private ListView listView;
+    private TextView waypoint_head;
     LatLng desLatLng;
+    String stationName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,9 @@ public class WaypointListview extends navigation_drawer {
         View contentView = inflater.inflate(R.layout.activity_waypoint, null, false);
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.waypoint_list);
+        waypoint_head = (TextView)findViewById(R.id.waypoint_head);
         desLatLng = (LatLng) getIntent().getExtras().get("desLatLng");
+        stationName = (String) getIntent().getExtras().get("station");
         getWaypoint();
     }
 
@@ -57,26 +62,34 @@ public class WaypointListview extends navigation_drawer {
         String d;
         JSONRouteWaypoint j = new JSONRouteWaypoint();
         d = j.getPath(new LatLng(appLocationManager.getLatitude(), appLocationManager.getLongitude()), desLatLng);
-        ArrayList<String> waypoint = j.getWaypoint(d);
+        ArrayList<HashMap<String,String>> waypoint = j.getWaypoint(d);
 
         preparingList(waypoint);
 
     }
-    private void preparingList(ArrayList<String> arrayPath){
+    private void preparingList(ArrayList<HashMap<String,String>> arrayPath){
         // looping through All Contacts
         ArrayList<HashMap<String,String>> waypointCollection;
         waypointCollection = new ArrayList<>();
         for (int i = 0; i < arrayPath.size(); i++) {
-            String direction = arrayPath.get(i);
+            String direction = arrayPath.get(i).get("direction");
+            String distance = arrayPath.get(i).get("distance");
+            if (i == 0){
+                waypoint_head.setText(arrayPath.get(i).get("distance")+" to "+stationName+"\n by follow directions");
+            }else{
+                HashMap<String, String> waypoint = new HashMap<String, String>();
+                waypoint.put("instruction","["+(i)+"] "+direction);
+                waypoint.put("distance",distance);
+                waypointCollection.add(waypoint);
+            }
 
-            HashMap<String, String> waypoint = new HashMap<String, String>();
-            waypoint.put("instruction",direction);
-            waypointCollection.add(waypoint);
         }
         // setupList
         ListAdapter adapter = new SimpleAdapter(WaypointListview.this, waypointCollection,
-                R.layout.waypoint_row, new String[] {"instruction"}, new int[] { R.id.instruction});
+                R.layout.waypoint_row, new String[] {"instruction","distance"}, new int[] { R.id.instruction,R.id.distance});
         // setList follow prepare
         listView.setAdapter(adapter);
+
+
     }
 }

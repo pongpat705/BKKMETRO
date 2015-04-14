@@ -70,12 +70,13 @@ public class DistanceActivity extends navigation_drawer {
 
     public void waypointClick(View v){
         RelativeLayout parentRow = (RelativeLayout)v.getParent();
-        TextView station = (TextView)parentRow.getChildAt(0);
+        TextView stationName = (TextView)parentRow.getChildAt(0);
         TextView lat = (TextView)parentRow.getChildAt(2);
         TextView lng = (TextView)parentRow.getChildAt(3);
         LatLng desLatLng = new LatLng(Double.valueOf((String) lat.getText()),Double.valueOf((String) lng.getText()));
         Intent waypoint = new Intent(DistanceActivity.this,WaypointListview.class);
         waypoint.putExtra("desLatLng", desLatLng);
+        waypoint.putExtra("station", stationName.getText());
         startActivity(waypoint); // call new Activity
     }
 

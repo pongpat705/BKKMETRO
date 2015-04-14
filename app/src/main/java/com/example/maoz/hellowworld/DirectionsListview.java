@@ -3,6 +3,7 @@ package com.example.maoz.hellowworld;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +19,7 @@ import java.util.HashMap;
 
 public class DirectionsListview extends navigation_drawer {
     private ListView listView;
-
+    private TextView headList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class DirectionsListview extends navigation_drawer {
 
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.direction_list);
+        headList = (TextView)findViewById(R.id.Direction_Head);
         preparingList(arrayPath);
     }
 
@@ -59,6 +62,11 @@ public class DirectionsListview extends navigation_drawer {
         // looping through All Contacts
         ArrayList<HashMap<String,String>> direction_collection;
         direction_collection = new ArrayList<HashMap<String, String>>();
+        String typeTemp = null;
+
+        int lastIndex = arrayPath.size()-1;//ค่าสุดท้ายที่เพิ่มหลังสุด
+        int b4lastIndex = arrayPath.size()-2;//สถานีสุดท้ายเป็น Destination
+
         for (int i = 0; i < arrayPath.size(); i++) {
 
             // tmp hashmap for single direction
@@ -67,13 +75,30 @@ public class DirectionsListview extends navigation_drawer {
             // adding each child node to HashMap key => value
             for (int j = 0; j<stationList.size();j++) {
                 if (stationList.get(j).getStations().equals(arrayPath.get(i))) {
-                    direction.put("status", "Travel with "+stationList.get(j).getType());
-                    direction.put("station", stationList.get(j).getStations());
+                    String type = stationList.get(j).getType();
+
+                        if (i == 0){
+                            direction.put("status", "Start with "+stationList.get(j).getType());
+                            direction.put("station", stationList.get(j).getStations());
+                            typeTemp = type;
+                        }else if (i == b4lastIndex){
+                            direction.put("status", "Destination is "+stationList.get(j).getType());
+                            direction.put("station", stationList.get(j).getStations());
+                            typeTemp = type;
+                        }else if (!type.equals(typeTemp)){
+                            direction.put("status", "InterChange with "+stationList.get(j).getType());
+                            direction.put("station", stationList.get(j).getStations());
+                            typeTemp = type;
+                        }else if (type.equals(typeTemp)){
+                            direction.put("status", "Travel with "+stationList.get(j).getType());
+                            direction.put("station", stationList.get(j).getStations());
+                            typeTemp = type;
+                        }
+                    typeTemp = type;
                 }
             }
-            if (i == arrayPath.size()-1){
-                direction.put("status", "Summary");
-                direction.put("station", arrayPath.get(i));
+            if (i == lastIndex){
+                headList.setText(arrayPath.get(i));
             }
             // adding contact to direction collection
             direction_collection.add(direction);

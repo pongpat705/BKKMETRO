@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created by pongpat705 on 4/13/2015.
  */
@@ -57,12 +59,13 @@ public class JSONRouteWaypoint {
         return d;
     }
 
-    public ArrayList<String> convert(JSONObject jObject) {
+    public ArrayList<HashMap<String,String>> convert(JSONObject jObject) {
 
-        ArrayList<String> routes = new ArrayList<>();
+        ArrayList<HashMap<String,String>> routes = new ArrayList<>();
         JSONArray jRoutes = null;
         JSONArray jLegs = null;
         JSONArray jSteps = null;
+        JSONObject jDistance = null;
 
 
         try {
@@ -76,11 +79,22 @@ public class JSONRouteWaypoint {
                 /** Traversing all legs */
                 for (int j = 0; j < jLegs.length(); j++) {
                     jSteps = ((JSONObject) jLegs.get(j)).getJSONArray("steps");
+                    jDistance = ((JSONObject) jLegs.get(j)).getJSONObject("distance");
+                    HashMap<String, String> allDistance = new HashMap<String, String>();
+                    allDistance.put("distance", jDistance.getString("text"));
+                    routes.add(allDistance);
+
                     /** Traversing all steps */
                     for (int k = 0; k < jSteps.length(); k++) {
                         String instructions = "";
                         instructions =  ((JSONObject) jSteps.get(k)).get("html_instructions").toString().replaceAll("\\<.*?>"," ");
-                        routes.add(instructions);
+                        HashMap<String, String> direction = new HashMap<String, String>();
+                        direction.put("direction",instructions);
+
+                        jDistance = ((JSONObject) jSteps.get(k)).getJSONObject("distance");
+                        direction.put("distance", jDistance.getString("text"));
+
+                        routes.add(direction);
 
                     }
 
@@ -95,9 +109,9 @@ public class JSONRouteWaypoint {
 
     }
 
-    public ArrayList<String> getWaypoint(String... jsondata){
+    public ArrayList<HashMap<String,String>> getWaypoint(String... jsondata){
         JSONObject jObject;
-        ArrayList<String> routes = null;
+        ArrayList<HashMap<String,String>> routes = null;
         try{
             jObject = new JSONObject(jsondata[0]);
             JSONRouteWaypoint parser = new JSONRouteWaypoint();

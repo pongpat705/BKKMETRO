@@ -6,11 +6,23 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.maoz.hellowworld.DirectionsListview">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentTop="true"
+        android:text="Large Text"
+        android:textSize="15sp"
+        android:id="@+id/Direction_Head" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/direction_list"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/Direction_Head"/>
+
+
 
 </RelativeLayout>
