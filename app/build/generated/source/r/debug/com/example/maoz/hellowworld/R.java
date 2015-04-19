@@ -1393,8 +1393,9 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
         public static final int title_activity_distance=0x7f0b002e;
         public static final int title_activity_maps=0x7f0b002f;
         public static final int title_activity_navigation_drawer=0x7f0b0030;
-        public static final int title_activity_waypoint=0x7f0b0031;
-        public static final int wallet_buy_button_place_holder=0x7f0b0032;
+        public static final int title_activity_searchactivity=0x7f0b0031;
+        public static final int title_activity_waypoint=0x7f0b0032;
+        public static final int wallet_buy_button_place_holder=0x7f0b0033;
     }
     public static final class style {
         /**  Customize your theme here. 

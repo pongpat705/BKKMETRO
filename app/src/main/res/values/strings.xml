@@ -3,7 +3,7 @@
     <string-array name="items">
         <item>Search Directions</item>
         <item>Nearby and Walking Path</item>
-        <item>View Time Table</item>
+        <item>View Train Info</item>
         <item>About us</item>
     </string-array>
     <string name="app_name">Public Transportation</string>
@@ -12,7 +12,8 @@
     <string name="title_activity_maps">Walking Path</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="title_activity_navigation_drawer">Search Direction</string>
+    <string name="title_activity_navigation_drawer">Menu</string>
+    <string name="title_activity_searchactivity">Search Directions</string>
     <string name="title_activity_distance">Nearby and Walking Path</string>
     <string name="title_activity_directions">Directions sequence</string>
     <string name="title_activity_waypoint">Walking sequence</string>

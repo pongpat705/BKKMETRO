@@ -64,7 +64,12 @@ public class navigation_drawer extends FragmentActivity {
         if (!appLocationManager.isEnabled()){
             turnONGPS(this);
         }
-        gettingData();
+        if (stationList.isEmpty() && pathList.isEmpty()){
+            gettingData();
+        }else{
+            Log.d("got it","no load any more");
+        }
+
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.drawable.ic_drawer,R.string.drawer_open,R.string.drawer_close){
             public void onDrawerClosed(View view) {
