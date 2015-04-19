@@ -42,7 +42,6 @@ public class navigation_drawer extends FragmentActivity {
     private ListView drawerListView;
     DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     public AppLocationManager appLocationManager;
 
@@ -53,6 +52,8 @@ public class navigation_drawer extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
+
+        mTitle = getTitle().toString();
 
         drawerListViewItems = getResources().getStringArray(R.array.items);
         drawerListView = (ListView)findViewById(R.id.left_drawer);
@@ -75,7 +76,7 @@ public class navigation_drawer extends FragmentActivity {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getActionBar().setTitle(mDrawerTitle);
+                getActionBar().setTitle("Menu");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };

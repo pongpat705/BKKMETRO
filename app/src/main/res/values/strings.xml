@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="items">
-        <item>Directions</item>
+        <item>Search Directions</item>
         <item>Nearby and Walking Path</item>
         <item>View Time Table</item>
-        <item>Item 4</item>
-        <item>Item 5</item>
-        <item>Item 6</item>
+        <item>About us</item>
     </string-array>
     <string name="app_name">Public Transportation</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_maps">Find Walking Path</string>
+    <string name="title_activity_maps">Walking Path</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="title_activity_navigation_drawer">Directions</string>
-    <string name="title_activity_distance">Nearby Stations</string>
-    <string name="title_activity_directions">Directions</string>
-    <string name="title_activity_waypoint">WaypointActivity</string>
+    <string name="title_activity_navigation_drawer">Search Direction</string>
+    <string name="title_activity_distance">Nearby and Walking Path</string>
+    <string name="title_activity_directions">Directions sequence</string>
+    <string name="title_activity_waypoint">Walking sequence</string>
 
 </resources>

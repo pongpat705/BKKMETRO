@@ -43,16 +43,6 @@ public class NearbyStations extends navigation_drawer {
         listView = (ListView)findViewById(R.id.distance_list);
         preparingList();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
-                String ltln = item.get("lat")+","+item.get("lng");
-                MyToast(ltln);
-
-            }
-        });
-
     }
 
     public void mapviewClick(View v){
