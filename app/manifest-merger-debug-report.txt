@@ -99,7 +99,7 @@ ADDED from AndroidManifest.xml:42:9
 		ADDED from AndroidManifest.xml:44:13
 	android:name
 		ADDED from AndroidManifest.xml:43:13
-activity#com.example.maoz.hellowworld.DistanceActivity
+activity#com.example.maoz.hellowworld.NearbyStations
 ADDED from AndroidManifest.xml:46:9
 	android:label
 		ADDED from AndroidManifest.xml:48:13

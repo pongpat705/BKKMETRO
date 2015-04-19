@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 
 
-public class DistanceActivity extends navigation_drawer {
+public class NearbyStations extends navigation_drawer {
     private ListView listView;
     NumberFormat df2 = new DecimalFormat("###.#");
 
@@ -61,7 +61,7 @@ public class DistanceActivity extends navigation_drawer {
         TextView lat = (TextView)parentRow.getChildAt(2);
         TextView lng = (TextView)parentRow.getChildAt(3);
 
-        Intent map = new Intent(DistanceActivity.this,MapView.class);
+        Intent map = new Intent(NearbyStations.this,MapView.class);
         map.putExtra("station",station.getText());
         map.putExtra("lat",lat.getText());
         map.putExtra("lng",lng.getText());
@@ -74,7 +74,7 @@ public class DistanceActivity extends navigation_drawer {
         TextView lat = (TextView)parentRow.getChildAt(2);
         TextView lng = (TextView)parentRow.getChildAt(3);
         LatLng desLatLng = new LatLng(Double.valueOf((String) lat.getText()),Double.valueOf((String) lng.getText()));
-        Intent waypoint = new Intent(DistanceActivity.this,WaypointListview.class);
+        Intent waypoint = new Intent(NearbyStations.this,WaypointListview.class);
         waypoint.putExtra("desLatLng", desLatLng);
         waypoint.putExtra("station", stationName.getText());
         startActivity(waypoint); // call new Activity
@@ -129,7 +129,7 @@ public class DistanceActivity extends navigation_drawer {
         }
 
         // setupList
-        ListAdapter adapter = new SimpleAdapter(DistanceActivity.this, station_collection,
+        ListAdapter adapter = new SimpleAdapter(NearbyStations.this, station_collection,
                 R.layout.distance_row, new String[] { "station_name","distance","lat","lng"}, new int[] { R.id.stations,R.id.distance,R.id.lat,R.id.lng});
         // setList follow prepare
         listView.setAdapter(adapter);

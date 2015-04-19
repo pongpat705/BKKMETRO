@@ -214,7 +214,7 @@ public class MapView extends navigation_drawer{
             // Adding all the points in the route to LineOptions
             lineOptions.addAll(points);
         }
-        MyToast("DistanceActivity:" + distance + ", Duration:" + duration);
+        MyToast("NearbyStations:" + distance + ", Duration:" + duration);
 
         // Drawing polyline in the Google Map for the i-th route
         return lineOptions;

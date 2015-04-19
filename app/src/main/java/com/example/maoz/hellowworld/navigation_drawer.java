@@ -124,12 +124,11 @@ public class navigation_drawer extends FragmentActivity {
                     startActivity(main); // call new Activity
                     break;
                 case 1:
-                    Intent distance = new Intent(navigation_drawer.this,DistanceActivity.class);
+                    Intent distance = new Intent(navigation_drawer.this,NearbyStations.class);
                     startActivity(distance); // call new Activity
                     break;
                 case 2:
-                    Intent map = new Intent(navigation_drawer.this,MapView.class);
-                    startActivity(map); // call new Activity
+
                     break;
             }
             drawerLayout.closeDrawer(drawerListView);
