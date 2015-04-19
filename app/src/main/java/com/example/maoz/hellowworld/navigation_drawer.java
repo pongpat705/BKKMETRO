@@ -66,8 +66,6 @@ public class navigation_drawer extends FragmentActivity {
         }
         if (stationList.isEmpty() && pathList.isEmpty()){
             gettingData();
-        }else{
-            Log.d("got it","no load any more");
         }
 
 
@@ -118,6 +116,11 @@ public class navigation_drawer extends FragmentActivity {
         actionBarDrawerToggle.syncState();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener, com.example.maoz.hellowworld.DrawerItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
@@ -132,9 +135,6 @@ public class navigation_drawer extends FragmentActivity {
                 case 1:
                     Intent distance = new Intent(navigation_drawer.this,NearbyStations.class);
                     startActivity(distance); // call new Activity
-                    break;
-                case 2:
-
                     break;
             }
             drawerLayout.closeDrawer(drawerListView);
