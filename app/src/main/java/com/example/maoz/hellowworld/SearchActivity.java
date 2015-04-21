@@ -34,12 +34,20 @@ public class SearchActivity extends navigation_drawer{
 
 
         //
+        searchButton = (Button) findViewById(R.id.button);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        searchButton = (Button)findViewById(R.id.button);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioButton = (RadioButton)findViewById(checkedId);
+                MyToast((String) radioButton.getText());
+            }
+        });
 
         for(int i=0;i<stationList.size();i++) {//insert data from database to list here
             Stations.add(stationList.get(i).getStations());
         }
+
 
         final Spinner stationtop = (Spinner)findViewById(R.id.spinner);
         final Spinner stationdown = (Spinner)findViewById(R.id.spinner2);
@@ -53,10 +61,10 @@ public class SearchActivity extends navigation_drawer{
             public void onClick(View v) {
                 int selectedRadio = radioGroup.getCheckedRadioButtonId();
                 radioButton = (RadioButton) findViewById(selectedRadio);
-                MyToast((String) radioButton.getText());
+                String type = ((String) radioButton.getText());
                 String source = stationtop.getSelectedItem().toString();
                 String destination = stationdown.getSelectedItem().toString();
-                arrayPath = CalculateShortestPath(source,destination);
+                arrayPath = CalculateShortestPath(source,destination,type);
 
                 Intent direction = new Intent(SearchActivity.this,DirectionsListview.class);
                 direction.putExtra("arrayPath",arrayPath);

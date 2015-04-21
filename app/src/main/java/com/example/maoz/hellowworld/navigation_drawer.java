@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,7 +80,7 @@ public class navigation_drawer extends FragmentActivity {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getActionBar().setTitle("Menu");
+                getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -261,22 +262,80 @@ public class navigation_drawer extends FragmentActivity {
         toast.setView(Layout);
         toast.show();
     }
-    public ArrayList CalculateShortestPath(String source, String destination){
+
+    public double PriceH(String source,String destination){
+        double heuristic = 0.0;
+        Map<String, Double> BTS = new HashMap<String, Double>();
+        BTS.put("BTS", 0.0);
+        BTS.put("MRT", 1.0);
+        BTS.put("ARL", 1.0);
+        BTS.put("BRT", 1.0);
+
+        Map<String, Double> BRT = new HashMap<String, Double>();
+        BRT.put("BRT", 0.0);
+        BRT.put("BTS", 1.0);
+        BRT.put("MRT", 2.0);
+        BRT.put("ARL", 2.0);
+
+        Map<String, Double> MRT = new HashMap<String, Double>();
+        MRT.put("MRT", 0.0);
+        MRT.put("BTS", 1.0);
+        MRT.put("BRT", 2.0);
+        MRT.put("ARL", 1.0);
+
+        Map<String, Double> ARL = new HashMap<String, Double>();
+        ARL.put("ARL", 0.0);
+        ARL.put("BTS", 1.0);
+        ARL.put("MRT", 1.0);
+        ARL.put("BRT", 2.0);
+
+        switch (source){
+            case "BTS":
+                    heuristic = BTS.get(destination);
+                break;
+            case "BRT":
+                    heuristic = BRT.get(destination);
+                break;
+            case "MRT":
+                    heuristic = MRT.get(destination);
+                break;
+            case "ARL":
+                    heuristic = ARL.get(destination);
+                break;
+
+        }
+        return heuristic;
+    }
+
+
+    public ArrayList CalculateShortestPath(String source, String destination, String type){
         Map<String, Map<String, Double>> hueristic = new HashMap<String, Map<String, Double>>();
         ArrayList<String> arrayPath = new ArrayList<>();
         List<Map<String, Double>> list = new ArrayList<Map<String, Double>>();// ลิสของ map
+        double distance,price;
         for (int i = 0; i<stationList.size();i++){
             //System.out.println(stationList.get(i).getStations() + "-" + stationList.get(i).getLat() + "-" + stationList.get(i).getLng());
             Map<String, Double> map = new HashMap<String, Double>(); //map ของข้อมูล คุ่อันดับ สถานีและระยะขจัด
             for (int j = 0; j<stationList.size();j++){
-                double sLat,sLng,dLat,dLng,ans;
-                sLat = stationList.get(i).getLat();
-                sLng = stationList.get(i).getLat();
-                dLat = stationList.get(j).getLat();
-                dLng = stationList.get(j).getLat();
-                ans = calculateDistance(sLat, sLng, dLat, dLng);//ส่งไปคำนวณหาระยะทาง
-                map.put(stationList.get(j).getStations(), ans);//กำหนด Heuristic ให้กับสถานี
-                //System.out.println(" "+i+" "+j);
+                if (type.equals("Distance")){
+                    double sLat,sLng,dLat,dLng,ans;
+                    sLat = stationList.get(i).getLat();
+                    sLng = stationList.get(i).getLat();
+                    //
+                    dLat = stationList.get(j).getLat();
+                    dLng = stationList.get(j).getLat();
+                    ans = calculateDistance(sLat, sLng, dLat, dLng);//ส่งไปคำนวณหาระยะทาง
+                    map.put(stationList.get(j).getStations(), ans);//กำหนด Heuristic ให้กับสถานี
+                }else{
+                    String s,d;
+                    double ans;
+                    s = stationList.get(i).getType();
+                    d = stationList.get(j).getType();
+
+                    ans = PriceH(s,d);
+                    map.put(stationList.get(j).getStations(),ans);
+                }
+
             }
             list.add(map);
         }
@@ -294,17 +353,36 @@ public class navigation_drawer extends FragmentActivity {
             graph.addNode(String.valueOf(stationList.get(i).getStations()));//เอาชื่อสถานีไปเป็น node
         }
 
-        for (int i = 0; i < pathList.size();i++){
-            //add edge here
-            graph.addEdge(pathList.get(i).getStation_a(),pathList.get(i).getStation_b(),pathList.get(i).getDistance());//เพิ่มเส้นเชื่อมระหว่างสถานี
-        }
+
+         //add edge here
+         if (type.equals("Distance")){
+             for (int i = 0; i < pathList.size();i++){
+               graph.addEdge(pathList.get(i).getStation_a(),pathList.get(i).getStation_b(),pathList.get(i).getDistance());//เพิ่มเส้นเชื่อมระหว่างสถานี
+             }
+         }else{
+             for (int i = 0; i < pathList.size();i++){
+
+                if (pathList.get(i).getType().equals("WALK")){
+                    graph.addEdge(pathList.get(i).getStation_a(),pathList.get(i).getStation_b(),1.0);
+                }else{
+                    graph.addEdge(pathList.get(i).getStation_a(),pathList.get(i).getStation_b(),0.0);
+                }
+             }
+         }
 
 
         AStar<String> aStar = new AStar<String>(graph);
         for (String path : aStar.astar(source, destination)) {
            arrayPath.add(path);
         }
-        arrayPath.add(source + " to " + destination + " = " + Math.round(aStar.distance)+" kilometer");
+        distance = aStar.distance;
+
+        if (type.equals("Distance")){
+            arrayPath.add(source + " to " + destination + " = " + Math.round(distance)+" kilometer");
+        }else{
+            arrayPath.add(source + " to " + destination + " = " + Math.round(distance)+" bath");
+        }
+
 
         return arrayPath;
     }

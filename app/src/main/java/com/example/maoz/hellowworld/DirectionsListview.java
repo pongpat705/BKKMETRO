@@ -86,15 +86,15 @@ public class DirectionsListview extends navigation_drawer {
                             direction.put("station", stationList.get(j).getStations());
                             typeTemp = type;
                         }else if (!type.equals(typeTemp)){
-                            direction.put("status", "InterChange with "+stationList.get(j).getType());
+                            direction.put("status", "InterChange to "+stationList.get(j).getType());
                             direction.put("station", stationList.get(j).getStations());
                             typeTemp = type;
                         }else if (type.equals(typeTemp)){
-                            direction.put("status", "Travel with "+stationList.get(j).getType());
+                            direction.put("status", "Travel in "+stationList.get(j).getType());
                             direction.put("station", stationList.get(j).getStations());
                             typeTemp = type;
                         }
-                    typeTemp = type;
+
                 }
             }
             if (i == lastIndex){
