@@ -8,12 +8,18 @@ public class Station_objects {
     private Double lat;
     private Double lng;
     private String type;
+    private int price;
+    private int extd;
 
-    public Station_objects(String stations, Double lat, Double lng,String type){
+
+
+    public Station_objects(String stations, Double lat, Double lng,String type,int price,int extd){
         this.stations = stations;
         this.lat = lat;
         this.lng = lng;
         this.type = type;
+        this.price = price;
+        this.extd = extd;
     }
 
     public String getStations(){
@@ -27,6 +33,12 @@ public class Station_objects {
     }
     public String getType() {
         return type;
+    }
+    public int getPrice() {
+        return price;
+    }
+    public int getExtd() {
+        return extd;
     }
 
 }

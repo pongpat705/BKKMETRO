@@ -3,7 +3,6 @@ package com.example.maoz.hellowworld;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,25 +58,40 @@ public class DirectionsListview extends navigation_drawer {
         return super.onOptionsItemSelected(item);
     }
     private void preparingList(ArrayList<String> arrayPath){
-        // looping through All Contacts
-        ArrayList<HashMap<String,String>> direction_collection;
-        direction_collection = new ArrayList<HashMap<String, String>>();
+        // เอาไว้เก็บรายการแสดงผล
+        ArrayList<HashMap<String,String>> direction_collection = new ArrayList<>();
         String typeTemp = null;
+        int cost,
+        btsCount = 0,
+        btsCost = 0,
+        btsExtd = 0,
+        brtCount = 0,
+        brtCost = 0,
+        mrtCount = 0,
+        mrtCost = 0,
+        arlCount = 0,
+        arlCost = 0;
+        int btsCsum = 0,
+                brtCsum = 0,
+                mrtCsum = 0,
+                arlCsum = 0;
+
 
         int lastIndex = arrayPath.size()-1;//ค่าสุดท้ายที่เพิ่มหลังสุด
         int b4lastIndex = arrayPath.size()-2;//สถานีสุดท้ายเป็น Destination
 
         for (int i = 0; i < arrayPath.size(); i++) {
-
             // tmp hashmap for single direction
             HashMap<String, String> direction = new HashMap<String, String>();
-
             // adding each child node to HashMap key => value
             for (int j = 0; j<stationList.size();j++) {
+                //เช้คว่าชื่อสถานีอันไหนตรงกับข้อมูลที่มีบ้าง เพื่อที่จะสามารถดึงเอา object ออกมาได้
                 if (stationList.get(j).getStations().equals(arrayPath.get(i))) {
                     String type = stationList.get(j).getType();
 
+
                         if (i == 0){
+                            //จัดการแสดงผล
                             direction.put("status", "Start with "+stationList.get(j).getType());
                             direction.put("station", stationList.get(j).getStations());
                             typeTemp = type;
@@ -89,24 +103,106 @@ public class DirectionsListview extends navigation_drawer {
                             direction.put("status", "InterChange to "+stationList.get(j).getType());
                             direction.put("station", stationList.get(j).getStations());
                             typeTemp = type;
+
+                            //init การนับ เพราะลงจากระบบแล้ว
+                            btsCount = 0;
+                            brtCount = 0;
+                            mrtCount = 0;
+                            arlCount = 0;
+                            //เอาค่าใช้จ่ายไปเก็บ Sum เพราะลงจากระบบแล้ว init เป็น 0 ด้วย
+                            btsCsum += btsCost;
+                            btsCost = 0;
+                            brtCsum += brtCost;
+                            brtCost = 0;
+                            mrtCsum += mrtCost;
+                            mrtCost = 0;
+                            arlCsum += arlCost;
+                            arlCost = 0;
+
                         }else if (type.equals(typeTemp)){
                             direction.put("status", "Travel in "+stationList.get(j).getType());
                             direction.put("station", stationList.get(j).getStations());
                             typeTemp = type;
                         }
 
+                    switch (type){
+                        case "BTS":
+                            if (stationList.get(j).getExtd() == 1){
+                                btsExtd = stationList.get(j).getPrice();
+                            }else {
+                                if (btsCount <= 1){
+                                    btsCost = stationList.get(j).getPrice();
+                                }else if (btsCount == 2){
+                                    btsCost = 22;
+                                }else if (btsCount > 2 && btsCount <8){
+                                    btsCost = btsCost + 3;
+                                }else {
+                                    btsCost = 42;
+                                }
+                                btsCount++;
+                            }
+
+                            break;
+                        case "BRT":
+                            if (brtCount > 1){
+                                brtCost = stationList.get(j).getPrice();
+                            }else if (brtCount > 3){
+                                brtCost = stationList.get(j).getPrice() + 2;
+                            }else if (brtCount > 5){
+                                brtCost = stationList.get(j).getPrice() + 4;
+                            }else if (brtCount > 8){
+                                brtCost = stationList.get(j).getPrice() + 6;
+                            }else {
+                                brtCost = stationList.get(j).getPrice() + 8;
+                            }
+                            brtCount++;
+                            break;
+                        case "MRT":
+                            if (mrtCount <= 1){
+                                mrtCost = stationList.get(j).getPrice();
+                            }else if (mrtCount == 2||mrtCount == 5||mrtCount == 8||mrtCount == 11){
+                                mrtCost = mrtCost + 3;
+                            }else if (mrtCount > 11 && mrtCount < 18 ){
+                                mrtCost = 42;
+                            }else{
+                                mrtCost = mrtCost + 2;
+                            }
+                            mrtCount++;
+
+                            break;
+                        case "ARL":
+                            if (arlCount <= 1){
+                                arlCost = stationList.get(j).getPrice();
+                            }else{
+                                arlCost = arlCost + 5;
+                            }
+                            arlCount++;
+                            break;
+                    }
                 }
             }
-            if (i == lastIndex){
-                headList.setText(arrayPath.get(i));
-            }
-            // adding contact to direction collection
+            // เอาการแสดงผลไปใส่ในรายการอีกทีหนึ่ง
             direction_collection.add(direction);
         }
-        // setupList
+        //เก็บเพิ่มค่าใช้จ่ายไว้ใน sum
+        btsCsum += btsCost;
+        brtCsum += brtCost;
+        mrtCsum += mrtCost;
+        arlCsum += arlCost;
+        //รวมผลค่าใช้จ่ายไว้ใน cost
+        cost = btsCsum+brtCsum+mrtCsum+arlCsum+btsExtd;
+        //แสดงผลบน TextBox ด้านบน
+        headList.setText(arrayPath.get(lastIndex)+""+
+                "\nCost = "+cost+" THB"+
+                "\nbts = "+btsCsum+
+                "\nbrt = "+brtCsum+
+                "\nmrt = "+mrtCsum+
+                "\narl = "+arlCsum+
+                "\nextend = "+btsExtd);
+        // setupList เพื่อที่จะแสดงผลโดยใช้ข้อมูลจากรายการ direction_collection
         ListAdapter adapter = new SimpleAdapter(DirectionsListview.this, direction_collection,
                 R.layout.direction_row, new String[] { "status","station"}, new int[] { R.id.status,R.id.stations});
-        // setList follow prepare
+        // แสดงผลตามนี้
         listView.setAdapter(adapter);
     }
 }

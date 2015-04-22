@@ -171,7 +171,6 @@ public class AStar<T> extends navigation_drawer {
      * @return              the path from source to destination
      */
     public List<T> astar(T source, T destination) {
-        double Distance;
         /**
          * http://stackoverflow.com/questions/20344041/why-does-priority-queue-has-default-initial-capacity-of-11
          */
