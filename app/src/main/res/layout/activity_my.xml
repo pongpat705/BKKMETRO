@@ -48,13 +48,13 @@
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Price" />
+            android:text="Less Tranfer" />
         <RadioButton
             android:id="@+id/distance"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:checked="true"
-            android:text="Distance" />
+            android:text="Less Distance" />
         </RadioGroup>
 
     <Button

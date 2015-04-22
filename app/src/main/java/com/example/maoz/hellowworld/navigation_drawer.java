@@ -306,7 +306,7 @@ public class navigation_drawer extends FragmentActivity {
             Map<String, Double> map = new HashMap<>(); //map ของข้อมูล คุ่อันดับ สถานีและระยะขจัด
             for (int j = 0; j<stationList.size();j++){//ลุปสำหรับข้อมูลปลายทาง
                 //ถ้าเงื่อนไขเป็นระยะทาง
-                if (type.equals("Distance")){
+                if (type.equals("Less Distance")){
                     double sLat,sLng,dLat,dLng,ans;
                     //ต้นทาง
                     sLat = stationList.get(i).getLat();
@@ -346,7 +346,7 @@ public class navigation_drawer extends FragmentActivity {
         }
 
          //เพิ่มเส้นเชื่อมให้โหนดในกราฟ
-         if (type.equals("Distance")){//ถ้าเป็นเงื่อนไขระยะทางเพิ่มแบบนี้
+         if (type.equals("Less Distance")){//ถ้าเป็นเงื่อนไขระยะทางเพิ่มแบบนี้
              for (int i = 0; i < pathList.size();i++){
                graph.addEdge(pathList.get(i).getStation_a(),pathList.get(i).getStation_b(),pathList.get(i).getDistance());//เพิ่มเส้นเชื่อมระหว่างสถานี
              }
@@ -367,7 +367,7 @@ public class navigation_drawer extends FragmentActivity {
         }
         distance = aStar.distance;
         //เพิ่มอาเร ช่องสุดท้ายเป็นข้อมูลสรุป
-        if (type.equals("Distance")){
+        if (type.equals("Less Distance")){
             arrayPath.add(source + " to " + destination + " = " + Math.round(distance)+" kilometer");
         }else {
             arrayPath.add(source + " to " + destination);
