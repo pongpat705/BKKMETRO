@@ -3,7 +3,6 @@ package com.example.maoz.hellowworld;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -318,14 +317,14 @@ public class navigation_drawer extends FragmentActivity {
                     //ใส่ข้อมูลระยะขจัดให้กับสถานี j
                     map.put(stationList.get(j).getStations(), ans);//กำหนด Heuristic ให้กับสถานี
                 }else{//ถ้าเป็นราคา ใช้การเปลี่ยนสถานีน้อยที่สุดจะช่วยลดค่าใช้จ่าย
-                    String s,d;
+                    String[] s,d;
                     double ans;
                     //ต้นทาง
-                    s = stationList.get(i).getType();
+                    s = stationList.get(i).getType().split("_");
                     //ปลายทาง
-                    d = stationList.get(j).getType();
+                    d = stationList.get(j).getType().split("_");
 
-                    ans = PriceH(s,d);
+                    ans = PriceH(s[0],d[0]);
                     map.put(stationList.get(j).getStations(),ans);
                 }
             }

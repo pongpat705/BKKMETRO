@@ -55,7 +55,7 @@
         android:layout_height="35sp"
         android:layout_marginLeft="150dip"
         android:layout_marginTop="5dip"
-        android:text="WayPoint"
+        android:text="Directions"
         android:id="@+id/waypoint"
         android:onClick="waypointClick"
         />
@@ -66,7 +66,7 @@
         android:layout_toEndOf="@+id/waypoint"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dip"
-        android:text="MapView"
+        android:text="Mapview"
         android:id="@+id/mapview"
         android:onClick="mapviewClick" />
 

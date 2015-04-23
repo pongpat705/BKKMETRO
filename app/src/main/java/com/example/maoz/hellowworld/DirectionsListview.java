@@ -3,10 +3,14 @@ package com.example.maoz.hellowworld;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -19,6 +23,9 @@ import java.util.HashMap;
 public class DirectionsListview extends navigation_drawer {
     private ListView listView;
     private TextView headList;
+    static final String STATUS = "status";
+    static final String STATION = "station";
+    static final String IMAGE = "image";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,8 @@ public class DirectionsListview extends navigation_drawer {
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.direction_list);
         headList = (TextView)findViewById(R.id.Direction_Head);
+
+
         preparingList(arrayPath);
     }
 
@@ -88,44 +97,53 @@ public class DirectionsListview extends navigation_drawer {
                 //เช้คว่าชื่อสถานีอันไหนตรงกับข้อมูลที่มีบ้าง เพื่อที่จะสามารถดึงเอา object ออกมาได้
                 if (stationList.get(j).getStations().equals(arrayPath.get(i))) {
                     String type = stationList.get(j).getType();
+                    String[] typeSplit = type.split("_");
 
 
                         if (i == 0){
                             //จัดการแสดงผล
-                            direction.put("status", "Start with "+stationList.get(j).getType());
-                            direction.put("station", stationList.get(j).getStations());
+                            direction.put(STATUS, "Start with "+stationList.get(j).getType());
+                            direction.put(STATION, stationList.get(j).getStations());
+                            direction.put(IMAGE,String.valueOf(R.drawable.start100));
                             typeTemp = type;
                         }else if (i == b4lastIndex){
-                            direction.put("status", "Destination is "+stationList.get(j).getType());
-                            direction.put("station", stationList.get(j).getStations());
+                            direction.put(STATUS, "Destination is "+stationList.get(j).getType());
+                            direction.put(STATION, stationList.get(j).getStations());
+                            direction.put(IMAGE,String.valueOf(R.drawable.finish100));
                             typeTemp = type;
                         }else if (!type.equals(typeTemp)){
-                            direction.put("status", "InterChange to "+stationList.get(j).getType());
-                            direction.put("station", stationList.get(j).getStations());
+                            direction.put(STATUS, "InterChange to "+stationList.get(j).getType());
+                            direction.put(STATION, stationList.get(j).getStations());
+                            direction.put(IMAGE,String.valueOf(R.drawable.tranfer100));
+
+                            if ((type.equals("BTS_SIL") && typeTemp.equals("BTS_SUK"))||(type.equals("BTS_SUK") && typeTemp.equals("BTS_SIL"))){
+                            //ไม่ต้องทำไร
+                            }else{
+                                //init การนับ เพราะลงจากระบบแล้ว
+                                btsCount = 0;
+                                brtCount = 0;
+                                mrtCount = 0;
+                                arlCount = 0;
+                                //เอาค่าใช้จ่ายไปเก็บ Sum เพราะลงจากระบบแล้ว init เป็น 0 ด้วย
+                                btsCsum += btsCost;
+                                btsCost = 0;
+                                brtCsum += brtCost;
+                                brtCost = 0;
+                                mrtCsum += mrtCost;
+                                mrtCost = 0;
+                                arlCsum += arlCost;
+                                arlCost = 0;
+                            }
+
                             typeTemp = type;
-
-                            //init การนับ เพราะลงจากระบบแล้ว
-                            btsCount = 0;
-                            brtCount = 0;
-                            mrtCount = 0;
-                            arlCount = 0;
-                            //เอาค่าใช้จ่ายไปเก็บ Sum เพราะลงจากระบบแล้ว init เป็น 0 ด้วย
-                            btsCsum += btsCost;
-                            btsCost = 0;
-                            brtCsum += brtCost;
-                            brtCost = 0;
-                            mrtCsum += mrtCost;
-                            mrtCost = 0;
-                            arlCsum += arlCost;
-                            arlCost = 0;
-
                         }else if (type.equals(typeTemp)){
-                            direction.put("status", "Travel in "+stationList.get(j).getType());
-                            direction.put("station", stationList.get(j).getStations());
+                            direction.put(STATUS, "Travel in "+stationList.get(j).getType());
+                            direction.put(STATION, stationList.get(j).getStations());
+                            direction.put(IMAGE,String.valueOf(R.drawable.train100));
                             typeTemp = type;
                         }
 
-                    switch (type){
+                    switch (typeSplit[0]){
                         case "BTS":
                             if (stationList.get(j).getExtd() == 1){
                                 btsExtd = stationList.get(j).getPrice();
@@ -194,15 +212,17 @@ public class DirectionsListview extends navigation_drawer {
         //แสดงผลบน TextBox ด้านบน
         headList.setText(arrayPath.get(lastIndex)+""+
                 "\nCost = "+cost+" THB"+
-                "\nbts = "+btsCsum+
-                "\nbrt = "+brtCsum+
-                "\nmrt = "+mrtCsum+
-                "\narl = "+arlCsum+
-                "\nextend = "+btsExtd);
+                "\nBTS = "+btsCsum+" THB"+
+                "\nBRT = "+brtCsum+" THB"+
+                "\nMRT = "+mrtCsum+" THB"+
+                "\nARL = "+arlCsum+" THB"+
+                "\nBTSEXTEND = "+btsExtd+" THB");
         // setupList เพื่อที่จะแสดงผลโดยใช้ข้อมูลจากรายการ direction_collection
+
         ListAdapter adapter = new SimpleAdapter(DirectionsListview.this, direction_collection,
-                R.layout.direction_row, new String[] { "status","station"}, new int[] { R.id.status,R.id.stations});
+                R.layout.direction_row, new String[] {IMAGE,STATUS,STATION}, new int[] {R.id.list_icon, R.id.status,R.id.stations});
         // แสดงผลตามนี้
         listView.setAdapter(adapter);
     }
 }
+
