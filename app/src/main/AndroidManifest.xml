@@ -56,6 +56,10 @@
             android:name=".WaypointListview"
             android:label="@string/title_activity_waypoint" >
         </activity>
+        <activity
+            android:name=".TrainInfo"
+            android:label="@string/title_activity_train_info" >
+        </activity>
     </application>
 
 </manifest>

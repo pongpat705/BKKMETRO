@@ -131,6 +131,9 @@ public class navigation_drawer extends FragmentActivity {
                     Intent distance = new Intent(navigation_drawer.this,NearbyStations.class);
                     startActivity(distance); // call new Activity
                     break;
+                case 2:
+                    Intent traininfo = new Intent(navigation_drawer.this,TrainInfo.class);
+                    startActivity(traininfo); // call new Activity
             }
             drawerLayout.closeDrawer(drawerListView);
 
@@ -144,8 +147,8 @@ public class navigation_drawer extends FragmentActivity {
     }
 
     private void gettingData(){
-        String station_url="http://gameparty.zapto.org:8989//android_connect/phpConnect1.php";
-        String path_url="http://gameparty.zapto.org:8989//android_connect/phpConnect2.php";
+        String station_url="http://gameparty.zapto.org:8989//android_connect/stations.php";
+        String path_url="http://gameparty.zapto.org:8989//android_connect/paths.php";
         JSONArray contacts;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);

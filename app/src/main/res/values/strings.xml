@@ -17,5 +17,6 @@
     <string name="title_activity_distance">Nearby and Walking Path</string>
     <string name="title_activity_directions">Directions sequence</string>
     <string name="title_activity_waypoint">Walking sequence</string>
+    <string name="title_activity_train_info">TrainInfo</string>
 
 </resources>

@@ -162,7 +162,7 @@ public class DirectionsListview extends navigation_drawer {
 
                             break;
                         case "BRT":
-                            if (brtCount > 1){
+                            if (brtCount <= 3){
                                 brtCost = stationList.get(j).getPrice();
                             }else if (brtCount > 3){
                                 brtCost = stationList.get(j).getPrice() + 2;
