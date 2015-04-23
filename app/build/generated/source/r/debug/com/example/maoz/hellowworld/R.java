@@ -1169,9 +1169,10 @@ containing a value of this type.
         public static final int mrt=0x7f02007c;
         public static final int powered_by_google_dark=0x7f02007d;
         public static final int powered_by_google_light=0x7f02007e;
-        public static final int start100=0x7f02007f;
-        public static final int train100=0x7f020080;
-        public static final int tranfer100=0x7f020081;
+        public static final int rulers100=0x7f02007f;
+        public static final int start100=0x7f020080;
+        public static final int train100=0x7f020081;
+        public static final int tranfer100=0x7f020082;
     }
     public static final class id {
         public static final int Direction_Head=0x7f09004f;
@@ -1186,7 +1187,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f090001;
         public static final int action_menu_presenter=0x7f090002;
         public static final int action_mode_close_button=0x7f090037;
-        public static final int action_settings=0x7f090070;
+        public static final int action_settings=0x7f090072;
         public static final int activity_chooser_view_content=0x7f090038;
         public static final int always=0x7f090017;
         public static final int beginning=0x7f090010;
@@ -1200,20 +1201,21 @@ containing a value of this type.
         public static final int checkbox=0x7f090040;
         public static final int classic=0x7f09002a;
         public static final int collapseActionView=0x7f090018;
-        public static final int content_frame=0x7f09006d;
+        public static final int content_frame=0x7f09006f;
         public static final int default_activity_button=0x7f09003b;
         public static final int dialog=0x7f09001c;
         public static final int direction_list=0x7f090050;
         public static final int disableHome=0x7f09000a;
         public static final int distance=0x7f090059;
         public static final int distance_list=0x7f090051;
-        public static final int drawer_layout=0x7f09006c;
+        public static final int drawer_layout=0x7f09006e;
         public static final int dropdown=0x7f09001d;
         public static final int edit_Text=0x7f09005c;
         public static final int edit_query=0x7f090043;
         public static final int end=0x7f090011;
         public static final int expand_activities_button=0x7f090039;
         public static final int expanded_menu=0x7f09003f;
+        public static final int faricon=0x7f090068;
         public static final int grayscale=0x7f09002b;
         public static final int holo_dark=0x7f09001e;
         public static final int holo_light=0x7f09001f;
@@ -1223,15 +1225,16 @@ containing a value of this type.
         public static final int icon=0x7f09003d;
         public static final int ifRoom=0x7f090019;
         public static final int image=0x7f09003a;
-        public static final int instruction=0x7f09006f;
-        public static final int lat=0x7f090068;
-        public static final int left_drawer=0x7f09006e;
+        public static final int instruction=0x7f090071;
+        public static final int lat=0x7f09006a;
+        public static final int left_drawer=0x7f090070;
         public static final int listMode=0x7f090007;
+        public static final int list_far=0x7f090069;
         public static final int list_icon=0x7f090065;
         public static final int list_item=0x7f09003c;
-        public static final int lng=0x7f090069;
+        public static final int lng=0x7f09006b;
         public static final int map=0x7f090052;
-        public static final int mapview=0x7f09006b;
+        public static final int mapview=0x7f09006d;
         public static final int match_parent=0x7f090025;
         public static final int middle=0x7f090012;
         public static final int monochrome=0x7f09002c;
@@ -1282,7 +1285,7 @@ containing a value of this type.
         public static final int top_action_bar=0x7f090033;
         public static final int up=0x7f090034;
         public static final int useLogo=0x7f09000f;
-        public static final int waypoint=0x7f09006a;
+        public static final int waypoint=0x7f09006c;
         public static final int waypoint_head=0x7f090060;
         public static final int waypoint_list=0x7f090061;
         public static final int withText=0x7f09001b;

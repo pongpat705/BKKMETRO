@@ -21,6 +21,8 @@ import com.google.android.gms.maps.model.LatLng;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 
@@ -47,9 +49,9 @@ public class NearbyStations extends navigation_drawer {
 
     public void mapviewClick(View v){
         RelativeLayout parentRow = (RelativeLayout)v.getParent();
-        TextView station = (TextView)parentRow.getChildAt(0);
-        TextView lat = (TextView)parentRow.getChildAt(2);
-        TextView lng = (TextView)parentRow.getChildAt(3);
+        TextView station = (TextView)parentRow.getChildAt(1);
+        TextView lat = (TextView)parentRow.getChildAt(4);
+        TextView lng = (TextView)parentRow.getChildAt(5);
 
         Intent map = new Intent(NearbyStations.this,MapView.class);
         map.putExtra("station",station.getText());
@@ -60,9 +62,9 @@ public class NearbyStations extends navigation_drawer {
 
     public void waypointClick(View v){
         RelativeLayout parentRow = (RelativeLayout)v.getParent();
-        TextView stationName = (TextView)parentRow.getChildAt(0);
-        TextView lat = (TextView)parentRow.getChildAt(2);
-        TextView lng = (TextView)parentRow.getChildAt(3);
+        TextView stationName = (TextView)parentRow.getChildAt(1);
+        TextView lat = (TextView)parentRow.getChildAt(4);
+        TextView lng = (TextView)parentRow.getChildAt(5);
         LatLng desLatLng = new LatLng(Double.valueOf((String) lat.getText()),Double.valueOf((String) lng.getText()));
         Intent waypoint = new Intent(NearbyStations.this,WaypointListview.class);
         waypoint.putExtra("desLatLng", desLatLng);
@@ -96,7 +98,7 @@ public class NearbyStations extends navigation_drawer {
     private void preparingList(){
         // looping through All Contacts
         ArrayList<HashMap<String,String>> station_collection;
-        station_collection = new ArrayList<HashMap<String, String>>();
+        station_collection = new ArrayList<>();
 
         for (int i = 0; i < stationList.size(); i++) {
 
@@ -110,17 +112,26 @@ public class NearbyStations extends navigation_drawer {
             HashMap<String, String> station = new HashMap<String, String>();
 
             // adding each child node to HashMap key => value
-            station.put("station_name", "สถานี " + name);
-            station.put("distance", "ห่างจากคุณ " + distance + " กิโลเมตร");
+            station.put("station_name", name);
+            station.put("distance",distance );
             station.put("lat",String.valueOf(lat));
             station.put("lng",String.valueOf(lng));
+            station.put("IMAGE",String.valueOf(R.drawable.rulers100));
             // adding contact to contact list
             station_collection.add(station);
         }
+        Collections.sort(station_collection,new Comparator<HashMap<String, String>>() {
+            @Override
+            public int compare(HashMap<String, String> lhs, HashMap<String, String> rhs) {
+                String a = lhs.get("distance");
+                String b = rhs.get("distance");
+                return a.compareTo(b);
+            }
+        });
 
         // setupList
         ListAdapter adapter = new SimpleAdapter(NearbyStations.this, station_collection,
-                R.layout.distance_row, new String[] { "station_name","distance","lat","lng"}, new int[] { R.id.stations,R.id.distance,R.id.lat,R.id.lng});
+                R.layout.distance_row, new String[] {"IMAGE","station_name","distance","lat","lng"}, new int[] {R.id.list_far, R.id.stations,R.id.distance,R.id.lat,R.id.lng});
         // setList follow prepare
         listView.setAdapter(adapter);
     }
