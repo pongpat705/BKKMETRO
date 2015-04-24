@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -97,8 +96,11 @@ public class NearbyStations extends navigation_drawer {
 
     private void preparingList(){
         // looping through All Contacts
-        ArrayList<HashMap<String,String>> station_collection;
-        station_collection = new ArrayList<>();
+        ArrayList<HashMap<String,String>> station_collection = new ArrayList<>();
+        ArrayList<HashMap<String,String>> bts_coll = new ArrayList<>();
+        ArrayList<HashMap<String,String>> brt_coll = new ArrayList<>();
+        ArrayList<HashMap<String,String>> mrt_coll = new ArrayList<>();
+        ArrayList<HashMap<String,String>> arl_coll = new ArrayList<>();
 
         for (int i = 0; i < stationList.size(); i++) {
 
@@ -107,20 +109,67 @@ public class NearbyStations extends navigation_drawer {
             double lng = stationList.get(i).getLng();
 
             String distance = String.valueOf(df2.format(calculateDistance(appLocationManager.getLatitude(), appLocationManager.getLongitude(), lat, lng)));
+            HashMap<String, String> station = new HashMap<>();
+            HashMap<String, String> bts = new HashMap<>();
+            HashMap<String, String> brt = new HashMap<>();
+            HashMap<String, String> mrt = new HashMap<>();
+            HashMap<String, String> arl = new HashMap<>();
+            String[] splitType = stationList.get(i).getType().split("_");
+            if (splitType[0].equals("BTS")){
+                bts.put("station_name", name);
+                bts.put("distance",distance );
+                bts.put("lat",String.valueOf(lat));
+                bts.put("lng",String.valueOf(lng));
+                bts.put("IMAGE",String.valueOf(R.drawable.rulers100));
+                bts_coll.add(bts);
+            }else if (splitType[0].equals("BRT")){
+                brt.put("station_name", name);
+                brt.put("distance", distance);
+                brt.put("lat",String.valueOf(lat));
+                brt.put("lng",String.valueOf(lng));
+                brt.put("IMAGE",String.valueOf(R.drawable.rulers100));
+                brt_coll.add(brt);
+            }else if (splitType[0].equals("MRT")){
+                mrt.put("station_name", name);
+                mrt.put("distance",distance );
+                mrt.put("lat",String.valueOf(lat));
+                mrt.put("lng",String.valueOf(lng));
+                mrt.put("IMAGE",String.valueOf(R.drawable.rulers100));
+                mrt_coll.add(mrt);
+            }else {
+                arl.put("station_name", name);
+                arl.put("distance",distance );
+                arl.put("lat",String.valueOf(lat));
+                arl.put("lng",String.valueOf(lng));
+                arl.put("IMAGE",String.valueOf(R.drawable.rulers100));
+                arl_coll.add(arl);
+            }
 
-            // tmp hashmap for single contact
-            HashMap<String, String> station = new HashMap<String, String>();
 
-            // adding each child node to HashMap key => value
-            station.put("station_name", name);
-            station.put("distance",distance );
-            station.put("lat",String.valueOf(lat));
-            station.put("lng",String.valueOf(lng));
-            station.put("IMAGE",String.valueOf(R.drawable.rulers100));
-            // adding contact to contact list
-            station_collection.add(station);
         }
-        Collections.sort(station_collection,new Comparator<HashMap<String, String>>() {
+        arraySort(bts_coll);
+        arraySort(brt_coll);
+        arraySort(mrt_coll);
+        arraySort(arl_coll);
+        station_collection.add(bts_coll.get(0));
+        station_collection.add(brt_coll.get(0));
+        station_collection.add(mrt_coll.get(0));
+        station_collection.add(arl_coll.get(0));
+        arraySort(station_collection);
+        bts_coll.clear();
+        brt_coll.clear();
+        mrt_coll.clear();
+        arl_coll.clear();
+
+
+        // setupList
+        ListAdapter adapter = new SimpleAdapter(NearbyStations.this, station_collection,
+                R.layout.distance_row, new String[] {"IMAGE","station_name","distance","lat","lng"}, new int[] {R.id.list_far, R.id.stations,R.id.distance,R.id.lat,R.id.lng});
+        // setList follow prepare
+        listView.setAdapter(adapter);
+    }
+    public void arraySort(ArrayList<HashMap<String, String>> arrayList){
+        Collections.sort(arrayList,new Comparator<HashMap<String, String>>() {
             @Override
             public int compare(HashMap<String, String> lhs, HashMap<String, String> rhs) {
                 String a = lhs.get("distance");
@@ -128,12 +177,6 @@ public class NearbyStations extends navigation_drawer {
                 return a.compareTo(b);
             }
         });
-
-        // setupList
-        ListAdapter adapter = new SimpleAdapter(NearbyStations.this, station_collection,
-                R.layout.distance_row, new String[] {"IMAGE","station_name","distance","lat","lng"}, new int[] {R.id.list_far, R.id.stations,R.id.distance,R.id.lat,R.id.lng});
-        // setList follow prepare
-        listView.setAdapter(adapter);
     }
 
 }

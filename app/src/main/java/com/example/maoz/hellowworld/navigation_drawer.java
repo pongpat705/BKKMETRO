@@ -54,16 +54,21 @@ public class navigation_drawer extends FragmentActivity {
 
         String[] drawerListViewItems = getResources().getStringArray(R.array.items);
         drawerListView = (ListView)findViewById(R.id.left_drawer);
-        drawerListView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_listview_item, drawerListViewItems));
+        drawerListView.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_listview_item, drawerListViewItems));
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
         appLocationManager = new AppLocationManager(this);
         if (!appLocationManager.isEnabled()){
             turnONGPS(this);
         }
-        if (stationList.isEmpty() && pathList.isEmpty()){
+
+        if (savedInstanceState == null){
             gettingData();
         }
+
+
+
+
 
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.drawable.ic_drawer,R.string.drawer_open,R.string.drawer_close){
@@ -93,10 +98,7 @@ public class navigation_drawer extends FragmentActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -210,6 +212,9 @@ public class navigation_drawer extends FragmentActivity {
         }
 
     }
+    /**หลังจากเช็คว่าเปิด gps หรือไม่ ถ้ายังเรียกมานี้
+     * @param context หน้า activity
+     * */
     public void turnONGPS(Context context){
         // Build the alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -233,6 +238,13 @@ public class navigation_drawer extends FragmentActivity {
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
+
+    /**คำนวณหาระยะทางจอง latlng a to latlng b
+     * @param sLat ต้นทาง
+     * @param sLng ต้นทาง
+     * @param dLat ปลายทาง
+     * @param dLng ปลายทาง
+     * @return ค่าระยะ*/
     public Double calculateDistance(double sLat, double sLng, double dLat, double dLng){//คำนวณระยะทางขจัดระหว่างจุดสองจุดบนโลกใช้ HarvenSine
         double AVG_R_EARTH = 6371;
 
@@ -243,6 +255,9 @@ public class navigation_drawer extends FragmentActivity {
 
         return (double)Math.round(AVG_R_EARTH * c);
     }
+
+    /**แสดงโทรส
+     * @param string ค่าสตริงที่ต้องการให้โชว์โทรส*/
     public void MyToast(String string) {
         LayoutInflater inflater = getLayoutInflater();
         View Layout = inflater.inflate(R.layout.custom_toast,(ViewGroup) findViewById(R.id.toast_layout_root));
@@ -254,27 +269,32 @@ public class navigation_drawer extends FragmentActivity {
         toast.show();
     }
 
-    public double PriceH(String source,String destination){//ฮิวริสติกด้านราคา
+    /**คำนวณหาค่า ฮิวริสติก ของราคา โดยใช้การการเปลี่ยนสถานี
+     * @param source ประเภทสถานีต้นทาง
+     * @param destination ประเภทสถานีปลายทาง
+     * @return ค่าเปลี่ยนสถานีของต้นทางกับปลายทาง
+     * */
+    private double PriceH(String source,String destination){//ฮิวริสติกด้านราคา
         double heuristic = 0.0;
-        Map<String, Double> BTS = new HashMap<String, Double>();
+        Map<String, Double> BTS = new HashMap<>();
         BTS.put("BTS", 0.0);
         BTS.put("MRT", 1.0);
         BTS.put("ARL", 1.0);
         BTS.put("BRT", 1.0);
 
-        Map<String, Double> BRT = new HashMap<String, Double>();
+        Map<String, Double> BRT = new HashMap<>();
         BRT.put("BRT", 0.0);
         BRT.put("BTS", 1.0);
         BRT.put("MRT", 2.0);
         BRT.put("ARL", 2.0);
 
-        Map<String, Double> MRT = new HashMap<String, Double>();
+        Map<String, Double> MRT = new HashMap<>();
         MRT.put("MRT", 0.0);
         MRT.put("BTS", 1.0);
         MRT.put("BRT", 2.0);
         MRT.put("ARL", 1.0);
 
-        Map<String, Double> ARL = new HashMap<String, Double>();
+        Map<String, Double> ARL = new HashMap<>();
         ARL.put("ARL", 0.0);
         ARL.put("BTS", 1.0);
         ARL.put("MRT", 1.0);
@@ -298,7 +318,12 @@ public class navigation_drawer extends FragmentActivity {
         return heuristic;
     }
 
-
+    /**คำนวณลำดับการเดินทาง
+     * @param source ต้นทาง
+     * @param destination ปลายทาง
+     * @param type ประเภทเงื่อนไข เปลี่ยนสถานีน้อย หรือ ระยะทางสั้น
+     * @return ลำดับการเดินทางในรูป ArrayList
+     * */
     public ArrayList CalculateShortestPath(String source, String destination, String type){
         Map<String, Map<String, Double>> hueristic = new HashMap<>(); //เอาไว้เก็บฮิวริสติก
         ArrayList<String> arrayPath = new ArrayList<>(); //เอาไว้รีเทินลำดับการเดินทาง

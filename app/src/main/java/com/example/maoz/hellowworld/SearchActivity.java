@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class SearchActivity extends navigation_drawer{
 
-    static ArrayList<String> Stations = new ArrayList<String>();
+    static ArrayList<String> spinStations = new ArrayList<String>();
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     private Button searchButton;
@@ -32,8 +32,6 @@ public class SearchActivity extends navigation_drawer{
         View contentView = inflater.inflate(R.layout.activity_my, null, false);
         drawerLayout.addView(contentView, 0);
 
-
-        //
         searchButton = (Button) findViewById(R.id.button);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -43,16 +41,16 @@ public class SearchActivity extends navigation_drawer{
                 MyToast((String) radioButton.getText());
             }
         });
-
-        for(int i=0;i<stationList.size();i++) {//insert data from database to list here
-            Stations.add(stationList.get(i).getStations());
+        if (spinStations.isEmpty()){
+            for(int i=0;i<stationList.size();i++) {//insert data from database to list here
+                spinStations.add(stationList.get(i).getStations());
+            }
         }
-
 
         final Spinner stationtop = (Spinner)findViewById(R.id.spinner);
         final Spinner stationdown = (Spinner)findViewById(R.id.spinner2);
-        ArrayAdapter<String> spintop = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Stations);
-        ArrayAdapter<String> spindown = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Stations);
+        ArrayAdapter<String> spintop = new ArrayAdapter<String>(this, R.layout.spinner_item, spinStations);
+        ArrayAdapter<String> spindown = new ArrayAdapter<String>(this, R.layout.spinner_item, spinStations);
         stationtop.setAdapter(spintop);
         stationdown.setAdapter(spindown);
 

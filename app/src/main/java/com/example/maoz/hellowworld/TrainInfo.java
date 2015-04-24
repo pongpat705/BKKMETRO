@@ -2,6 +2,8 @@ package com.example.maoz.hellowworld;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,7 +28,8 @@ import java.util.List;
 public class TrainInfo extends navigation_drawer {
     public List<Trains_object> infolist = new ArrayList<>();
     static ArrayList<String> infospin = new ArrayList<String>();
-    TextView test;
+    TextView textView;
+    Button timeTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +39,20 @@ public class TrainInfo extends navigation_drawer {
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_train_info, null, false);
         drawerLayout.addView(contentView, 0);
-        test = (TextView)findViewById(R.id.detail);
-        getTrainsinfo();
+        textView = (TextView)findViewById(R.id.detail);
+        timeTable = (Button)findViewById(R.id.viewtimetable);
 
-        for(int i=0;i<infolist.size();i++) {//insert data from database to list here
-            infospin.add(infolist.get(i).getName());
+        if (infolist.isEmpty()){
+            getTrainsinfo();
+        }
+        if (infospin.isEmpty()) {
+            for (int i = 0; i < infolist.size(); i++) {//insert data from database to list here
+                infospin.add(infolist.get(i).getName());
+            }
         }
 
         final Spinner trainspinner = (Spinner)findViewById(R.id.trainspiner);
-        ArrayAdapter<String> spintop = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, infospin);
+        ArrayAdapter<String> spintop = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, infospin);
         trainspinner.setAdapter(spintop);
         trainspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -51,12 +60,12 @@ public class TrainInfo extends navigation_drawer {
                 String check = (trainspinner.getSelectedItem().toString());
                 for (int i = 0 ; i < infolist.size();i++){
                     if (check.equals(infolist.get(i).getName())){
-                         test.setText("Transportation name : "+infolist.get(i).getName()+
-                         "\nCoupon type : "+infolist.get(i).getCoupon()+
-                         "\nMinimum cost : "+infolist.get(i).getMin()+" THB"+
-                         "\nMaximum cost : "+infolist.get(i).getMax()+" THB"+
-                         "\nService time : "+infolist.get(i).getService()+
-                         "\nFrequency : "+infolist.get(i).getFrequency()+" minute");
+                         textView.setText("Transportation name : " + infolist.get(i).getName() +
+                                 "\nCoupon type : " + infolist.get(i).getCoupon() +
+                                 "\nMinimum cost : " + infolist.get(i).getMin() + " THB" +
+                                 "\nMaximum cost : " + infolist.get(i).getMax() + " THB" +
+                                 "\nService time : " + infolist.get(i).getService() +
+                                 "\nFrequency : " + infolist.get(i).getFrequency() + " minute");
                     }
                 }
 
@@ -64,13 +73,33 @@ public class TrainInfo extends navigation_drawer {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                test.setText(trainspinner.getSelectedItem().toString());
+                textView.setText(trainspinner.getSelectedItem().toString());
+            }
+        });
+
+        timeTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String check = trainspinner.getSelectedItem().toString();
+                switch (check){
+                    case "BTS":
+                        openWebURL("http://www.bts.co.th/customer/th/02-route-current_new.aspx");
+                        break;
+                    case "BRT":
+                        openWebURL("http://www.bangkokbrt.com/main.php");
+                        break;
+                    case "MRT":
+                        openWebURL("http://www.bangkokmetro.co.th");
+                        break;
+                    case "ARL":
+                        openWebURL("http://www.deesudsud.com/wp-content/uploads/2014/12/apl_time_table.png");
+                        break;
+                }
             }
         });
 
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -129,5 +158,10 @@ public class TrainInfo extends navigation_drawer {
         } else {
             Log.e("ServiceHandler", "Couldn't get any data from the url");
         }
+    }
+
+    public void openWebURL( String inURL ) {
+        Intent browse = new Intent(Intent.ACTION_VIEW , Uri.parse(inURL) );
+        startActivity( browse );
     }
 }
