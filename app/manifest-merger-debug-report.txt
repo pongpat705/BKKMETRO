@@ -93,7 +93,7 @@ ADDED from AndroidManifest.xml:38:9
 		ADDED from AndroidManifest.xml:39:13
 	android:value
 		ADDED from AndroidManifest.xml:40:13
-activity#com.example.maoz.hellowworld.SearchActivity
+activity#com.example.maoz.hellowworld.GetDirections
 ADDED from AndroidManifest.xml:42:9
 	android:label
 		ADDED from AndroidManifest.xml:44:13

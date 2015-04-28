@@ -41,7 +41,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".SearchActivity"
+            android:name=".GetDirections"
             android:label="@string/title_activity_searchactivity" >
         </activity>
         <activity
@@ -53,7 +53,7 @@
             android:label="@string/title_activity_directions" >
         </activity>
         <activity
-            android:name=".WaypointListview"
+            android:name=".TextListview"
             android:label="@string/title_activity_waypoint" >
         </activity>
         <activity

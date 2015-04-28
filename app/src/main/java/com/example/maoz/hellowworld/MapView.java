@@ -50,7 +50,7 @@ public class MapView extends PublicTransport {
         lngDes = Double.valueOf((String) getIntent().getExtras().get("lng"));
         stationDes = (String) getIntent().getExtras().get("station");
         setUpMapIfNeeded();
-        exeProcess(latDes,lngDes);
+        excLine(latDes, lngDes);
 
         //Listener
 
@@ -169,7 +169,7 @@ public class MapView extends PublicTransport {
     *
     * Calculate Function*/
 
-    private void exeProcess(double desLat,double desLng){ //draw line a to b
+    private void excLine(double desLat, double desLng){ //draw line a to b
         String d;
         JSONRouteMapView j = new JSONRouteMapView();
         d = j.getPath(new LatLng(appLocationManager.getLatitude(), appLocationManager.getLongitude()), new LatLng(desLat, desLng));

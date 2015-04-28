@@ -71,8 +71,6 @@ public class PublicTransport extends FragmentActivity {
 
 
 
-
-
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.drawable.ic_drawer,R.string.drawer_open,R.string.drawer_close){
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -128,7 +126,7 @@ public class PublicTransport extends FragmentActivity {
             MyToast((String) ((TextView) view).getText());
             switch (position){
                 case 0:
-                    Intent main = new Intent(PublicTransport.this,SearchActivity.class);
+                    Intent main = new Intent(PublicTransport.this,GetDirections.class);
                     startActivity(main); // call new Activity
                     break;
                 case 1:

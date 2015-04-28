@@ -41,7 +41,7 @@ public class DirectionsListview extends PublicTransport {
         headList = (TextView)findViewById(R.id.Direction_Head);
 
 
-        preparingList(arrayPath);
+        setupList(arrayPath);
     }
 
 
@@ -66,7 +66,7 @@ public class DirectionsListview extends PublicTransport {
 
         return super.onOptionsItemSelected(item);
     }
-    private void preparingList(ArrayList<String> arrayPath){
+    private void setupList(ArrayList<String> arrayPath){
         // เอาไว้เก็บรายการแสดงผล
         ArrayList<HashMap<String,String>> direction_collection = new ArrayList<>();
         String typeTemp = null;

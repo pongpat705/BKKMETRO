@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * หน้าค้นหาลำดับการเดินทางโดยให้เลือกเงื่อนไข
  */
-public class SearchActivity extends PublicTransport {
+public class GetDirections extends PublicTransport {
 
     static ArrayList<String> spinStations = new ArrayList<String>();
     private RadioGroup radioGroup;
@@ -61,12 +61,12 @@ public class SearchActivity extends PublicTransport {
             public void onClick(View v) {
                 int selectedRadio = radioGroup.getCheckedRadioButtonId();
                 radioButton = (RadioButton) findViewById(selectedRadio);
-                String type = ((String) radioButton.getText());
+                String conditions = ((String) radioButton.getText());
                 String source = stationtop.getSelectedItem().toString();
                 String destination = stationdown.getSelectedItem().toString();
-                arrayPath = CalculateShortestPath(source,destination,type);
+                arrayPath = CalculateShortestPath(source,destination,conditions);
 
-                Intent direction = new Intent(SearchActivity.this,DirectionsListview.class);
+                Intent direction = new Intent(GetDirections.this,DirectionsListview.class);
                 direction.putExtra("arrayPath",arrayPath);
                 startActivity(direction); // call new Activity
 

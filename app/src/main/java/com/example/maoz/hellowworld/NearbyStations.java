@@ -44,7 +44,7 @@ public class NearbyStations extends PublicTransport {
         View contentView = inflater.inflate(R.layout.activity_distance, null, false);
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.distance_list);
-        preparingList();
+        setupList();
 
     }
 
@@ -61,16 +61,16 @@ public class NearbyStations extends PublicTransport {
         startActivity(map); // call new Activity
     }
 
-    public void waypointClick(View v){
+    public void textviewClick(View v){
         RelativeLayout parentRow = (RelativeLayout)v.getParent();
         TextView stationName = (TextView)parentRow.getChildAt(1);
         TextView lat = (TextView)parentRow.getChildAt(4);
         TextView lng = (TextView)parentRow.getChildAt(5);
         LatLng desLatLng = new LatLng(Double.valueOf((String) lat.getText()),Double.valueOf((String) lng.getText()));
-        Intent waypoint = new Intent(NearbyStations.this,WaypointListview.class);
-        waypoint.putExtra("desLatLng", desLatLng);
-        waypoint.putExtra("station", stationName.getText());
-        startActivity(waypoint); // call new Activity
+        Intent textview = new Intent(NearbyStations.this,TextListview.class);
+        textview.putExtra("desLatLng", desLatLng);
+        textview.putExtra("station", stationName.getText());
+        startActivity(textview); // call new Activity
     }
 
 
@@ -96,7 +96,7 @@ public class NearbyStations extends PublicTransport {
         return super.onOptionsItemSelected(item);
     }
 
-    private void preparingList(){
+    private void setupList(){
         // looping through All Contacts
         ArrayList<HashMap<String,String>> station_collection = new ArrayList<>();
         ArrayList<HashMap<String,String>> bts_coll = new ArrayList<>();
@@ -111,7 +111,6 @@ public class NearbyStations extends PublicTransport {
             double lng = stationList.get(i).getLng();
 
             String distance = String.valueOf(df2.format(calculateDistance(appLocationManager.getLatitude(), appLocationManager.getLongitude(), lat, lng)));
-            HashMap<String, String> station = new HashMap<>();
             HashMap<String, String> bts = new HashMap<>();
             HashMap<String, String> brt = new HashMap<>();
             HashMap<String, String> mrt = new HashMap<>();

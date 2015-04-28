@@ -83,9 +83,9 @@
         android:layout_height="35sp"
         android:layout_marginLeft="160dip"
         android:layout_marginTop="5dip"
-        android:text="Directions"
+        android:text="TextView"
         android:id="@+id/waypoint"
-        android:onClick="waypointClick"
+        android:onClick="textviewClick"
         />
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -93,7 +93,7 @@
         android:layout_height="35sp"
         android:layout_toEndOf="@+id/waypoint"
         android:layout_marginTop="5dip"
-        android:text="Mapview"
+        android:text="MapView"
         android:id="@+id/mapview"
         android:onClick="mapviewClick" />
 

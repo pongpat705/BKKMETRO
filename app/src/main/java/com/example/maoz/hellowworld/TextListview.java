@@ -19,10 +19,9 @@ import java.util.HashMap;
  * หน้าแสดงลำดับการเดินทาง
  */
 
-public class WaypointListview extends PublicTransport {
+public class TextListview extends PublicTransport {
     private ListView listView;
     private TextView waypoint_head;
-    LatLng desLatLng;
     String stationName;
 
     @Override
@@ -33,9 +32,9 @@ public class WaypointListview extends PublicTransport {
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.waypoint_list);
         waypoint_head = (TextView)findViewById(R.id.waypoint_head);
-        desLatLng = (LatLng) getIntent().getExtras().get("desLatLng");
+        LatLng desLatLng = (LatLng) getIntent().getExtras().get("desLatLng");
         stationName = (String) getIntent().getExtras().get("station");
-        getWaypoint();
+        getDirections(desLatLng);
     }
 
 
@@ -60,16 +59,16 @@ public class WaypointListview extends PublicTransport {
 
         return super.onOptionsItemSelected(item);
     }
-    private void getWaypoint(){
+    private void getDirections(LatLng desLatLng){
         String d;
         JSONRouteWaypoint j = new JSONRouteWaypoint();
         d = j.getPath(new LatLng(appLocationManager.getLatitude(), appLocationManager.getLongitude()), desLatLng);
-        ArrayList<HashMap<String,String>> waypoint = j.getWaypoint(d);
+        ArrayList<HashMap<String,String>> arrayDirection = j.getWaypoint(d);
 
-        preparingList(waypoint);
+        setupList(arrayDirection);
 
     }
-    private void preparingList(ArrayList<HashMap<String,String>> arrayPath){
+    private void setupList(ArrayList<HashMap<String, String>> arrayPath){
         // looping through All Contacts
         ArrayList<HashMap<String,String>> waypointCollection;
         waypointCollection = new ArrayList<>();
@@ -87,7 +86,7 @@ public class WaypointListview extends PublicTransport {
 
         }
         // setupList
-        ListAdapter adapter = new SimpleAdapter(WaypointListview.this, waypointCollection,
+        ListAdapter adapter = new SimpleAdapter(TextListview.this, waypointCollection,
                 R.layout.waypoint_row, new String[] {"instruction","distance"}, new int[] { R.id.instruction,R.id.distance});
         // setList follow prepare
         listView.setAdapter(adapter);

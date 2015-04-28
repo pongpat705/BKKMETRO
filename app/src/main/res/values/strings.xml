@@ -4,7 +4,6 @@
         <item>Search Directions</item>
         <item>Nearby and Walking Path</item>
         <item>View Train Info</item>
-        <item>About us</item>
     </string-array>
     <string name="app_name">Public Transportation</string>
     <string name="hello_world">Hello world!</string>
