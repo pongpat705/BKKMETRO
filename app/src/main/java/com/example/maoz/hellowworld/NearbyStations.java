@@ -24,7 +24,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-
+/**
+ * หน้าแสดงสถานีใกล้ แบ่งเป็นสถานีที่ใกล้ที่สุด 4 ระบบ
+ */
 
 public class NearbyStations extends navigation_drawer {
     private ListView listView;

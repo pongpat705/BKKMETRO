@@ -25,7 +25,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * หน้าแผนที่
+ */
 
 public class MapView extends navigation_drawer{
 

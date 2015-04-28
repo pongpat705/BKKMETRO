@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by pongpat705 on 4/13/2015.
+ * ดึงข้อมูลจาก Direction API (ข้อมูลขั้นตอนการเดินทาง)
  */
 public class JSONRouteWaypoint {
     public String getPath(LatLng start, LatLng end) {

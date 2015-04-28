@@ -14,7 +14,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-
+/**
+ * หน้าค้นหาลำดับการเดินทางโดยให้เลือกเงื่อนไข
+ */
 public class SearchActivity extends navigation_drawer{
 
     static ArrayList<String> spinStations = new ArrayList<String>();

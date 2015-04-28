@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Created by jitsuem on 3/1/2015.
+ * แปลงข้อมูล JSON to ArratList
  */
 public abstract class JSONParsing {
 

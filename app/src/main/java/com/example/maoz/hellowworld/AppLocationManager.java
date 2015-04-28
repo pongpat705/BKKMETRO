@@ -12,7 +12,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 
 /**
- * Created by jitsuem on 2/1/2015.
+ * เรียกตำแหน่งปัจจุบันของอุปกรณ์
+ *
  */
 public class AppLocationManager implements LocationListener {
 

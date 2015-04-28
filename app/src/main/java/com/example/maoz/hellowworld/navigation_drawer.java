@@ -33,7 +33,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * หน้าควบคุม Navigation Drawer เป็นหน้าที่จะไปหาทุกหน้า
+ */
 
 public class navigation_drawer extends FragmentActivity {
     private ListView drawerListView;

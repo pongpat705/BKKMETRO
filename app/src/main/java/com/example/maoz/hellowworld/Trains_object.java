@@ -1,7 +1,7 @@
 package com.example.maoz.hellowworld;
 
 /**
- * Created by pongpat705 on 4/23/2015.
+ * อ็อบเจ็คข้อมูลรถไฟฟ้า
  */
 public class Trains_object {
     private int id;

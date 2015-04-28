@@ -1,7 +1,7 @@
 package com.example.maoz.hellowworld;
 
 /**
- * Created by ZEPTIMUS on 11/24/2014.
+ * อ็อบเจ็ค สถานี
  */
 public class Station_objects {
     private String stations;

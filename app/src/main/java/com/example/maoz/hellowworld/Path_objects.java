@@ -1,7 +1,7 @@
 package com.example.maoz.hellowworld;
 
 /**
- * Created by pongpat705 on 4/11/2015.
+ * ออบเจ็คเส้นทาง
  */
 public class Path_objects {
     private String station_a;

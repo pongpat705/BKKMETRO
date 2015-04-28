@@ -20,7 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by ZEPTIMUS on 11/18/2014.
+ * ดึงข้อมูลจาก Direction API (ข้อมูลจุดบนแผนที่)
+ *
  */
 public class JSONRouteMapView {
     public String getPath(LatLng start, LatLng end) {

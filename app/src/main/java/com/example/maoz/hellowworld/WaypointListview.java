@@ -15,7 +15,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * หน้าแสดงลำดับการเดินทาง
+ */
 
 public class WaypointListview extends navigation_drawer {
     private ListView listView;
