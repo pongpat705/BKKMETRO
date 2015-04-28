@@ -19,7 +19,7 @@ import java.util.HashMap;
  * หน้าแสดงลำดับการเดินทาง
  */
 
-public class WaypointListview extends navigation_drawer {
+public class WaypointListview extends PublicTransport {
     private ListView listView;
     private TextView waypoint_head;
     LatLng desLatLng;

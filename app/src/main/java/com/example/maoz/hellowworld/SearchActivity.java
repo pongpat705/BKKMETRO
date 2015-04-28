@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * หน้าค้นหาลำดับการเดินทางโดยให้เลือกเงื่อนไข
  */
-public class SearchActivity extends navigation_drawer{
+public class SearchActivity extends PublicTransport {
 
     static ArrayList<String> spinStations = new ArrayList<String>();
     private RadioGroup radioGroup;

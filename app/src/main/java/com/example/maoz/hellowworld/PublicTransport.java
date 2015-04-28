@@ -37,7 +37,7 @@ import java.util.Map;
  * หน้าควบคุม Navigation Drawer เป็นหน้าที่จะไปหาทุกหน้า
  */
 
-public class navigation_drawer extends FragmentActivity {
+public class PublicTransport extends FragmentActivity {
     private ListView drawerListView;
     DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -128,15 +128,15 @@ public class navigation_drawer extends FragmentActivity {
             MyToast((String) ((TextView) view).getText());
             switch (position){
                 case 0:
-                    Intent main = new Intent(navigation_drawer.this,SearchActivity.class);
+                    Intent main = new Intent(PublicTransport.this,SearchActivity.class);
                     startActivity(main); // call new Activity
                     break;
                 case 1:
-                    Intent distance = new Intent(navigation_drawer.this,NearbyStations.class);
+                    Intent distance = new Intent(PublicTransport.this,NearbyStations.class);
                     startActivity(distance); // call new Activity
                     break;
                 case 2:
-                    Intent traininfo = new Intent(navigation_drawer.this,TrainInfo.class);
+                    Intent traininfo = new Intent(PublicTransport.this,TrainInfo.class);
                     startActivity(traininfo); // call new Activity
             }
             drawerLayout.closeDrawer(drawerListView);

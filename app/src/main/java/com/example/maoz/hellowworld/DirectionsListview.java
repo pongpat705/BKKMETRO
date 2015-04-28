@@ -20,7 +20,7 @@ import java.util.HashMap;
  * แสดงลำดับการเดินทาง
  */
 
-public class DirectionsListview extends navigation_drawer {
+public class DirectionsListview extends PublicTransport {
     private ListView listView;
     private TextView headList;
     static final String STATUS = "status";

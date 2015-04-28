@@ -59,7 +59,7 @@ MERGED from com.google.maps.android:android-maps-utils:0.3.4:7:5
 		ADDED from AndroidManifest.xml:19:9
 	android:theme
 		ADDED from AndroidManifest.xml:21:9
-activity#com.example.maoz.hellowworld.navigation_drawer
+activity#com.example.maoz.hellowworld.PublicTransport
 ADDED from AndroidManifest.xml:22:9
 	android:label
 		ADDED from AndroidManifest.xml:24:13

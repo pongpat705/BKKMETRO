@@ -145,7 +145,7 @@ final class GraphAStar<T> implements Iterable<T> {
     }
 }
 
-public class AStar<T> extends navigation_drawer {
+public class AStar<T> extends PublicTransport {
     public double distance;
     private final GraphAStar<T> graph;
 

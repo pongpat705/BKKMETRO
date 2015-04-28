@@ -27,7 +27,7 @@ import java.util.List;
  * หน้าแสดงข้อมูลระบบรถไฟฟ้าพร้อม ตารางเวลา
  */
 
-public class TrainInfo extends navigation_drawer {
+public class TrainInfo extends PublicTransport {
     public List<Trains_object> infolist = new ArrayList<>();
     static ArrayList<String> infospin = new ArrayList<String>();
     TextView textView;
