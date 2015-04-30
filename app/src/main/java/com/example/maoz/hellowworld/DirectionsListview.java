@@ -102,18 +102,18 @@ public class DirectionsListview extends PublicTransport {
 
                         if (i == 0){
                             //จัดการแสดงผล
-                            direction.put(STATUS, "Start with "+stationList.get(j).getType());
-                            direction.put(STATION, stationList.get(j).getStations());
+                            direction.put(STATUS, "เริ่มต้นด้วย "+stationList.get(j).getStations());
+                            direction.put(STATION, stationList.get(j).getType());
                             direction.put(IMAGE,String.valueOf(R.drawable.start100));
                             typeTemp = type;
                         }else if (i == b4lastIndex){
-                            direction.put(STATUS, "Destination is "+stationList.get(j).getType());
-                            direction.put(STATION, stationList.get(j).getStations());
+                            direction.put(STATUS, "สถานีปลายทาง "+stationList.get(j).getStations());
+                            direction.put(STATION, stationList.get(j).getType());
                             direction.put(IMAGE,String.valueOf(R.drawable.finish100));
                             typeTemp = type;
                         }else if (!type.equals(typeTemp)){
-                            direction.put(STATUS, "InterChange to "+stationList.get(j).getType());
-                            direction.put(STATION, stationList.get(j).getStations());
+                            direction.put(STATUS, "เปลี่ยนขบวน ที่ "+stationList.get(j).getStations());
+                            direction.put(STATION, stationList.get(j).getType());
                             direction.put(IMAGE,String.valueOf(R.drawable.tranfer100));
 
                             if ((type.equals("BTS_SIL") && typeTemp.equals("BTS_SUK"))||(type.equals("BTS_SUK") && typeTemp.equals("BTS_SIL"))){
@@ -137,8 +137,8 @@ public class DirectionsListview extends PublicTransport {
 
                             typeTemp = type;
                         }else if (type.equals(typeTemp)){
-                            direction.put(STATUS, "Travel in "+stationList.get(j).getType());
-                            direction.put(STATION, stationList.get(j).getStations());
+                            direction.put(STATUS, "เดินทางในระบบ "+stationList.get(j).getStations());
+                            direction.put(STATION, stationList.get(j).getType());
                             direction.put(IMAGE,String.valueOf(R.drawable.train100));
                             typeTemp = type;
                         }
@@ -211,12 +211,12 @@ public class DirectionsListview extends PublicTransport {
         cost = btsCsum+brtCsum+mrtCsum+arlCsum+btsExtd;
         //แสดงผลบน TextBox ด้านบน
         headList.setText(arrayPath.get(lastIndex)+""+
-                "\nCost = "+cost+" THB"+
-                "\nBTS = "+btsCsum+" THB"+
-                "\nBRT = "+brtCsum+" THB"+
-                "\nMRT = "+mrtCsum+" THB"+
-                "\nARL = "+arlCsum+" THB"+
-                "\nBTSEXTEND = "+btsExtd+" THB");
+                "\nค่าใช้จ่าย = "+cost+" บาท"+
+                "\nBTS = "+btsCsum+" บาท"+
+                "\nBRT = "+brtCsum+" บาท"+
+                "\nMRT = "+mrtCsum+" บาท"+
+                "\nARL = "+arlCsum+" บาท"+
+                "\nส่วนต่อขยาย = "+btsExtd+" บาท");
         // setupList เพื่อที่จะแสดงผลโดยใช้ข้อมูลจากรายการ direction_collection
 
         ListAdapter adapter = new SimpleAdapter(DirectionsListview.this, direction_collection,

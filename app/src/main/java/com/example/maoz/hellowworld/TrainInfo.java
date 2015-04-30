@@ -62,12 +62,12 @@ public class TrainInfo extends PublicTransport {
                 String check = (trainspinner.getSelectedItem().toString());
                 for (int i = 0 ; i < infolist.size();i++){
                     if (check.equals(infolist.get(i).getName())){
-                         textView.setText("Transportation name : " + infolist.get(i).getName() +
-                                 "\nCoupon type : " + infolist.get(i).getCoupon() +
-                                 "\nMinimum cost : " + infolist.get(i).getMin() + " THB" +
-                                 "\nMaximum cost : " + infolist.get(i).getMax() + " THB" +
-                                 "\nService time : " + infolist.get(i).getService() +
-                                 "\nFrequency : " + infolist.get(i).getFrequency() + " minute");
+                         textView.setText("ระบบรถไฟฟ้า : " + infolist.get(i).getName() +
+                                 "\nประเภทตั๋ว : " + infolist.get(i).getCoupon() +
+                                 "\nค่าใช้จ่ายเริ่มต้น : " + infolist.get(i).getMin() + " บาท" +
+                                 "\nค่าใช้จ่ายมากที่สุด : " + infolist.get(i).getMax() + " บาท" +
+                                 "\nเวลาให้บริการ : " + infolist.get(i).getService() +
+                                 "\nความถี่ : " + infolist.get(i).getFrequency() + " นาที");
                     }
                 }
 

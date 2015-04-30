@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Souce"
+        android:text="สถานีต้นทาง"
         android:id="@+id/textView"
         android:gravity="center"
         android:layout_marginTop="50dp" />
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Destination"
+        android:text="สถานีปลายทาง"
         android:id="@+id/textView2"
         android:layout_below="@+id/spinner"
         android:gravity="center"
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Search"
+        android:text="ค้นหาลำดับการเดินทาง"
         android:id="@+id/button"
         android:layout_below="@+id/radioGroup"
         android:layout_centerHorizontal="true"/>
