@@ -145,7 +145,7 @@ final class GraphAStar<T> implements Iterable<T> {
     }
 }
 
-public class AStar<T> extends PublicTransport {
+public class AStar<T> {
     public double distance;
     private final GraphAStar<T> graph;
 

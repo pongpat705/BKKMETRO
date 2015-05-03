@@ -64,9 +64,8 @@ public class PublicTransport extends FragmentActivity {
             turnONGPS(this);
         }
 
-        if (savedInstanceState == null){
-            gettingData();
-        }
+
+
 
 
 
@@ -148,7 +147,7 @@ public class PublicTransport extends FragmentActivity {
         }
     }
 
-    private void gettingData(){
+    public void gettingData(){
         String station_url="http://gameparty.zapto.org:8989//android_connect/stations.php";
         String path_url="http://gameparty.zapto.org:8989//android_connect/paths.php";
         JSONArray contacts;
@@ -324,7 +323,7 @@ public class PublicTransport extends FragmentActivity {
      * @param type ประเภทเงื่อนไข เปลี่ยนสถานีน้อย หรือ ระยะทางสั้น
      * @return ลำดับการเดินทางในรูป ArrayList
      * */
-    public ArrayList CalculateShortestPath(String source, String destination, String type){
+    public ArrayList CalculateShortestPath(String source, String destination, int type){
         Map<String, Map<String, Double>> hueristic = new HashMap<>(); //เอาไว้เก็บฮิวริสติก
         ArrayList<String> arrayPath = new ArrayList<>(); //เอาไว้รีเทินลำดับการเดินทาง
         List<Map<String, Double>> list = new ArrayList<>();// ลิสของ map
@@ -333,7 +332,7 @@ public class PublicTransport extends FragmentActivity {
             Map<String, Double> map = new HashMap<>(); //map ของข้อมูล คุ่อันดับ สถานีและระยะขจัด
             for (int j = 0; j<stationList.size();j++){//ลุปสำหรับข้อมูลปลายทาง
                 //ถ้าเงื่อนไขเป็นระยะทาง
-                if (type.equals("Less Distance")){
+                if (type == 1){
                     double sLat,sLng,dLat,dLng,ans;
                     //ต้นทาง
                     sLat = stationList.get(i).getLat();
@@ -373,7 +372,7 @@ public class PublicTransport extends FragmentActivity {
         }
 
          //เพิ่มเส้นเชื่อมให้โหนดในกราฟ
-         if (type.equals("Less Distance")){//ถ้าเป็นเงื่อนไขระยะทางเพิ่มแบบนี้
+         if (type == 1){//ถ้าเป็นเงื่อนไขระยะทางเพิ่มแบบนี้
              for (int i = 0; i < pathList.size();i++){
                graph.addEdge(pathList.get(i).getStation_a(),pathList.get(i).getStation_b(),pathList.get(i).getDistance());//เพิ่มเส้นเชื่อมระหว่างสถานี
              }
@@ -394,7 +393,7 @@ public class PublicTransport extends FragmentActivity {
         }
         distance = aStar.distance;
         //เพิ่มอาเร ช่องสุดท้ายเป็นข้อมูลสรุป
-        if (type.equals("Less Distance")){
+        if (type == 1){
             arrayPath.add(source + " to " + destination + " = " + Math.round(distance)+" kilometer");
         }else {
             arrayPath.add(source + " to " + destination);

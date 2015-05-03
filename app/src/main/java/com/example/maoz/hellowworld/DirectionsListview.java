@@ -35,7 +35,7 @@ public class DirectionsListview extends PublicTransport {
 //get value from passing with Extra
         ArrayList<String> arrayPath;
         arrayPath = (ArrayList<String>) getIntent().getExtras().get("arrayPath");
-
+        gettingData();
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.direction_list);
         headList = (TextView)findViewById(R.id.Direction_Head);
@@ -112,7 +112,7 @@ public class DirectionsListview extends PublicTransport {
                             direction.put(IMAGE,String.valueOf(R.drawable.finish100));
                             typeTemp = type;
                         }else if (!type.equals(typeTemp)){
-                            direction.put(STATUS, "เปลี่ยนขบวน ที่ "+stationList.get(j).getStations());
+                            direction.put(STATUS, "เปลี่ยนขบวน ไปยัง "+stationList.get(j).getStations());
                             direction.put(STATION, stationList.get(j).getType());
                             direction.put(IMAGE,String.valueOf(R.drawable.tranfer100));
 

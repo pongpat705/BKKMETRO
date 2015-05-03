@@ -33,7 +33,7 @@ public class GetDirections extends PublicTransport {
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_my, null, false);
         drawerLayout.addView(contentView, 0);
-
+        gettingData();
         searchButton = (Button) findViewById(R.id.button);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -61,7 +61,7 @@ public class GetDirections extends PublicTransport {
             public void onClick(View v) {
                 int selectedRadio = radioGroup.getCheckedRadioButtonId();
                 radioButton = (RadioButton) findViewById(selectedRadio);
-                String conditions = ((String) radioButton.getText());
+                int conditions =  radioButton.getId();
                 String source = stationtop.getSelectedItem().toString();
                 String destination = stationdown.getSelectedItem().toString();
                 arrayPath = CalculateShortestPath(source,destination,conditions);

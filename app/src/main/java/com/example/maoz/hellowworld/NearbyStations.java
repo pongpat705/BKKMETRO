@@ -44,6 +44,7 @@ public class NearbyStations extends PublicTransport {
         View contentView = inflater.inflate(R.layout.activity_distance, null, false);
         drawerLayout.addView(contentView, 0);
         listView = (ListView)findViewById(R.id.distance_list);
+        gettingData();
         setupList();
 
     }
