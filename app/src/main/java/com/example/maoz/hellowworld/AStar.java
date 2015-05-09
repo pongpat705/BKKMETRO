@@ -164,11 +164,11 @@ public class AStar<T> {
     }
 
     /**
-     * Implements the A-star algorithm and returns the path from source to destination
+     * หาคู่อันดับโหนดจาก ต้นทางไปปลายทาง ส่งให้ path จากนั้นรีเทินเป็น โหนดต้นทางไปยังโหนดปลายทาง
      *
-     * @param source        the source nodeid
-     * @param destination   the destination nodeid
-     * @return              the path from source to destination
+     * @param source        ต้นทาง
+     * @param destination   ปลายทาง
+     * @return              ลำดับการเดินทางจากต้นทาง ไป ปลายทาง
      */
     public List<T> astar(T source, T destination) {
         /**

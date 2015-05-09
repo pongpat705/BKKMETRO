@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class PublicTransport extends FragmentActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private CharSequence mTitle;
     public AppLocationManager appLocationManager;
-
+    ImageView welcome;
     public List<Station_objects> stationList = new ArrayList<>();
     public List<Path_objects> pathList = new ArrayList<>();
 
@@ -51,6 +52,8 @@ public class PublicTransport extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
+        welcome = (ImageView)  findViewById(R.id.Welcome);
+        welcome.setImageResource(R.drawable.firstpage);
 
         mTitle = getTitle().toString();
 
@@ -63,7 +66,9 @@ public class PublicTransport extends FragmentActivity {
         if (!appLocationManager.isEnabled()){
             turnONGPS(this);
         }
-
+        if (!this.getClass().getSimpleName().equals("PublicTransport")){
+            welcome.setImageResource(0);
+        }
 
 
 
@@ -99,21 +104,18 @@ public class PublicTransport extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_drawer, menu);
         return true;
     }
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         actionBarDrawerToggle.syncState();
     }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -139,7 +141,6 @@ public class PublicTransport extends FragmentActivity {
             drawerLayout.closeDrawer(drawerListView);
 
         }
-
         @Override
         public void setTitle(CharSequence title) {
             mTitle = title;
@@ -245,11 +246,13 @@ public class PublicTransport extends FragmentActivity {
      * @param dLng ปลายทาง
      * @return ค่าระยะ*/
     public Double calculateDistance(double sLat, double sLng, double dLat, double dLng){//คำนวณระยะทางขจัดระหว่างจุดสองจุดบนโลกใช้ HarvenSine
-        double AVG_R_EARTH = 6371;
+        double AVG_R_EARTH = 6371;//km
 
         double latDistance = Math.toRadians(sLat-dLat);
         double lngDistance = Math.toRadians(sLng-dLng);
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance /2) + Math.cos(Math.toRadians(sLat))*Math.cos(Math.toRadians(dLat))* Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance /2) +
+                Math.cos(Math.toRadians(sLat))*Math.cos(Math.toRadians(dLat))*
+                        Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
         double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 
         return (double)Math.round(AVG_R_EARTH * c);

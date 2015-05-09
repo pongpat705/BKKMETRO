@@ -112,6 +112,7 @@ public class NearbyStations extends PublicTransport {
             double lng = stationList.get(i).getLng();
 
             String distance = String.valueOf(df2.format(calculateDistance(appLocationManager.getLatitude(), appLocationManager.getLongitude(), lat, lng)));
+
             HashMap<String, String> bts = new HashMap<>();
             HashMap<String, String> brt = new HashMap<>();
             HashMap<String, String> mrt = new HashMap<>();
@@ -174,9 +175,14 @@ public class NearbyStations extends PublicTransport {
         Collections.sort(arrayList,new Comparator<HashMap<String, String>>() {
             @Override
             public int compare(HashMap<String, String> lhs, HashMap<String, String> rhs) {
-                String a = lhs.get("distance");
-                String b = rhs.get("distance");
-                return a.compareTo(b);
+                int a = Integer.valueOf(lhs.get("distance"));
+                int b = Integer.valueOf(rhs.get("distance"));
+                if (a > b){
+                    return 1;
+                }else {
+                    return -1;
+                }
+
             }
         });
     }

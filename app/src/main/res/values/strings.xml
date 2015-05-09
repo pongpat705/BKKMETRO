@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="items">
-        <item>Search Directions</item>
-        <item>Nearby and Walking Path</item>
-        <item>View Train Info</item>
+        <item>ค้นหาลำดับการเดินทาง</item>
+        <item>สถานีใกล้เคียงและวิธีการไป</item>
+        <item>รายละเอียดของระบบรถไฟฟ้า</item>
     </string-array>
     <string name="app_name">Public Transportation</string>
     <string name="hello_world">Hello world!</string>

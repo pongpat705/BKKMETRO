@@ -1160,23 +1160,25 @@ containing a value of this type.
         public static final int common_signin_btn_text_pressed_light=0x7f020073;
         public static final int drawer_shadow=0x7f020074;
         public static final int finish100=0x7f020075;
-        public static final int ic_drawer=0x7f020076;
-        public static final int ic_launcher=0x7f020077;
-        public static final int ic_plusone_medium_off_client=0x7f020078;
-        public static final int ic_plusone_small_off_client=0x7f020079;
-        public static final int ic_plusone_standard_off_client=0x7f02007a;
-        public static final int ic_plusone_tall_off_client=0x7f02007b;
-        public static final int mrt=0x7f02007c;
-        public static final int powered_by_google_dark=0x7f02007d;
-        public static final int powered_by_google_light=0x7f02007e;
-        public static final int rulers100=0x7f02007f;
-        public static final int start100=0x7f020080;
-        public static final int train100=0x7f020081;
-        public static final int tranfer100=0x7f020082;
+        public static final int firstpage=0x7f020076;
+        public static final int ic_drawer=0x7f020077;
+        public static final int ic_launcher=0x7f020078;
+        public static final int ic_plusone_medium_off_client=0x7f020079;
+        public static final int ic_plusone_small_off_client=0x7f02007a;
+        public static final int ic_plusone_standard_off_client=0x7f02007b;
+        public static final int ic_plusone_tall_off_client=0x7f02007c;
+        public static final int mrt=0x7f02007d;
+        public static final int powered_by_google_dark=0x7f02007e;
+        public static final int powered_by_google_light=0x7f02007f;
+        public static final int rulers100=0x7f020080;
+        public static final int start100=0x7f020081;
+        public static final int train100=0x7f020082;
+        public static final int tranfer100=0x7f020083;
     }
     public static final class id {
         public static final int Direction_Head=0x7f09004f;
         public static final int TrainInfo=0x7f090060;
+        public static final int Welcome=0x7f090073;
         public static final int action_bar=0x7f09002f;
         public static final int action_bar_activity_content=0x7f090000;
         public static final int action_bar_container=0x7f09002e;
@@ -1202,7 +1204,6 @@ containing a value of this type.
         public static final int checkbox=0x7f090040;
         public static final int classic=0x7f09002a;
         public static final int collapseActionView=0x7f090018;
-        public static final int content_frame=0x7f090073;
         public static final int default_activity_button=0x7f09003b;
         public static final int detail=0x7f090062;
         public static final int dialog=0x7f09001c;
