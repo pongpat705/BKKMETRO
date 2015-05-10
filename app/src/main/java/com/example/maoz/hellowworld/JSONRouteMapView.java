@@ -24,6 +24,13 @@ import java.util.List;
  *
  */
 public class JSONRouteMapView {
+
+    /**
+     * อ่านข้อมูลจาก JSONFILE ของ Direction API
+     * @param start คือพิกัดต้นทาง
+     * @param end คือพิกัดปลายทาง
+     * @return ข้อมูลเส้นทาง JSON ทั้งหน้า
+     * */
     public String getPath(LatLng start, LatLng end) {
         String url = "http://maps.googleapis.com/maps/api/directions/json?"
                 + "origin=" + start.latitude + "," + start.longitude
@@ -60,6 +67,12 @@ public class JSONRouteMapView {
 
         return d;
     }
+
+    /**
+     * ถอดรหัสข้อมูล JSON เป็น ArrayList ใช้ในการแปลงข้อมูล
+     * @param encoded ข้อมูลเส้นทางของไฟล์ JSON
+     * @return รายการพิกัดบนแผนที่ ใช้ในการวาดเส้นทางบนแผนที่
+     * */
     private ArrayList<LatLng> decodePoly(String encoded) {
         ArrayList<LatLng> poly = new ArrayList<LatLng>();
         int index = 0, len = encoded.length();
@@ -88,6 +101,12 @@ public class JSONRouteMapView {
         }
         return poly;
     }
+
+    /**
+     * แปลงข้อมูล JSONObject เป็น List ใช้ในการดึงข้อมูล JSON จากสตริง
+     * @param jObject ข้อมูลเส้นทางของไฟล์ JSON
+     * @return รายการข้อมูล
+     * */
     public List<List<HashMap<String, String>>> convert(JSONObject jObject) {
 
         List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String, String>>>();
@@ -154,7 +173,11 @@ public class JSONRouteMapView {
         return routes;
 
     }
-
+    /**
+     * เอาข้อมูลจากสตริง JSON เป็น List
+     * @param jsondata ข้อมูลเส้นทางของไฟล์ JSON ที่เป็น String
+     * @return รายการพิกัดบนแผนที่ ใช้ในการวาดเส้นทางบนแผนที่ พร้อมใช้งาน
+     * */
     public List<List<HashMap<String, String>>> GetLine(String... jsondata){
         JSONObject jObject;
         List<List<HashMap<String, String>>> routes = null;

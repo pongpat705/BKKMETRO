@@ -59,6 +59,9 @@ public class TextListview extends PublicTransport {
 
         return super.onOptionsItemSelected(item);
     }
+    /**ไปเอาข้อมูลจาก Directions API และสังให้สร้างวิว
+     * @param desLatLng ค่าพิกัดปลายทาง
+     * */
     private void getDirections(LatLng desLatLng){
         String d;
         JSONRouteWaypoint j = new JSONRouteWaypoint();
@@ -68,6 +71,9 @@ public class TextListview extends PublicTransport {
         setupList(arrayDirection);
 
     }
+    /**สร้างรายการข้อมูลจาก Direction API
+     * @param arrayPath ข้อมูลจาก Direction API
+     * */
     private void setupList(ArrayList<HashMap<String, String>> arrayPath){
         // looping through All Contacts
         ArrayList<HashMap<String,String>> waypointCollection;

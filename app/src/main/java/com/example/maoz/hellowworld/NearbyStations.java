@@ -49,7 +49,7 @@ public class NearbyStations extends PublicTransport {
 
     }
 
-    public void mapviewClick(View v){
+    public void mapviewClick(View v){ //ถ้าเลือกแมพวิว
         RelativeLayout parentRow = (RelativeLayout)v.getParent();
         TextView station = (TextView)parentRow.getChildAt(1);
         TextView lat = (TextView)parentRow.getChildAt(4);
@@ -62,7 +62,7 @@ public class NearbyStations extends PublicTransport {
         startActivity(map); // call new Activity
     }
 
-    public void textviewClick(View v){
+    public void textviewClick(View v){ //ถ้าเลือกเทกซ์วิว
         RelativeLayout parentRow = (RelativeLayout)v.getParent();
         TextView stationName = (TextView)parentRow.getChildAt(1);
         TextView lat = (TextView)parentRow.getChildAt(4);
@@ -97,6 +97,9 @@ public class NearbyStations extends PublicTransport {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * สร้างรายการข้อมูล โดยจัดเรียงข้อมมูลก่อนการแสดง คำนวณก่อนว่าสถานีใกใกล้กับผู้ใช้มากที่สุด
+     * */
     private void setupList(){
         // looping through All Contacts
         ArrayList<HashMap<String,String>> station_collection = new ArrayList<>();
@@ -171,6 +174,11 @@ public class NearbyStations extends PublicTransport {
         // setList follow prepare
         listView.setAdapter(adapter);
     }
+
+    /**
+     * เรียงข้อมูลใน ArrayList ไม่ต้องรีเทินเพราะจัดการในลิส
+     * @param arrayList คือชุดข้อมูลที่จะทำการเรียง
+     * */
     public void arraySort(ArrayList<HashMap<String, String>> arrayList){
         Collections.sort(arrayList,new Comparator<HashMap<String, String>>() {
             @Override

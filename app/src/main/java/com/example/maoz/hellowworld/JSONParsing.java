@@ -18,7 +18,11 @@ import java.io.InputStreamReader;
  */
 public abstract class JSONParsing {
 
-
+    /**
+     * อ่านข้อมูลจาก JSONFILE
+     * @param URL คือที่ตั้งไฟล์
+     * @return ข้อมูล JSON ทั้งหน้า
+     * */
     public static String readJSONFeed(String URL) {
         StringBuilder stringBuilder = new StringBuilder();
         HttpClient httpClient = new DefaultHttpClient();

@@ -52,20 +52,19 @@ public class MapView extends PublicTransport {
         setUpMapIfNeeded();
         excLine(latDes, lngDes);
 
-        //Listener
-
+        //กดปุ่ม Location บนแผนที่แล้วทำอะไรบ้าง
         mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
-                if (appLocationManager.location()==null) {
-                    if (mMap.getMyLocation() != null){
+                if (appLocationManager.location()==null) {//ถ้าค่าพิกัดยังไม่มา
+                    if (mMap.getMyLocation() != null){ //และปุ่นบนแผนที่มีค่าพิกัด
                         Log.d("----MyLoButton----", "take from mMap" + mMap.getMyLocation().getLatitude() + "," + mMap.getMyLocation().getLongitude() + "");
                         setMyMarker(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude(),mMap.getCameraPosition().zoom);
                         if(mMap.getCameraPosition().zoom !=15){
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()), 15));
                         }
                     }else MyToast("Waiting Location");
-                } else{
+                } else{//ถ้ามาแล้วก็ดึงค่า
                     setMyMarker(appLocationManager.getLatitude(),appLocationManager.getLongitude(),mMap.getCameraPosition().zoom);
                     if(mMap.getCameraPosition().zoom !=15){
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(appLocationManager.getLatitude(), appLocationManager.getLongitude()), 15));
@@ -87,8 +86,6 @@ public class MapView extends PublicTransport {
     protected void onPause() {
         super.onPause();
     }
-
-
 
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
@@ -156,7 +153,11 @@ public class MapView extends PublicTransport {
     *
     *
     * */
-
+    /**ตั้งตำแหน่งของ pin
+     * @param lat ละติจูด
+     * @param lng ลองจิจูด
+     * @param zoom ระดับซูม
+     * */
     private void setMyMarker(double lat,double lng,double zoom) {//change lat,lng Marker
         pinSource.setPosition(new LatLng(lat, lng));
         pinSource.setTitle("ตำแหน่งของฉัน");
@@ -168,7 +169,10 @@ public class MapView extends PublicTransport {
     /*
     *
     * Calculate Function*/
-
+    /**เตรียมข้อมูลและวาดเส้นบนแผนที่
+     * @param desLat ละติจูดปลายทาง
+     * @param desLng ลองจิจูดปลายทาง
+     * */
     private void excLine(double desLat, double desLng){ //draw line a to b
         String d;
         JSONRouteMapView j = new JSONRouteMapView();
@@ -182,6 +186,10 @@ public class MapView extends PublicTransport {
         }
 
     }
+    /**เอาข้อมูลจาก JSON เตรียมข้อมูลเป็น PolylineOptions เพื่อที่จะได้วาดลงแผนที่
+     * @param result ข้อมูลจาก JSON File
+     * @return PolylineOptions พร้อมวาดลงแผนที่
+     * */
     private PolylineOptions Drawline(List<List<HashMap<String, String>>> result){
         ArrayList<LatLng> points;
         PolylineOptions lineOptions = null;

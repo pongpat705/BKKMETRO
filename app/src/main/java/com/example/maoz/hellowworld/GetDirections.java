@@ -33,9 +33,12 @@ public class GetDirections extends PublicTransport {
         //inflate your activity layout here!
         View contentView = inflater.inflate(R.layout.activity_my, null, false);
         drawerLayout.addView(contentView, 0);
+
         gettingData();
         searchButton = (Button) findViewById(R.id.button);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
+        //เลือกเงื่อนไขให้โชว์โทรสด้วย
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -43,7 +46,8 @@ public class GetDirections extends PublicTransport {
                 MyToast((String) radioButton.getText());
             }
         });
-        if (spinStations.isEmpty()){
+
+        if (spinStations.isEmpty()){//กันไม่ให้สร้างสปินเนอร์ยาวหลายรอบ
             for(int i=0;i<stationList.size();i++) {//insert data from database to list here
                 spinStations.add(stationList.get(i).getStations());
             }

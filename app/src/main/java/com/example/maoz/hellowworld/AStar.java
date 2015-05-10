@@ -6,9 +6,8 @@ final class NodeData<T> {
 
     private final T nodeId;
     private final Map<T, Double> heuristic;
-
-    private double g;  // g is distance from the source
-    private double h;  // h is the heuristic of destination.
+    private double g;  // g ระยะทางจากต้นทาง
+    private double h;  // h ค่าฮิวริสติกของโหนดไปปลายทาง
     private double f;  // f = g + h 
 
     public NodeData (T nodeId, Map<T, Double> heuristic) {
@@ -73,10 +72,9 @@ final class GraphAStar<T> implements Iterable<T> {
     }
 
     /**
-     * Adds a new node to the graph.
-     * Internally it creates the nodeData and populates the heuristic map concerning input node into node data.
+     * เพิ่มโหนดเข้าไปยังกราฟ
      *
-     * @param nodeId the node to be added
+     * @param nodeId คือโหนดที่จะถูกเพิ่ม
      */
     public void addNode(T nodeId) {
         if (nodeId == null) throw new NullPointerException("The node cannot be null");
@@ -87,13 +85,11 @@ final class GraphAStar<T> implements Iterable<T> {
     }
 
     /**
-     * Adds an edge from source node to destination node.
-     * There can only be a single edge from source to node.
-     * Adding additional edge would overwrite the value
+     * เพิ่มเส้นเชื่อมจากโหนดต้นทางไปยังโหนดปลายทาง
      *
-     * @param nodeIdFirst   the first node to be in the edge
-     * @param nodeIdSecond  the second node to be second node in the edge
-     * @param length        the length of the edge.
+     * @param nodeIdFirst   โหนดแรกของเส้นเชื่อม
+     * @param nodeIdSecond  โหนดที่สองของเส้นเชื่อม
+     * @param length        ระยะทางของเส้นเชื่อม
      */
     public void addEdge(T nodeIdFirst, T nodeIdSecond, double length) {
         if (nodeIdFirst == null || nodeIdSecond == null) throw new NullPointerException("The first nor second node can be null.");
@@ -110,10 +106,10 @@ final class GraphAStar<T> implements Iterable<T> {
     }
 
     /**
-     * Returns immutable view of the edges
+     * คืนค่าเส้นเชื่อมของโหนด
      *
-     * @param nodeId    the nodeId whose outgoing edge needs to be returned
-     * @return          An immutable view of edges leaving that node
+     * @param nodeId    คือโหนดที่มีเส้นเชื่อม
+     * @return          เส้นเชื่อมที่ต่อกับโหนดนี้
      */
     public Map<NodeData<T>, Double> edgesFrom (T nodeId) {
         if (nodeId == null) throw new NullPointerException("The input node should not be null.");
@@ -176,38 +172,38 @@ public class AStar<T> {
          */
         final Queue<NodeData<T>> openQueue = new PriorityQueue<NodeData<T>>(11, new NodeComparator());
 
-        NodeData<T> sourceNodeData = graph.getNodeData(source);
+        NodeData<T> sourceNodeData = graph.getNodeData(source);// sourceNodeData = ข้อมูลของต้นทาง
         sourceNodeData.setG(0);
         sourceNodeData.calcF(destination);
-        openQueue.add(sourceNodeData);
+        openQueue.add(sourceNodeData);// ใส่ต้นทางให้คิว
 
         final Map<T, T> path = new HashMap<T, T>();
         final Set<NodeData<T>> closedList = new HashSet<NodeData<T>>();
 
         while (!openQueue.isEmpty()) {
-            final NodeData<T> nodeData = openQueue.poll();
+            final NodeData<T> nodeData = openQueue.poll();//เอาต้นทางในคิวย้ายลงไป nodeData คิวว่าง
 
-            if (nodeData.getNodeId().equals(destination)) {
+            if (nodeData.getNodeId().equals(destination)) {//ถ้าต้นทาง = ปลายทาง เอาค่าเส้นทางที่ลงคู่อันดับไว้ไปเมธอด path
                 return path(path, destination);
             }
 
-            closedList.add(nodeData);
+            closedList.add(nodeData);// เพิ่มต้นทางลงไปใน closedList
 
-            for (Map.Entry<NodeData<T>, Double> neighborEntry : graph.edgesFrom(nodeData.getNodeId()).entrySet()) {
+            for (Map.Entry<NodeData<T>, Double> neighborEntry : graph.edgesFrom(nodeData.getNodeId()).entrySet()) {//ลูปโหนดนี้มีเส้นทางอะไรบ้าง
                 NodeData<T> neighbor = neighborEntry.getKey();
 
-                if (closedList.contains(neighbor)) continue;
+                if (closedList.contains(neighbor)) continue;//ถ้า closedList มีข้อมูลโหนดที่ค้นพบในลูปอยู่แล้ว ไปต่อไม่ต้องทำ
+                //ถ้ายังไม่มีก็ทำปายยย
+                double distanceBetweenTwoNodes = neighborEntry.getValue();// ระยะทางมายังโหนดนี้
+                double tentativeG = distanceBetweenTwoNodes + nodeData.getG();// ระยะทางทดลอง ถ้าเลือกโหนดนี้(เดินทางแล้ว + โหนดนี้)
 
-                double distanceBetweenTwoNodes = neighborEntry.getValue();
-                double tentativeG = distanceBetweenTwoNodes + nodeData.getG();
-
-                if (tentativeG < neighbor.getG()) {
+                if (tentativeG < neighbor.getG()) {//ถ้า tentativeG < neighbor.getG()
                     neighbor.setG(tentativeG);
                     distance = tentativeG;
                     neighbor.calcF(destination);
 
-                    path.put(neighbor.getNodeId(), nodeData.getNodeId());
-                    if (!openQueue.contains(neighbor)) {
+                    path.put(neighbor.getNodeId(), nodeData.getNodeId());//เพิ่มคู่อันดับของเส้นเชื่อม ทุกโหนดที่ค้น
+                    if (!openQueue.contains(neighbor)) {// ถ้าคิวยังไม่มีโหนด สุดท้ายใน openQueue จะเหลือโหนดที่ไม่ได้ใช้งาน
                         openQueue.add(neighbor);
                     }
                 }
@@ -223,12 +219,12 @@ public class AStar<T> {
         assert destination != null;
 
         final List<T> pathList = new ArrayList<T>();
-        pathList.add(destination);
-        while (path.containsKey(destination)) {
-            destination = path.get(destination);
-            pathList.add(destination);
+        pathList.add(destination);//เพิ่มปลายทางไว้ในรายการก่อนเลย
+        while (path.containsKey(destination)) {//ลูปเมื่อยังมี คีย์ที่ชื่อ destination
+            destination = path.get(destination);//เอาค่าของคีย์ destination ไปใส่ destination เหมือนสลับ ค่าไปเป็นคีย์
+            pathList.add(destination);//ลิสเพิ่มค่าของ destination ลงไป
         }
-        Collections.reverse(pathList);
+        Collections.reverse(pathList);// จบแล้วได้ลำดับการเดินทาง รีเวิสซะจะได้เป็น ต้นทางไปปลายทาง
         return pathList;
     }
 
